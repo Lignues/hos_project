@@ -61,6 +61,7 @@
 	  </div>
 	</div>
 </div>
+<div class="replyPagination"></div>
 
 
 <%@ include file="../includes/footer.jsp" %>

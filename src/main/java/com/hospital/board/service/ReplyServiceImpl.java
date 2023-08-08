@@ -1,10 +1,10 @@
 package com.hospital.board.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.hospital.board.domain.Criteria;
+import com.hospital.board.domain.ReplyPageDTO;
 import com.hospital.board.domain.ReplyVO;
 import com.hospital.board.repository.ReplyRepository;
 
@@ -15,8 +15,8 @@ public class ReplyServiceImpl implements ReplyService {
 	private ReplyRepository replyRepository;
 	
 	@Override
-	public List<ReplyVO> replyList(Long bno) {
-		return replyRepository.replyList(bno);
+	public ReplyPageDTO replyList(Long bno, Criteria criteria) {
+		return new ReplyPageDTO(replyRepository.getReplyCount(bno), replyRepository.replyList(bno, criteria));
 	}
 
 	@Override

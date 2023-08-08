@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hospital.board.appTest;
+import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.ReplyVO;
 
 import lombok.extern.log4j.Log4j;
@@ -22,7 +23,7 @@ public class ReplyRepositoryTest extends appTest{
 	@Test
 	@Ignore
 	public void testReplyList() {
-		List<ReplyVO> replyList = replyRepository.replyList(2L);
+		List<ReplyVO> replyList = replyRepository.replyList(2L, new Criteria());
 		System.out.println(replyList);
 	}
 
@@ -34,4 +35,9 @@ public class ReplyRepositoryTest extends appTest{
 		replyRepository.replyWrite(vo);
 	}
 	
+	@Test
+	@Ignore
+	public void testReplyCount() {
+		System.out.println(replyRepository.getReplyCount(1L));
+	}
 }

@@ -16,13 +16,13 @@ var replyService = {
 	},
 	
 	getList : function(param, callback, error){
-		console.log('getList');
 		let bno = param.bno;
+		let page = param.page || 1;
 		$.ajax({
 			type : 'get',
-			url : `${ctxPath}/replies/list/${bno}`,
-			success : function(result){
-				if(callback) callback(result);
+			url : `${ctxPath}/replies/pages/${bno}/${page}`,
+			success : function(replyPageDTO){
+				if(callback) callback(replyPageDTO.replyCount, replyPageDTO.list);
 			},error : function(xhr,status,er){
 				if(error) error(er);
 			}

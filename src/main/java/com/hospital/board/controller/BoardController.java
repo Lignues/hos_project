@@ -24,7 +24,6 @@ public class BoardController {
 	
 	@GetMapping("/list")
 	public void list(Model model, Criteria criteria){
-		System.out.println(model);
 		model.addAttribute("list", boardService.showList(criteria));
 		model.addAttribute("p", new Pagination(criteria, boardService.totalCount(criteria)));
 	}

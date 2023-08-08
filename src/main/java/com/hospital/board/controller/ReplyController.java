@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hospital.board.domain.Criteria;
+import com.hospital.board.domain.ReplyPageDTO;
 import com.hospital.board.domain.ReplyVO;
 import com.hospital.board.service.ReplyService;
 
@@ -29,8 +31,9 @@ public class ReplyController {
 				new ResponseEntity<String>("실패", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@GetMapping("/list/{bno}")
-	public ResponseEntity<List<ReplyVO>> replyList(@PathVariable Long bno){
-		return new ResponseEntity<>(replyService.replyList(bno), HttpStatus.OK);
+	@GetMapping("/pages/{bno}/{page}")
+	public ResponseEntity<ReplyPageDTO> replyList(@PathVariable Long bno, @PathVariable int page){
+		Criteria criteria = new Criteria(page, 10);
+		return new ResponseEntity<>(replyService.replyList(bno, criteria), HttpStatus.OK);
 	}
 }
