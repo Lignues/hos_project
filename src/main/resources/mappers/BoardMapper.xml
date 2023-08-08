@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.board.repository.BoardRepository">
+
+	<sql id="criteria">
+	    <trim prefix="(" suffix=") AND " prefixOverrides="OR">
+	    	<foreach collection="types" item="type">
+	    		<trim prefix="OR">
+	    			<choose>
+	    				<when test="type=='T'.toString()">
+	    					TITLE like '%'||#{keyword}||'%'
+	    				</when>
+	    				<when test="type=='C'.toString()">
+	    					CONTENT like '%'||#{keyword}||'%'
+	    				</when>
+	    				<when test="type=='W'.toString()">
+	    					WRITER like '%'||#{keyword}||'%'
+	    				</when>	    				
+	    			</choose>
+	    		</trim>
+	    	</foreach>
+	    </trim>
+	</sql>
+
+	<select id="showList" resultType="boardVO">
+		<![CDATA[ 
+ 	   	select * from  
+ 		(select /*+INDEX_DESC(hos_board pk_hosboard)*/  
+ 	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, regDate, updateDate
+ 	    		FROM hos_board where 
+ 	    ]]> 
+ 	    <include refid="criteria"/> 
+	    <![CDATA[
+			rownum <= #{maxRow}
+ 		    ) where rn > #{minRow}
+ 		]]>
+	</select>
+
+	<select id="get" resultType="boardVO">
+		select * from hos_board where bno=#{bno}
+	</select>
+
+	<select id="getTotalCount" resultType="int">
+		select count(bno) from hos_board where
+		<include refid="criteria"/>
+		bno > 0
+	</select>
+	
+	<insert id="write">
+		insert into hos_board (bno, title, content, writer)
+		values(seq_hosboard.nextval, #{title}, #{content}, #{writer})
+	</insert>
+	
+	<update id="modify">
+		update hos_board set title=#{title}, content=#{content}, updateDate=sysdate where bno=#{bno}
+	</update>
+	
+	<delete id="delete">
+		delete from hos_board where bno = #{bno}
+	</delete>
+</mapper>

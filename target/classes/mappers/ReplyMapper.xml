@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.board.repository.ReplyRepository">
+
+	<select id="replyList" resultType="replyVO">
+		select * from hos_reply where bno=#{bno}
+	</select>
+	
+	<insert id="replyWrite">
+		insert into hos_reply(rno, bno, reply, replyer) 
+		values(seq_hosreply.nextval, #{bno}, #{reply}, #{replyer})
+	</insert>
+	
+</mapper>
