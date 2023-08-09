@@ -13,7 +13,7 @@ $(function(){
 		let next = endNum < tempEndNum;
 		if(endNum>tempEndNum) endNum = tempEndNum;
 		
-		let pagination = '<ul class="pagination">';
+		let pagination = '<ul class="pagination justify-content-center">';
 		
 		if(prev){ // 이전 버튼 
 			pagination += `<li class="page-item">
@@ -48,14 +48,21 @@ $(function(){
 			let replyList = '';
 			$.each(list, function(i, e){
 				replyList += `
-					<div class="card">
+					<div class="card mb-2">
 					  <div class="card-header">
 					  	<div class="d-flex justify-content-between">
 					  		<div>
 						  		${e.replyer}
 					  		</div>
-					  		<div>
-				 		  		<tf:formatDateTime value="${e.replyRegDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+					  		<div class="ml-auto">
+				 		  		<tf:formatDateTime value="${e.replyRegDate}" pattern="yyyy-MM-dd HH:mm:ss"/><!-- 이거 왜안되는거지 -->
+				 		  		${e.replyRegDate[0]}-${e.replyRegDate[1]}-${e.replyRegDate[2]} ${e.replyRegDate[3]}:${e.replyRegDate[4]}:${e.replyRegDate[5]}
+					  		</div>
+					  		<div class="ml-1">
+					  			<a class="text-dark" href="${e.rno}">수정</a>
+					  		</div>
+					  		<div class="ml-1">
+					  			<a class="text-dark" href="${e.rno}">삭제</a>
 					  		</div>
 					  	</div>
 					  </div>
@@ -66,7 +73,32 @@ $(function(){
 				
 			});
 			replyContainer.html(replyList);
+			replyPage(replyCount);
 		});
 	}	
 	showReply(1);
+	
+	// 페이지 이동 이벤트
+	replyPagination.on('click','li a',function(e){ // 메서드 생성 후 a가 생성돼서 on메서드로 처리해야 함
+	//$('.page-link').click(function(e){
+		e.preventDefault(e);
+		let targetPageNum = $(this).attr('href');
+		pageNum = targetPageNum;
+		showReply(pageNum);
+	});
+	
+	// 댓글 등록
+	$('.replyDiv').on('click', 'button',function(e){
+		e.preventDefault();
+		let newReply = $('[name="content"]').val();
+		console.log(newReply);
+		if(!newReply){
+			alert('내용을 입력하세요');
+			return;
+		}
+		$('form').attr('action', `${ctxPath}/replies/new`).attr('method', 'post').submit();
+	});
+	
+	
+	
 });

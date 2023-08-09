@@ -15,7 +15,12 @@
 		  		${vo.writer}
 	  		</div>
 	  		<div>
-		  		<tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+	  			<c:if test="${vo.regDate == vo.updateDate}">
+		  			<tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 작성됨
+		  		</c:if>
+  				<c:if test="${vo.regDate != vo.updateDate}">
+		  			<tf:formatDateTime value="${vo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 수정됨
+  				</c:if>
 	  		</div>
 	  	</div>
 	  </div>
@@ -25,7 +30,7 @@
 	</div>
 	<span class="float-right m-2">
 	  <button type="button" class="modifyBtn btn btn-primary">수정(권한설정해라 나중에)</button>
-	  <button type="button" class="deleteBtn btn-primary">삭제</button>
+	  <button type="button" class="deleteBtn btn btn-primary">삭제</button>
 	  <button type="button" class="listBtn btn btn-primary">목록으로</button>
 	</span>
 </div>
@@ -35,12 +40,10 @@
 	<input type="hidden" name="bno" value="${vo.bno}">
 	<!-- 나중에 criteria도 넣어라 -->
 </form>
-
+<br>
 <div class="container mt-5">
 	<div class="card">
-		<div class="card-header">
-			<p>🗨 댓글</p>
-		</div>
+		<div class="card-header">🗨 댓글</div>
 	</div>
 </div>
 <!-- 리플넣을자리 -->
@@ -61,7 +64,28 @@
 	  </div>
 	</div>
 </div>
-<div class="replyPagination"></div>
+
+<div class="container">
+	<div class="card mb-2">
+	  <div class="card-header">
+	  	<div class="d-flex justify-content-between">
+	  		<div>
+		  		댓글 달기
+	  		</div>
+	  	</div>
+	  </div>
+	  <div class="form-group">
+		  	<textarea class="form-control" name="content" rows="4" cols="200" placeholder="댓글을 작성하세요"></textarea>
+	  </div>
+	  <div class="replyDiv d-flex">
+		  <button class="replySubmit ml-auto btn btn-primary m-2">등록</button>
+	  </div>
+	</div>
+</div>
+
+<div class="container mt-3">
+	<div class="replyPagination"></div>
+</div>
 
 
 <%@ include file="../includes/footer.jsp" %>

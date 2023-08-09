@@ -28,7 +28,7 @@ public class BoardVO {
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime regDate;
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private LocalDateTime updateTime;
+	private LocalDateTime updateDate;
 	private int replyCnt;
 	private int likeHit;
 	

@@ -12,10 +12,10 @@ create table hos_board(
 drop sequence seq_hosboard;
 create sequence seq_hosboard;
 
-insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '1ë²ˆ ê¸€ì…ë‹ˆë‹¤.', '1ë²ˆì´ë‹¤', '1ì‘ì„±ì');
-insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '2ë²ˆ ê¸€ì…ë‹ˆë‹¤.', '2ë²ˆì´ë‹¤', '2ì‘ì„±ì');
-insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '3ë²ˆ ê¸€ì…ë‹ˆë‹¤.', '3ë²ˆì´ë‹¤', '3ì‘ì„±ì');
-insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '4ë²ˆ ê¸€ì…ë‹ˆë‹¤.', '4ë²ˆì´ë‹¤', '4ì‘ì„±ì');
+insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '1¹ø ±ÛÀÔ´Ï´Ù.', '1¹øÀÌ´Ù', '1ÀÛ¼ºÀÚ');
+insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '2¹ø ±ÛÀÔ´Ï´Ù.', '2¹øÀÌ´Ù', '2ÀÛ¼ºÀÚ');
+insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '3¹ø ±ÛÀÔ´Ï´Ù.', '3¹øÀÌ´Ù', '3ÀÛ¼ºÀÚ');
+insert into hos_board(bno, title, content, writer) values (seq_hosboard.nextval, '4¹ø ±ÛÀÔ´Ï´Ù.', '4¹øÀÌ´Ù', '4ÀÛ¼ºÀÚ');
 
 commit;
 
@@ -40,18 +40,18 @@ drop sequence seq_hosreply;
 create sequence seq_hosreply;
 
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 1,'ëŒ“ê¸€ ì¶”ê°€ 01','ì‘ì„±ì');
+values (seq_hosreply.nextval, 1,'´ñ±Û Ãß°¡ 01','ÀÛ¼ºÀÚ');
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 1,'ëŒ“ê¸€ ì¶”ê°€ 02','ì‘ì„±ì');
+values (seq_hosreply.nextval, 1,'´ñ±Û Ãß°¡ 02','ÀÛ¼ºÀÚ');
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 1,'ëŒ“ê¸€ ì¶”ê°€ 03','ì‘ì„±ì');
+values (seq_hosreply.nextval, 1,'´ñ±Û Ãß°¡ 03','ÀÛ¼ºÀÚ');
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 1,'ëŒ“ê¸€ ì¶”ê°€ 04','ì‘ì„±ì');
+values (seq_hosreply.nextval, 1,'´ñ±Û Ãß°¡ 04','ÀÛ¼ºÀÚ');
 
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 2,'ëŒ“ê¸€ ì¶”ê°€ 05','ì‘ì„±ì');
+values (seq_hosreply.nextval, 2,'´ñ±Û Ãß°¡ 05','ÀÛ¼ºÀÚ');
 insert into hos_reply (rno,bno,reply,replyer)
-values (seq_hosreply.nextval, 2,'ëŒ“ê¸€ ì¶”ê°€ 06','ì‘ì„±ì');
+values (seq_hosreply.nextval, 2,'´ñ±Û Ãß°¡ 06','ÀÛ¼ºÀÚ');
 
 commit;
 
