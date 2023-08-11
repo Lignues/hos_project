@@ -1,7 +1,5 @@
 package com.hospital.board.repository;
 
-import static org.junit.Assert.*;
-
 import java.util.List;
 
 import org.junit.Ignore;
@@ -39,5 +37,25 @@ public class ReplyRepositoryTest extends appTest{
 	@Ignore
 	public void testReplyCount() {
 		System.out.println(replyRepository.getReplyCount(1L));
+	}
+	
+	@Test
+	@Ignore
+	public void testReplyUpdate() {
+		ReplyVO vo = ReplyVO.builder().rno(1L).reply("댓글 추가 01 수정했다").build();
+		replyRepository.replyUpdate(vo);
+	}
+	
+	@Test
+	@Ignore
+	public void testGetReply() {
+		ReplyVO reply = replyRepository.getReply(1L);
+		System.out.println(reply);
+	}
+	
+	@Test
+	@Ignore
+	public void testdeleteReply() {
+		replyRepository.deleteReply(197L);
 	}
 }

@@ -55,5 +55,7 @@ values (seq_hosreply.nextval, 2,'댓글 추가 06','작성자');
 
 commit;
 
+alter table hos_reply modify column replyer varchar(20) not null;
+
 select * from hos_board;
 select * from hos_reply;

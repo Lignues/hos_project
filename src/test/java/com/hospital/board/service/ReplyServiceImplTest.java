@@ -22,7 +22,7 @@ public class ReplyServiceImplTest extends appTest{
 	private ReplyService replyService;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testReplyList() {
 		ReplyPageDTO replyList = replyService.replyList(1L, new Criteria());
 		System.out.println(replyList);
@@ -37,4 +37,25 @@ public class ReplyServiceImplTest extends appTest{
 		System.out.println(replyWrite);
 	}
 	
+	@Test
+	@Ignore
+	public void testReplyUpdate() {
+		ReplyVO vo = ReplyVO.builder().rno(1L).reply("댓글 추가 02 수정했다두번").build();
+		replyService.replyUpdate(vo);
+	}
+	
+	@Test
+	@Ignore
+	public void testGetReply() {
+		ReplyVO reply = replyService.getReply(1L);
+		System.out.println(reply);
+		
+	}
+	
+	@Test
+	@Ignore
+	public void testdeleteReply() {
+		replyService.deleteReply(195L);
+	}
 }
+

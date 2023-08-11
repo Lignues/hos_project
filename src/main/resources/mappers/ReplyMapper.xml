@@ -26,4 +26,17 @@
 	<select id="getReplyCount" resultType="int">
 		select count(rno) from hos_reply where bno=#{bno}
 	</select>
+	
+	<update id="replyUpdate">
+		update hos_reply set reply = #{reply}, replyUpdateDate = sysdate where rno = #{rno} 
+	</update>
+	
+	<select id="getReply" resultType="replyVO">
+		select * from hos_reply where rno = ${rno}
+	</select>
+	
+	<delete id="deleteReply">
+		delete hos_reply where rno = #{rno}
+	</delete>
+	
 </mapper>

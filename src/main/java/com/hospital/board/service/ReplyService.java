@@ -11,4 +11,10 @@ public interface ReplyService {
 	public ReplyPageDTO replyList(Long bno, Criteria criteria);
 	
 	public int replyWrite(ReplyVO vo);
+	
+	public int replyUpdate(ReplyVO vo);
+	
+	public ReplyVO getReply(Long rno);
+	
+	public int deleteReply(Long rno);
 }

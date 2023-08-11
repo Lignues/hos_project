@@ -24,5 +24,20 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyRepository.replyWrite(vo);
 	}
 
+	@Override
+	public int replyUpdate(ReplyVO vo) {
+		return replyRepository.replyUpdate(vo);
+	}
+
+	@Override
+	public ReplyVO getReply(Long rno) {
+		return replyRepository.getReply(rno);
+	}
+
+	@Override
+	public int deleteReply(Long rno) {
+		return replyRepository.deleteReply(rno);
+	}
+
 	
 }

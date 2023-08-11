@@ -13,5 +13,11 @@ public interface ReplyRepository {
 	
 	public int replyWrite(ReplyVO replyVO);
 	
+	public int replyUpdate(ReplyVO replyVO);
+	
 	int getReplyCount(Long bno);
+	
+	ReplyVO getReply(Long rno);
+	
+	int deleteReply(Long rno);
 }

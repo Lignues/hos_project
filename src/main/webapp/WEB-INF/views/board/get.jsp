@@ -65,20 +65,20 @@
 	</div>
 </div>
 
-<div class="container">
+<div class="replyWriterForm container">
 	<div class="card mb-2">
 	  <div class="card-header">
 	  	<div class="d-flex justify-content-between">
 	  		<div>
-		  		댓글 달기
+		  		principal.name
+	  		</div>
+	  		<div>
+	  			<button class="replySubmit btn btn-primary">등록</button>
 	  		</div>
 	  	</div>
 	  </div>
 	  <div class="form-group">
 		  	<textarea class="form-control" name="content" rows="4" cols="200" placeholder="댓글을 작성하세요"></textarea>
-	  </div>
-	  <div class="replyDiv d-flex">
-		  <button class="replySubmit ml-auto btn btn-primary m-2">등록</button>
 	  </div>
 	</div>
 </div>

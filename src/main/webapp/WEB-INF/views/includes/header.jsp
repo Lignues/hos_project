@@ -41,7 +41,7 @@
 					      <a class="nav-link text-dark" href="#">로그인</a>
 					    </li>
 					    <li class="nav-item">
-					      <a class="nav-link text-dark" href="#">회원가입</a>
+					      <a class="nav-link text-dark" href="${ctxPath}/member/join">회원가입</a>
 					    </li>
 					  </ul>
 					</nav>
