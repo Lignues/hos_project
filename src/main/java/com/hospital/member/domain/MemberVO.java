@@ -1,7 +1,7 @@
 package com.hospital.member.domain;
 
 import java.time.LocalDateTime;
-import java.util.List;import javax.security.auth.message.config.AuthConfig;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +27,6 @@ public class MemberVO {
 	private LocalDateTime regDate;
 	private LocalDateTime updateDate;
 	
-//	private List<AuthVO> authList;
+	private List<AuthVO> authList;
 	
 }

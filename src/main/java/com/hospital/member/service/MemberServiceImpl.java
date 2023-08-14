@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hospital.common.exception.PasswordMismatchException;
+import com.hospital.member.domain.AuthVO;
 import com.hospital.member.domain.MemberVO;
+import com.hospital.member.repository.AuthRepository;
 import com.hospital.member.repository.MemberRepository;
 
 @Service
@@ -17,20 +19,20 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private MemberRepository memberRepository; 
 	
-//	@Autowired
-//	private AuthRepository authRepository;
-//	
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
+	@Autowired
+	private AuthRepository authRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	@Transactional
 	@Override
 	public void join(MemberVO vo) {
-//		vo.setMemberPwd(passwordEncoder.encode(vo.getMemberPwd()));
-//		AuthVO authVO = new AuthVO(vo.getMemberId(), "ROLE_MEMBER");
+		vo.setMemberPwd(passwordEncoder.encode(vo.getMemberPwd()));
+		AuthVO authVO = new AuthVO(vo.getMemberId(), "ROLE_MEMBER");
 		memberRepository.insert(vo);
-//		authRepository.insert(authVO);
+		authRepository.insert(authVO);
 	}
 
 	@Override
@@ -51,10 +53,10 @@ public class MemberServiceImpl implements MemberService {
 		String currentPwd = memberMap.get("currentPwd"); // 현재 비밀번호(변경전) 1234
 		MemberVO vo = memberRepository.selectById(memberId);
 		
-//		if (!passwordEncoder.matches(currentPwd, vo.getMemberPwd())) {
-//			throw new PasswordMismatchException();
-//		}
-//		memberRepository.updatePassword(memberId, passwordEncoder.encode(newPwd));
+		if (!passwordEncoder.matches(currentPwd, vo.getMemberPwd())) {
+			throw new PasswordMismatchException();
+		}
+		memberRepository.updatePassword(memberId, passwordEncoder.encode(newPwd));
 	}
 
 }

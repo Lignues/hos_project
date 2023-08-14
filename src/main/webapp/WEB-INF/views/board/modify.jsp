@@ -4,6 +4,7 @@
 <div class="container mt-5">
 	<div class="card">
 		<form class="modifyForm" action="${ctxPath}/board/modify" method="post">
+		  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		  <div class="card-header">
 		  	<div class="form-group justify-content-start">
 		  	  <p>제목</p>

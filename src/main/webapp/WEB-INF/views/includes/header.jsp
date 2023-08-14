@@ -7,18 +7,28 @@
 <%@ taglib prefix="tf" tagdir="/WEB-INF/tags" %>
 
 <c:set var="ctxPath" value="${pageContext.request.contextPath }" />
+<sec:authorize access="isAuthenticated()">
+	<sec:authentication property="principal" var="principal"/>
+	<sec:authentication property="principal.memberVO" var="authInfo"/>
+	<sec:authentication property="principal.memberVO.authList" var="authList"/>
+</sec:authorize>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>병원입니다</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 	let ctxPath = '${ctxPath}';
+	let duplicateLogin = '${duplicateLogin}';
+	
+	if(duplicateLogin){
+		alert(duplicateLogin);
+	}
 </script>
 </head>
 <body>
@@ -31,18 +41,32 @@
 		</div>
 		<div class="col-9">
 			<div class="row" style="height:50px;">
-				<div class="border col-9" style="height:50px;">
+				<div class="border col-5" style="height:50px;">
 				</div>
-				<div class="col-3 border h-20">
+				<div class="col-7 border h-20">
 					<nav class="navbar navbar-expand-sm bg-light justify-content-end">
 					  <!-- Links -->
 					  <ul class="navbar-nav mx-auto font-weight-bold">
-					    <li class="nav-item">
-					      <a class="nav-link text-dark" href="#">로그인</a>
-					    </li>
-					    <li class="nav-item">
-					      <a class="nav-link text-dark" href="${ctxPath}/member/join">회원가입</a>
-					    </li>
+					    <sec:authorize access="isAnonymous()">
+					    	<li class="nav-item">
+					     		<a class="nav-link text-dark" href="${ctxPath}/login">로그인</a>
+						    </li>
+						    <li class="nav-item">
+			  		      		<a class="nav-link text-dark" href="${ctxPath}/member/join">회원가입</a>
+						    </li>
+				    	</sec:authorize>
+				    	<sec:authorize access="isAuthenticated()">
+				    		<span class="small mt-2"><b>${authInfo.memberId}</b>님 환영합니다.</span>
+					    	<li class="nav-item">
+					    		<form class="logoutBtn" action="${ctxPath}/member/logout" method="post">
+					    			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					     			<a class="nav-link text-dark" href="#">로그아웃</a>
+					    		</form>
+						    </li>
+						    <li class="nav-item">
+			  		      		<a class="nav-link text-dark" href="${ctxPath}/member/mypage">마이페이지</a>
+						    </li>
+				    	</sec:authorize>
 					  </ul>
 					</nav>
 				</div>
@@ -82,3 +106,11 @@
 	</div>
 
 </div>
+<script>
+$(function(){
+	$('.logoutBtn').click(function(e){
+		e.preventDefault();
+		$(this).submit();
+	});
+});
+</script>

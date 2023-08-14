@@ -29,8 +29,10 @@
 	  </div>
 	</div>
 	<span class="float-right m-2">
-	  <button type="button" class="modifyBtn btn btn-primary">수정(권한설정해라 나중에)</button>
-	  <button type="button" class="deleteBtn btn btn-primary">삭제</button>
+	  <sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')">
+		  <button type="button" class="modifyBtn btn btn-primary">수정</button>
+		  <button type="button" class="deleteBtn btn btn-primary">삭제</button>
+	  </sec:authorize>	
 	  <button type="button" class="listBtn btn btn-primary">목록으로</button>
 	</span>
 </div>
@@ -54,13 +56,10 @@
 	  		<div>
 		  		리플들어갈곳
 	  		</div>
-	  		<div>
-<%-- 		  		<tf:formatDateTime value="" pattern="yyyy-MM-dd HH:mm"/> --%>
-	  		</div>
 	  	</div>
 	  </div>
 	  <div class="card-body">
-	  	리플코인
+	  	리플
 	  </div>
 	</div>
 </div>
@@ -70,7 +69,7 @@
 	  <div class="card-header">
 	  	<div class="d-flex justify-content-between">
 	  		<div>
-		  		principal.name
+		  		${vo.writer}
 	  		</div>
 	  		<div>
 	  			<button class="replySubmit btn btn-primary">등록</button>
