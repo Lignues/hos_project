@@ -20,6 +20,9 @@ public class BoardRepositoryTest extends appTest{
 	@Autowired
 	private BoardRepository boardRepository;
 	
+	@Autowired
+	private ReplyRepository replyRepository;
+	
 	@Test
 	@Ignore
 	public void testList() {
@@ -63,4 +66,5 @@ public class BoardRepositoryTest extends appTest{
 		Long bno = 169L;
 		boardRepository.delete(bno);
 	}
+	
 }

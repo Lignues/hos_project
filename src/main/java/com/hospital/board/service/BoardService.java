@@ -18,4 +18,5 @@ public interface BoardService {
 	int modify(BoardVO vo);
 	
 	int delete(Long bno);
+	
 }

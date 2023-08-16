@@ -7,6 +7,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.Pagination;
 import com.hospital.board.service.BoardService;
+import com.hospital.board.service.ReplyService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -28,12 +30,17 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	@Autowired
+	private ReplyService replyService;
+	
+	// 글목록 조회
 	@GetMapping("/list")
 	public void list(Model model, Criteria criteria){
 		model.addAttribute("list", boardService.showList(criteria));
 		model.addAttribute("p", new Pagination(criteria, boardService.totalCount(criteria)));
 	}
 	
+	// 글 조회
 	@GetMapping("/get")
 	public String get(Long bno, Model model, Criteria criteria) {
 		BoardVO vo = boardService.get(bno);
@@ -41,17 +48,22 @@ public class BoardController {
 		return "board/get";
 	}
 	
+	// 글 작성페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/write")
 	public void goWrite() {}
 	
+	// 글 작성 처리
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/write")
-	public String write(BoardVO vo) {
+	public String write(BoardVO vo, RedirectAttributes rttr) {
 		boardService.write(vo);
-		return "redirect:/board/list";
+		rttr.addAttribute("bno", vo.getBno()); // useGeneratedKeys 사용으로 bno 가져옮
+		rttr.addFlashAttribute("boardResult", "글 작성이 완료되었습니다");
+		return "redirect:/board/get";
 	}
 	
+	// 글 수정 페이지
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/modify")
 	public void goModify(Long bno, Model model, Authentication auth) {
@@ -64,21 +76,29 @@ public class BoardController {
 		model.addAttribute("vo", vo);
 	}
 	
-	@PreAuthorize("isAuthenticated() and principal.username== #vo.writer or hasRole('ROLE_ADMIN')")
+	// 글 수정 처리
+	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
-	public String modify(BoardVO vo, RedirectAttributes rttr, Criteria criteria) {
+	public String modify(BoardVO vo, RedirectAttributes rttr) {
 		if(boardService.modify(vo)==1) {
-			rttr.addAttribute("result", vo.getBno()); // 없어도 될것같다 밑에도
+			rttr.addAttribute("bno", vo.getBno());
+			rttr.addFlashAttribute("boardResult", "수정되었습니다.");
 		}
-		return "redirect:/board/list"+criteria.getListLink();
+		return "redirect:/board/get";
 	}
 	
-	@PreAuthorize("isAuthenticated() and principal.username== #writer or hasRole('ROLE_ADMIN')")
+	// 글 삭제
+	@Transactional
+	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
-	public String delete(Long bno, RedirectAttributes rttr, Criteria criteria, String writer) {
-		if(boardService.delete(bno)==1) {
-			rttr.addFlashAttribute("result", bno);
+	public String delete(Long bno, RedirectAttributes rttr, String writer) {
+		if (replyService.replyList(bno, new Criteria())!=null) { // 댓글이 있으면 해당 bno의 모든 댓글 삭제
+			replyService.deleteReplyByBno(bno);
 		}
-		return "redirect:/board/list"+criteria.getListLink();
+		if(boardService.delete(bno)==1) {
+			rttr.addFlashAttribute("boardResult", bno+"번 글이 삭제 되었습니다.");
+		}
+		return "redirect:/board/list";
 	}
+	
 }

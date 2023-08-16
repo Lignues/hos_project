@@ -28,7 +28,7 @@
 		<![CDATA[ 
  	   	select * from  
  		(select /*+INDEX_DESC(hos_board pk_hosboard)*/  
- 	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, regDate, updateDate
+ 	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate
  	    		FROM hos_board where 
  	    ]]> 
  	    <include refid="criteria"/> 
@@ -48,7 +48,7 @@
 		bno > 0
 	</select>
 	
-	<insert id="write">
+	<insert id="write" useGeneratedKeys="true" keyColumn="bno" keyProperty="bno">
 		insert into hos_board (bno, title, content, writer)
 		values(seq_hosboard.nextval, #{title}, #{content}, #{writer})
 	</insert>
@@ -60,4 +60,9 @@
 	<delete id="delete">
 		delete from hos_board where bno = #{bno}
 	</delete>
+
+	<update id="updateReplyCnt">
+		update hos_board set replyCnt = replyCnt + #{amount} where bno = #{bno}
+	</update>
+	
 </mapper>

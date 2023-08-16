@@ -1,5 +1,6 @@
 package com.hospital.member.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,8 +17,10 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MemberVO {
+public class MemberVO implements Serializable{
 
+	private static final long serialVersionUID = -1985592230452128795L;
+	
 	private String memberId;
 	private String memberPwd;
 	private String memberName;

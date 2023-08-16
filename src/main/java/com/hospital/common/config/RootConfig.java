@@ -71,4 +71,5 @@ public class RootConfig {
 	public DataSourceTransactionManager transactionManager() {
 		return new DataSourceTransactionManager(dataSource());
 	}
+	
 }

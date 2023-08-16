@@ -27,12 +27,12 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	// 로그인폼
+	// 로그인
 	@PreAuthorize("isAnonymous()")
 	@RequestMapping("/login")
 	public String loginPage(HttpServletRequest request, Authentication authentication, RedirectAttributes rttr) {
 		String uri = request.getHeader("Referer"); // 로그인 전 사용자가 보던 페이지
-		if(uri!=null && !uri.contains("/login")) {
+		if(uri!=null && !uri.contains("/login") && !uri.contains("/join")) {
 			request.getSession().setAttribute("prevPage", uri);
 		}
 		

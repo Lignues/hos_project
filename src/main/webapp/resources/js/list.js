@@ -3,6 +3,11 @@ $(function(){
 	let pageForm = $('.pageForm');
 	let searchForm = $('#searchForm');
 	
+	let boardResult = $('[name="boardResult"]').val();
+	if(boardResult){
+		alert(boardResult);	
+	}
+	
 	// 클릭시 해당 글로 이동
 	$('.go').click(function(e){
 		e.preventDefault();

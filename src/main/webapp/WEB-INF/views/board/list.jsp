@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
-
 <div class="container mt-3">
   <div class="row">
     <div class="col-3">
@@ -30,7 +29,7 @@
 		    <tbody>
 		      <tr class="text-center">
 		        <td>${vo.bno}</td>
-		        <td class="text-left"><a class="go text-dark" href="${vo.bno}">${vo.title}</a></td>
+		        <td class="text-left"><a class="go text-dark" href="${vo.bno}">${vo.title}[${vo.replyCnt}]</a></td>
 		        <td>${vo.writer}</td>
 		        <td>
 			        <tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/>
@@ -76,6 +75,8 @@
 	<input type="hidden" name="type" value="${criteria.type}">
 	<input type="hidden" name="keyword" value="${criteria.keyword}">
 </form>
+
+<input type="hidden" name="boardResult" value="${boardResult}">
 
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/list.js"></script>

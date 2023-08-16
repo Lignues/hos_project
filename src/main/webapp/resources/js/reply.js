@@ -3,6 +3,7 @@ $(function(){
 	let replyContainer = $('.reply');
 	let pageNum = 1;
 	let replyPagination = $('.replyPagination');
+	let replyerName = $('.replyWriterName').text();
 	
 	// 댓글 페이징
 	let replyPage = function(replyCount){
@@ -58,13 +59,17 @@ $(function(){
 					  		</div>
 					  		<div  class="ml-auto">
 				 		  		${timeFormat(e.replyRegDate)}
-					  		</div>
-					  		<div class="ml-1">
-					  			<a class="modifyReply text-dark" href="#">수정</a>
-					  		</div>
-					  		<div class="deleteDiv ml-1">
-					  			<a class="deleteReply text-dark" href="#"}">삭제</a>
-					  		</div>
+					  		</div>`
+					  		if(e.replyer==replyerName){
+					  		replyList +=`
+						  		<div class="ml-1">
+						  			<a class="modifyReply text-dark" href="#">수정</a>
+						  		</div>
+						  		<div class="deleteDiv ml-1">
+						  			<a class="deleteReply text-dark" href="#">삭제</a>
+						  		</div>`
+					  		}
+					  		replyList +=`
 					  	</div>
 					  </div>
 					  <div class="card-body">
@@ -95,7 +100,7 @@ $(function(){
 		let reply = {
 			bno : bnoVal,
 			reply : replyContent,
-			replyer : 'abcdefgh'
+			replyer : replyerName
 		};
 		if(replyContent.length==0){
 			alert('내용을 입력하세요');
@@ -103,8 +108,9 @@ $(function(){
 		}
 		replyService.add(reply, function(result){
 			showReply(-1);
+			alert(result);
 		});
-		$(this).closest('.replyWriterForm').find('[name="content"]').val('')
+		$(this).closest('.replyWriterForm').find('[name="content"]').val('');
 	});
 	
 	// 댓글 삭제
@@ -112,8 +118,9 @@ $(function(){
 		e.preventDefault();
 		let rno = $(this).closest('.replyData').data('rno');
 		replyService.remove(rno, function(result){
-			showReply(-1);
+			alert(result);
 		});
+		showReply(-1);
 	});
 	
 	// 댓글 수정 폼
@@ -140,10 +147,13 @@ $(function(){
 		$(this).html('취소'); // 수정 버튼을 취소버튼으로 변경
 		$(this).closest('div').next().find('a').hide(); // 삭제 버튼 숨김
 		
+		// 댓글 수정 처리
 		updateBtn.click(function(){
-			replyVO = {rno : replyRno, reply : $(this).closest('.replyUpdateForm').find('[name="content"').val()}
+			let replyVO = {rno : replyRno,
+						 reply : $(this).closest('.replyUpdateForm').find('[name="content"]').val()};
 			replyService.update(replyVO, function(result){
 				showReply(pageNum);
+				alert(result);
 			});
 		});
 	});

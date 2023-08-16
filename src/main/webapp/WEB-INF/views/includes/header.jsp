@@ -29,6 +29,13 @@
 	if(duplicateLogin){
 		alert(duplicateLogin);
 	}
+	
+	let csrfHeaderName = "${_csrf.headerName}"; 
+	let csrfTokenValue = "${_csrf.token}";
+	
+	$(document).ajaxSend(function(e, xhr, options){ // 모든 ajax요청에 토큰 전송
+		xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	})
 </script>
 </head>
 <body>

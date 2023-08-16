@@ -8,12 +8,16 @@ import org.springframework.stereotype.Service;
 import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.repository.BoardRepository;
+import com.hospital.board.repository.ReplyRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	private BoardRepository boardRepository; 
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Override
 	public List<BoardVO> showList(Criteria criteria) {

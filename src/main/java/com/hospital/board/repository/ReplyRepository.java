@@ -20,4 +20,6 @@ public interface ReplyRepository {
 	ReplyVO getReply(Long rno);
 	
 	int deleteReply(Long rno);
+	
+	int deleteReplyByBno(Long Bno);
 }

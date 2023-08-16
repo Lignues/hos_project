@@ -7,6 +7,7 @@ import java.util.List;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hospital.board.appTest;
 import com.hospital.board.domain.Criteria;
@@ -32,7 +33,7 @@ public class ReplyServiceImplTest extends appTest{
 	@Ignore
 	public void testInsert() {
 		ReplyVO vo = ReplyVO.builder()
-				.bno(1L).reply("실험2").replyer("실험자2").build();
+				.bno(181L).reply("실험2").replyer("실험자2").build();
 		int replyWrite = replyService.replyWrite(vo);
 		System.out.println(replyWrite);
 	}
@@ -57,5 +58,7 @@ public class ReplyServiceImplTest extends appTest{
 	public void testdeleteReply() {
 		replyService.deleteReply(195L);
 	}
+	
+	
 }
 

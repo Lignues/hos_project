@@ -58,4 +58,10 @@ public class ReplyRepositoryTest extends appTest{
 	public void testdeleteReply() {
 		replyRepository.deleteReply(197L);
 	}
+	
+	@Test
+	@Ignore
+	public void testdeleteReplyByBno() {
+		replyRepository.deleteReplyByBno(181L);
+	}
 }

@@ -20,6 +20,9 @@ public class BoardServiceImplTest extends appTest{
 	@Autowired
 	private BoardService boardService; 
 	
+	@Autowired
+	private ReplyService replyService;
+	
 	@Test
 	@Ignore
 	public void testList() {
@@ -53,7 +56,8 @@ public class BoardServiceImplTest extends appTest{
 	@Test
 	@Ignore
 	public void testRemove() {
-		Long bno = 168L;
+		Long bno = 159L;
 		boardService.delete(bno);
 	}
+	
 }

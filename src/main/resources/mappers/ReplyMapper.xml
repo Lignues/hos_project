@@ -39,4 +39,8 @@
 		delete hos_reply where rno = #{rno}
 	</delete>
 	
+	<delete id="deleteReplyByBno">
+		delete hos_reply where bno = #{Bno}
+	</delete>
+	
 </mapper>

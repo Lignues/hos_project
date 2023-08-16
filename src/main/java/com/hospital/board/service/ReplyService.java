@@ -17,4 +17,6 @@ public interface ReplyService {
 	public ReplyVO getReply(Long rno);
 	
 	public int deleteReply(Long rno);
+	
+	public int deleteReplyByBno(Long bno);
 }
