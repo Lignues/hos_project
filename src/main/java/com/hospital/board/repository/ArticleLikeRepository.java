@@ -9,4 +9,5 @@ public interface ArticleLikeRepository {
 	void delete(LikeDTO likeDTO);
 	
 	LikeDTO get(LikeDTO likeDTO);
+	
 }

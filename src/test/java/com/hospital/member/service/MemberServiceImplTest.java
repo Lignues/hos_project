@@ -25,16 +25,15 @@ public class MemberServiceImplTest extends appTest{
 	@Test
 	@Ignore
 	public void testJoin() {
-		MemberVO vo = MemberVO.builder().memberId("admin").memberPwd("1234").memberName("관리자").email("admin@naver.com").build();
+		MemberVO vo = MemberVO.builder().memberId("test").memberPwd("1234").memberName("테스트").email("test@naver.com").build();
 		memberService.join(vo);
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testAuth() {
 		AuthVO vo = new AuthVO("admin", "ROLE_ADMIN");
 		authRepository.insert(vo);
 	}
-	
 
 }

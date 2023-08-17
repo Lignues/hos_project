@@ -1,5 +1,11 @@
 $(function(){
 
+	let secret = $('[name="secret"]').val();
+	if(secret==1){
+		$('[name="secretContent"]').attr('checked', 'true');
+		$('[name="secret"]').remove();
+	}
+
 	// 수정하기 버튼
 	$('.modifyBtn').click(function(){
 		let title = $('input[name="title"]').val();

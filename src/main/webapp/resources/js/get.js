@@ -1,5 +1,7 @@
 $(function(){
 	let boardResult = $('[name="boardResult"]').val();
+	let bno = $('[name="bno"]').val();
+	let hit = $()
 	if(boardResult){
 		alert(boardResult);	
 	}
@@ -26,4 +28,37 @@ $(function(){
 		$('form').attr('action', `${ctxPath}/login`)
 				.submit();
 	})
+	
+	// 추천수 갱신
+	function hitRenew(){
+		$.ajax({
+			data : {bno : bno},
+			type : 'get',
+			url : `${ctxPath}/board/hitRenew`,
+			success : function(hit){
+				$('.likeBtn').html('👍 ' + hit);
+			}
+		});
+	};
+	
+	// 추천하기
+	$('.likeBtn').click(function(e){
+		e.preventDefault();
+		let auth = $('.replyWriterName').text();
+		if(auth==''){
+			alert('로그인이 필요합니다');
+			return;
+		}
+		let memberId = $('.replyWriterName').html();
+		$.ajax({
+			type : 'post',
+			url : `${ctxPath}/board/like`,
+			data : {bno : bno, memberId : memberId},
+			success : function(message){
+				alert(message);
+				hitRenew();
+			}
+		});
+	});
+	
 });

@@ -54,7 +54,7 @@ $(function(){
 					<div class="replyData card mb-2" data-rno="${e.rno}" data-reply="${e.reply}" data-replyer="${e.replyer}">
 					  <div class="card-header">
 					  	<div class=d-flex justify-content-between">
-					  		<div>
+					  		<div class="${e.replyer=='admin' ? 'text-primary' : ''}">
 						  		${e.replyer}
 					  		</div>
 					  		<div  class="ml-auto">
@@ -63,10 +63,10 @@ $(function(){
 					  		if(e.replyer==replyerName){
 					  		replyList +=`
 						  		<div class="ml-1">
-						  			<a class="modifyReply text-dark" href="#">수정</a>
+						  			<a class="modifyReply text-dark" href="#">✏ 수정</a>
 						  		</div>
 						  		<div class="deleteDiv ml-1">
-						  			<a class="deleteReply text-dark" href="#">삭제</a>
+						  			<a class="deleteReply text-dark" href="#">🗑 삭제</a>
 						  		</div>`
 					  		}
 					  		replyList +=`

@@ -20,6 +20,7 @@
       <tr class="text-center">
         <th>글번호</th>
         <th class="w-50">제목</th>
+        <th>추천수</th>
         <th>글쓴이</th>
         <th>작성일</th>
       </tr>
@@ -29,7 +30,8 @@
 		    <tbody>
 		      <tr class="text-center">
 		        <td>${vo.bno}</td>
-		        <td class="text-left"><a class="go text-dark" href="${vo.bno}">${vo.title}[${vo.replyCnt}]</a></td>
+		        <td class="text-left"><a class="go text-dark" href="${vo.bno}">${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title} ${vo.replyCnt==0 ? '' : [vo.replyCnt]}</a></td>
+		        <td>${vo.likeHit}</td>
 		        <td>${vo.writer}</td>
 		        <td>
 			        <tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/>

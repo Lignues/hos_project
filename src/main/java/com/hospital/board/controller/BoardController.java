@@ -2,6 +2,7 @@ package com.hospital.board.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -12,10 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
+import com.hospital.board.domain.LikeDTO;
 import com.hospital.board.domain.Pagination;
 import com.hospital.board.service.BoardService;
 import com.hospital.board.service.ReplyService;
@@ -101,4 +104,24 @@ public class BoardController {
 		return "redirect:/board/list";
 	}
 	
+	// 게시물 추천
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping(value = "/like", produces = "plain/text; charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<String> hitLike(LikeDTO likeDTO){
+		String message = likeDTO.getBno() + "번";
+		if(boardService.hitLike(likeDTO)) {
+			message += "게시글을 추천하였습니다";
+		}else {
+			message += "게시글을 추천을 취소하였습니다";
+		}
+		return ResponseEntity.ok(message);
+	}
+	
+	// 추천수 갱신
+	@GetMapping("/hitRenew")
+	@ResponseBody
+	public ResponseEntity<Integer> hitRenew(Long bno){
+		return ResponseEntity.ok(boardService.get(bno).getLikeHit());
+	}
 }

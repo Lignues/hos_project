@@ -31,6 +31,7 @@ public class BoardVO {
 	private LocalDateTime updateDate;
 	private int replyCnt;
 	private int likeHit;
+	private int secretContent;
 	
 	
 }

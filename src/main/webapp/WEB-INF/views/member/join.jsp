@@ -27,7 +27,7 @@
 					<h3>아이디</h3>
 				</div>
 				<div class="col-8 mt-2">
-					<form:input class="form-control" path="memberId" placeholder="아이디"/>
+					<form:input class="form-control" path="memberId" placeholder="최대 12글자"/>
 				</div>
 				<div class="col-4 mt-2">
 					<button type="button" class="idCheck btn btn-outline-info form-control">ID중복확인</button>
@@ -43,8 +43,11 @@
 					<input type="password" class="form-control" name="memberPwdCheck" placeholder="비밀번호 확인"/>
 					<span class="passwordCheckMessage"></span>
 				</div>
+				<div class="mt-4">
+					<h3>이름</h3>
+				</div>
 				<div class="form-group">
-					<form:input class="form-control" path="memberName" placeholder="이름"/>
+					<form:input class="form-control" path="memberName" placeholder="10자 이하 한글"/>
 				</div>
 				<button type="button" class="btn btn-outline-primary join">회원가입</button>
 		</form:form>
@@ -61,6 +64,7 @@ $(function(){
 	
 	// 아이디 중복 확인
 	$('.idCheck').click(function(){
+		let memberId = $('#memberId').val();
 		$.ajax({
 			type : 'post',
 			url : '${ctxPath}/member/idCheck',
@@ -76,10 +80,11 @@ $(function(){
 					idOverlapCheck = false;
 					$('[name="memberId"]').focus();
 					checkedId = '';
+				}
 			}
 		});
 	});
-	
+	//############# 회원가입 처리 시작해라 ##############
 	// 비밀번호 일치 확인
 	$('[name="memberPwdCheck"]').keyup(function(){
 		let password = $('[name="memberPwd"]').val();
@@ -91,7 +96,7 @@ $(function(){
 			passwordMatch = true;
 		}
 		if(password != passwordCheck){
-			paswordCheckMessage.text('비밀번호가 일치하지 않습니다.').css('color', 'red');
+			passwordCheckMessage.text('비밀번호가 일치하지 않습니다.').css('color', 'red');
 			passwordMatch = false;
 		}
 	});

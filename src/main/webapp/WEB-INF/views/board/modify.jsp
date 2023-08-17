@@ -28,6 +28,11 @@
 		  <div class="form-group justify-content-start">
 		  	<input class="form-control" name="writer" type="text" readonly="readonly" value="${vo.writer}">
 		  </div>
+		  <span class="float-left m-2">
+			  	<label>
+				  	<input type="checkbox" name="secretContent" value="1"> 🔒 비밀글로 등록하기
+			  	</label>
+		  </span>
 		  <span class="float-right m-2">
 	  		<button type="button" class="modifyBtn btn btn-primary">수정</button>
 		  	<button type="button" class="listBtn btn btn-primary">목록으로</button>
@@ -36,6 +41,7 @@
 		</form>
 	</div>
 </div>
+<input type="hidden" name="secret" value="${vo.secretContent}">
 
 
 <input type="hidden" name="pageNum" value="${param.pageNum}">
