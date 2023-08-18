@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hospital.member.domain.MemberVO;
+import com.hospital.member.service.MailSendService;
 import com.hospital.member.service.MemberService;
 
 import lombok.extern.log4j.Log4j;
@@ -26,6 +27,9 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private MailSendService mailSendService;
 	
 	// 로그인
 	@PreAuthorize("isAnonymous()")
@@ -56,7 +60,24 @@ public class MemberController {
 	public ResponseEntity<Boolean> idCheck(String memberId){
 		MemberVO vo = memberService.read(memberId);
 		return vo == null ? new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK) :
-				new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.OK);
+			new ResponseEntity<Boolean>(Boolean.FALSE, HttpStatus.OK);
+	}
+	
+	// 이메일 인증
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/mailCheck")
+	@ResponseBody
+	public String mailCheck(String email) {
+		return mailSendService.joinEmail(email);
+	}
+	
+	// 회원가입 처리
+	@PreAuthorize("isAnonymous()")
+	@PostMapping("/member/join")
+	public String join(MemberVO vo, RedirectAttributes rttr) {
+		memberService.join(vo);
+		rttr.addFlashAttribute("boardResult", "회원가입이 완료되었습니다");
+		return "redirect:/";
 	}
 	
 	// 마이페이지
@@ -65,7 +86,5 @@ public class MemberController {
 	public String mypage() {
 		return "member/mypage";
 	}
-	
-			
 	
 }

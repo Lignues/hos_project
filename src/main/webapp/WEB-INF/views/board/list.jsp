@@ -78,7 +78,5 @@
 	<input type="hidden" name="keyword" value="${criteria.keyword}">
 </form>
 
-<input type="hidden" name="boardResult" value="${boardResult}">
-
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/list.js"></script>

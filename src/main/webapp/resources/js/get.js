@@ -1,10 +1,6 @@
 $(function(){
-	let boardResult = $('[name="boardResult"]').val();
 	let bno = $('[name="bno"]').val();
 	let hit = $()
-	if(boardResult){
-		alert(boardResult);	
-	}
 
 	// 수정으로 가기
 	$('.modifyBtn').click(function(){

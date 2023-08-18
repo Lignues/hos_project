@@ -40,20 +40,17 @@
 </head>
 <body>
 <div>
-	<div class="row">
+	<div class="row border">
 		<div class="col-3">
-			
 			<a class="text-dark text-center font-bold display-4" href="${ctxPath}/">제목이다</a>
-			
 		</div>
 		<div class="col-9">
 			<div class="row" style="height:50px;">
-				<div class="border col-5" style="height:50px;">
+				<div class="col-5" style="height:50px;">
 				</div>
-				<div class="col-7 border h-20">
-					<nav class="navbar navbar-expand-sm bg-light justify-content-end">
-					  <!-- Links -->
-					  <ul class="navbar-nav mx-auto font-weight-bold">
+				<div class="col-7 h-20">
+					<nav class="navbar navbar-expand-sm justify-content-end">
+					  <ul class="navbar-nav mx-right font-weight-bold">
 					    <sec:authorize access="isAnonymous()">
 					    	<li class="nav-item">
 					     		<a class="nav-link text-dark" href="${ctxPath}/login">로그인</a>
@@ -79,10 +76,10 @@
 				</div>
 			</div>
 			<div>
-				<div class="border col-6">
+				<div class="col-6">
 				</div>
 				
-				<nav class="navbar navbar-expand-sm bg-light justify-content-center">
+				<nav class="navbar navbar-expand-sm justify-content-center">
 				  <!-- Links -->
 				  <ul class="navbar-nav mx-auto font-weight-bold">
 				    <li class="nav-item px-4">
@@ -113,11 +110,24 @@
 	</div>
 
 </div>
+
+<input type="hidden" name="boardResult" value="${boardResult}">
+
 <script>
 $(function(){
+	let boardResult = $('[name="boardResult"]').val();	
+	
+	// 알림문구 작동
+	if(boardResult){
+		alert(boardResult);	
+	}
+	
+	// 로그인버튼 활성화
 	$('.logoutBtn').click(function(e){
 		e.preventDefault();
 		$(this).submit();
 	});
+	
 });
+
 </script>

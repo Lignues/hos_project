@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
-<div class="container mt-5">
+<div class="container my-5">
 	<div class="card">
 	  <div class="card-header">
 	  	<div class="d-flex justify-content-start">
@@ -62,7 +62,6 @@
 
 <!-- 비밀글시 사라짐 -->
 <sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
-
 	<div class="container mt-5">
 		<div class="card">
 			<div class="card-header">🗨 댓글</div>
@@ -106,23 +105,17 @@
 		  </div>
 		</div>
 	</div>
-	
 	<div class="container mt-3">
 		<div class="replyPagination"></div>
 	</div>
 </sec:authorize><!-- 비밀글 사라짐 종료 -->
 
 
-<%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"> --%>
 <!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자가 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
-<%-- 	</sec:authorize> --%>
-<%-- 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))"> --%>
+<%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"> --%>
 <!-- 		권한있을때 보이는 컨텐츠 -->
-<%-- 	</sec:authorize> --%>
+<%-- 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))"> --%>
 
-
-
-<input type="hidden" name="boardResult" value="${boardResult}">
 
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/replyService.js"></script>
