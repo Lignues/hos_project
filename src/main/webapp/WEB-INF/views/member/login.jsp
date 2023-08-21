@@ -23,7 +23,7 @@
 				<input type="checkbox" name="remember-me">　로그인 상태 유지
 			</label><br>
 			<button class="btn btn-outline-primary login">로그인</button>
-			<button type="button" class="btn btn-outline-primary join">회원가입</button>
+			<a class="btn btn-outline-primary join" href="${ctxPath}/member/join">회원가입</a>
 			<c:if test="${not empty LoginFail }">
 				<p style="color: red;">${LoginFail}</p>
 			</c:if>

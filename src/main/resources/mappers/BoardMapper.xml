@@ -37,6 +37,17 @@
  		    ) where rn > #{minRow}
  		]]>
 	</select>
+	
+	<select id="showListById" resultType="boardVO">
+		<![CDATA[
+  	   	select * from
+  		(select /*+INDEX_DESC(hos_board pk_hosboard)*/ 
+  	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent 
+  	    		FROM hos_board where 
+ 			rownum <= #{maxRow} and WRITER = #{writer}
+ 		    ) where rn > #{minRow}
+ 		]]>
+	</select>
 
 	<select id="get" resultType="boardVO">
 		select * from hos_board where bno=#{bno}
@@ -46,6 +57,11 @@
 		select count(bno) from hos_board where
 		<include refid="criteria"/>
 		bno > 0
+	</select>
+	
+	<select id="getTotalCountById" resultType="int">
+		select count(bno) from hos_board where
+		bno > 0 and writer = #{writer}
 	</select>
 	
 	<insert id="write" useGeneratedKeys="true" keyColumn="bno" keyProperty="bno">

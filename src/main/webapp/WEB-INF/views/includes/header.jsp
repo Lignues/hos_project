@@ -68,7 +68,7 @@
 					    		</form>
 						    </li>
 						    <li class="nav-item">
-			  		      		<a class="nav-link text-dark" href="${ctxPath}/member/mypage">마이페이지</a>
+			  		      		<a class="nav-link text-dark" href="${ctxPath}/mypage">마이페이지</a>
 						    </li>
 				    	</sec:authorize>
 					  </ul>

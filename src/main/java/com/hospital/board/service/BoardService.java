@@ -10,9 +10,13 @@ public interface BoardService {
 
 	public List<BoardVO> showList(Criteria criteria);
 	
+	public List<BoardVO> showListById(Criteria criteria, String writer);
+	
 	public BoardVO get(Long bno);
 	
 	int totalCount(Criteria criteria);
+	
+	int totalCountById(String writer);
 	
 	int write(BoardVO vo);
 	

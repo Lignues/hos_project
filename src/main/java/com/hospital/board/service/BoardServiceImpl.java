@@ -20,9 +20,6 @@ public class BoardServiceImpl implements BoardService {
 	private BoardRepository boardRepository; 
 	
 	@Autowired
-	private ReplyRepository replyRepository;
-	
-	@Autowired
 	private ArticleLikeRepository articleLikeRepository;
 	
 	@Override
@@ -68,6 +65,16 @@ public class BoardServiceImpl implements BoardService {
 			boardRepository.updateLikeCnt(likeDTO.getBno(), -1);
 			return false;
 		}
+	}
+
+	@Override
+	public List<BoardVO> showListById(Criteria criteria, String writer) {
+		return boardRepository.showListById(criteria, writer);
+	}
+
+	@Override
+	public int totalCountById(String writer) {
+		return boardRepository.getTotalCountById(writer);
 	}
 
 }

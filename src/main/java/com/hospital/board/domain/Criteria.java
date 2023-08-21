@@ -13,6 +13,8 @@ public class Criteria {
 
 	private int pageNum; // 현재 페이지
 	private int amount; // 페이지당 게시물 수
+	private int hi = 1;
+	private int hello = 10;
 	
 	private String type;
 	private String keyword;
@@ -38,13 +40,13 @@ public class Criteria {
 		return type == null ? new String[] {} : type.split("");
 	}
 	
-	public String getListLink() {
-		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
-								.queryParam("pageNum", this.pageNum)
-								.queryParam("amount", this.amount)
-								.queryParam("type", this.type)
-								.queryParam("keyword", this.keyword);
-		return builder.toString();
-								
-	}
+//	public String getListLink() { // 안쓰니까 지워도 될듯?
+//		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
+//								.queryParam("pageNum", this.pageNum)
+//								.queryParam("amount", this.amount)
+//								.queryParam("type", this.type)
+//								.queryParam("keyword", this.keyword);
+//		return builder.toString();
+//								
+//	}
 }

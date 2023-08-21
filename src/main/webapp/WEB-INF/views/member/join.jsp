@@ -23,6 +23,9 @@
 				<div class="col-4 mt-3">
 					<button type="button" class="emailCheckBtn btn btn-outline-info form-control">인증번호 확인</button>
 				</div>
+				<div class="col-12 mt-2">
+					<p class="timer text-primary"></p>
+				</div>
 				<div class="col-12 mt-4">
 					<h3>아이디</h3>
 				</div>
@@ -33,43 +36,43 @@
 					<button type="button" class="idCheck btn btn-outline-info form-control">ID중복확인</button>
 				</div>
 			</div>
-				<div class="mt-4">
-					<h3>비밀번호</h3>
+			<div class="mt-4">
+				<h3>비밀번호</h3>
+			</div>
+			<div class="form-group mt-3">
+				<form:password class="form-control" path="memberPwd" placeholder="4글자 이상"/>
+			</div>
+			<div class="form-group">
+				<input type="password" class="form-control" name="memberPwdCheck" placeholder="비밀번호 확인"/>
+				<span class="passwordCheckMessage"></span>
+			</div>
+			<div class="mt-4">
+				<h3>이름</h3>
+			</div>
+			<div class="form-group">
+				<form:input class="form-control" path="memberName" placeholder="10자 이하 한글"/>
+			</div>
+			<div class="mt-4">
+				<h3>이용약관</h3>
+			</div>
+			<div class="form-group">
+				<div class="jumbotron p-1 m-0">
+				<label class="mt-1 ml-1">
+					<input type="checkbox" id="agreeAll"> 모두 동의
+				</label>
 				</div>
-				<div class="form-group mt-3">
-					<form:password class="form-control" path="memberPwd" placeholder="비밀번호"/>
-				</div>
-				<div class="form-group">
-					<input type="password" class="form-control" name="memberPwdCheck" placeholder="비밀번호 확인"/>
-					<span class="passwordCheckMessage"></span>
-				</div>
-				<div class="mt-4">
-					<h3>이름</h3>
-				</div>
-				<div class="form-group">
-					<form:input class="form-control" path="memberName" placeholder="10자 이하 한글"/>
-				</div>
-				<div class="mt-4">
-					<h3>이용약관</h3>
-				</div>
-				<div class="form-group">
-					<div class="jumbotron p-1 m-0">
-					<label class="mt-1 ml-1">
-						<input type="checkbox" id="agreeAll"> 모두 동의
-					</label>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="ml-2">
-						<input type="checkbox" id="agreeService"> 서비스 이용 약관(필수)
-					</label>
-				</div>
-				<div class="form-group">
-					<label class="ml-2">
-						<input type="checkbox" id="agreeData"> 개인정보 수집 및 이용 동의(필수)
-					</label>
-				</div>
-				<button type="button" class="join btn btn-outline-primary">회원가입</button>
+			</div>
+			<div class="form-group">
+				<label class="ml-2">
+					<input type="checkbox" id="agreeService"> 서비스 이용 약관(필수)
+				</label>
+			</div>
+			<div class="form-group">
+				<label class="ml-2">
+					<input type="checkbox" id="agreeData"> 개인정보 수집 및 이용 동의(필수)
+				</label>
+			</div>
+			<button type="button" class="join btn btn-outline-primary">회원가입</button>
 		</form:form>
 	</div>
 </div>
@@ -78,8 +81,8 @@
 
 <script>
 $(function(){
-	let code = ''; // 이메일 인증 코드
-	let email = ''; // 인증 당시 이메일
+	let code = null; // 이메일 인증 코드
+	let email = null; // 인증 당시 이메일
 	let isAuth = false; // 이메일 인증 확인여부
 	let checkedId = ''; // 아이디 중복확인 당시 아이디
 	let idOverlapCheck = false; // 아이디 중복확인 여부
@@ -88,6 +91,7 @@ $(function(){
 		service : false,
 		data : false
 	}
+	let sec = 120;
 	
 	// 아이디 중복 확인
 	$('.idCheck').click(function(){
@@ -124,7 +128,10 @@ $(function(){
 		let passwordCheck = $('[name="memberPwdCheck"]').val();
 		let passwordCheckMessage = $('.passwordCheckMessage');
 		
-		if(password == passwordCheck){
+		if(password.length<4){
+			passwordCheckMessage.text('비밀번호는 최소 4글자 이상이어야 합니다.').css('color', 'red');
+			return;
+		}else if(password == passwordCheck){
 			passwordCheckMessage.text('비밀번호가 일치합니다.').css('color', 'blue');
 			passwordMatch = true;
 		}
@@ -137,7 +144,10 @@ $(function(){
 	// 이메일 확인 전송
 	$('.sendEmailCheck').click(function(){
 		let tempEmail = $('#email').val();
-		
+		if(!tempEmail.length>0){
+			alert('이메일을 입력해 주세요');
+			return;
+		}
 		$.ajax({
 			type : 'get',
 			url : '${ctxPath}/mailCheck?email='+tempEmail,
@@ -145,18 +155,50 @@ $(function(){
 				email = tempEmail;
 				code = result;
 				alert('인증번호가 전송되었습니다');
+				setTimer();
 			}
 		});
 		
 	});
+	
+	// 메일인증 타이머
+	function setTimer(){
+		let timer = $('.timer');
+		sec=60;
+		let interval =setInterval(function(){
+			console.log(sec);
+			if(sec==10){
+				timer.attr('class', 'timer text-danger');
+			}
+			if(sec>0){
+				timer.text('인증 잔여 시간 : '+sec);
+				sec--;
+			}else if(sec==0){
+				timer.text('인증 가능 시간이 지났습니다. 다시 시도해 주세요');
+				code = null;
+				isAuth = false;
+				clearInterval(interval);
+				return;
+			}else if(sec<0){
+				timer.attr('class', 'timer text-primary').text('인증 성공');
+				clearInterval(interval);
+				return;
+			}
+			
+		},
+		1000);
+	}
 	
 	// 이메일 인증 일치 확인
 	$('.emailCheckBtn').click(function(){
 		let emailCode = $('.emailCode').val();
 		let tempEmail = $('#email').val();
 		
-		if(code==emailCode && email==tempEmail){
+		if(sec==0){
+			alert('인증 시간이 만료되었습니다. 인증번호를 다시 요청해 주세요');
+		}else if(code==emailCode && email==tempEmail){
 			isAuth = true;
+			sec=-1;
 			alert('인증이 완료되었습니다');
 		}else if(email!=tempEmail){
 			isAuth = false;
@@ -214,44 +256,63 @@ $(function(){
 	
 	// 회원가입 제출
 	$('.join').click(function(){ // 이메일관련, 아이디관련, 비밀번호관련, 약관동의, 빈칸확인
-		let tempEmail = $('#email').val();
-		let emailCode = $('.emailCode').val();
+		// 제출 당시 입력창에 적혀있는 내역들(인증받은 내용과 같은지 확인용)
+		let tempEmail = $('#email').val();  
+		let emailCode = $('.emailCode').val(); 
 		let memberId = $('#memberId').val();
 		let password = $('[name="memberPwd"]').val();
 		let generalCondition = $('#generalCondition').val();
-		
+		let index = 1;
 		let errorMessage = '';
 		
-		if(email.length>0){ // 이메일
-			errorMessage += '이메일을 입력해 주세요<br>';
-		}else if(isAuth){
-			errorMessage += '이메일 인증이 필요합니다<br>';
+		if(!tempEmail.length>0){ // 이메일
+			errorMessage += index + ' : 이메일을 입력해 주세요\n';
+			index++;
+		}else if(!isAuth){
+			errorMessage += index + ' : 이메일 인증이 필요합니다\n';
+			index++;
 		}else if(email!=tempEmail){
-			errorMessage += '이메일이 변경되었습니다. 다시 인증해 주세요<br>';
+			errorMessage += index + ' : 이메일이 변경되었습니다. 다시 인증해 주세요\n';
+			index++;
 			isAuth = false;
 		}else if(emailCode!=code){
-			errorMessage += '코드가 일치하지 않습니다. 다시 확인하거나 새로 인증받아 주세요<br>';
+			errorMessage += index + ' : 코드가 일치하지 않습니다. 다시 확인하거나 새로 인증받아 주세요\n';
+			index++;
 			isAuth = false;
 		}
 		
-		if(memberId.length>0){ // 아이디
-			errorMessage += '아이디를 입력해 주세요<br>';
+		if(!memberId.length>0){ // 아이디
+			errorMessage += index + ' : 아이디를 입력해 주세요\n';
+			index++;
 		}else if(checkedId!=memberId){
-			errorMessage += '인증한 아이디와 다릅니다. 아이디 중복 확인을 다시 해주세요<br>';
+			errorMessage += index + ' : 아이디 중복 확인을 하지 않았습니다. 다시 시도해 주세요\n';
+			index++;
 			idOverlapCheck = false;
 		}
 		
-		if(password.length>0){ // 비밀번호
-			errorMessage += '비밀번호를 입력해 주세요<br>';
-		}else if(passwordMatch){
-			errorMessage += '비밀번호가 일치하지 않습니다. 다시 확인해 주세요<br>';
+		if(!password.length>0){ // 비밀번호
+			errorMessage += index + ' : 비밀번호를 입력해 주세요\n';
+			index++;
+		}else if(password.length<4){
+			errorMessage += index + ' : 비밀번호는 최소 4글자 이상이어야 합니다\n';
+			index++;
+		}else if(!passwordMatch){
+			errorMessage += index + ' : 비밀번호가 일치하지 않습니다. 다시 확인해 주세요\n';
+			index++;
 		}
 		
-		if(generalCondition){
-			errorMessage += '약관에 동의해 주세요';
+		if(!agreement.service){ // 약관1
+			errorMessage += index + ' : 서비스 이용 약관에 동의해 주세요\n';
+			index++;
+		}
+		
+		if(!agreement.data){ // 약관2
+			errorMessage += index + ' : 개인정보 이용에 동의해 주세요\n';
+			index++;
 		}
 		
 		if(errorMessage.length>0){
+			errorMessage += '!! 위의 목록을 다시 작성해 주세요 !!';
 			alert(errorMessage);
 			return;
 		}

@@ -40,15 +40,8 @@
 	
   <update id="update">
 	update hos_member set
-		memberName = #{memberName}, 
-		email = #{email}
+		memberPwd = #{memberPwd}
 	where memberId = #{memberId}
-  </update>
-  
-  <update id="updatePassword">
-		update hos_member set
-			memberPwd = #{memberPwd} 
-		where memberId = #{memberId}
   </update>
   
   <select id="selectByEmail" resultType="string">

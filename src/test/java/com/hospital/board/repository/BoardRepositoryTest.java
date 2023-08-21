@@ -20,9 +20,6 @@ public class BoardRepositoryTest extends appTest{
 	@Autowired
 	private BoardRepository boardRepository;
 	
-	@Autowired
-	private ReplyRepository replyRepository;
-	
 	@Test
 	@Ignore
 	public void testList() {
@@ -67,4 +64,17 @@ public class BoardRepositoryTest extends appTest{
 		boardRepository.delete(bno);
 	}
 	
+	@Test
+//	@Ignore
+	public void testListById() { // #####################왜안되는데진짜#################
+		List<BoardVO> list = boardRepository.showListById(new Criteria(), "scott");
+		System.out.println(list);
+	}
+	
+	@Test
+	@Ignore
+	public void testTotalCountById() {
+		int totalCount = boardRepository.getTotalCountById("scott");
+		System.out.println(totalCount);
+	}
 }

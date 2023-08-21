@@ -12,5 +12,4 @@ public interface MemberService {
 	
 	MemberVO read(String memberId);
 	
-	void changePassword(Map<String, String> memberMap);
 }
