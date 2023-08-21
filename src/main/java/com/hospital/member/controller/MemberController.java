@@ -102,20 +102,21 @@ public class MemberController {
 	// 마이페이지
 	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@GetMapping({"mypage" ,"/mypage/{path}"})
-	public String mypage(Model model, Principal principal, @PathVariable(required = false) String path) {
+	public String mypage(Model model, Principal principal, @PathVariable(required = false) String path, Criteria criteria) {
 		String memberId = principal.getName();
 		if(path==null) {
 			MemberVO vo = memberService.read(memberId);
 			model.addAttribute("vo", vo);
 			return "member/mypage";
 		}else if (path.equals("recent")) {
-			List<BoardVO> list = boardService.showListById(new Criteria(1, 20), memberId); // 작성글
+			criteria.setAmount(5);
+			List<BoardVO> list = boardService.showListById(criteria, memberId); // 작성글
 			model.addAttribute("list", list);
-//			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
-		}else {
-			
+			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
+		}else if (path.equals("temp")) {
+			System.out.println("아직오면안된다");
 		}
-		return "member/"+path; // 뭐지?
+		return "member/"+path;
 	}
 	
 	// 회원정보 변경

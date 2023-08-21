@@ -65,9 +65,9 @@ public class BoardRepositoryTest extends appTest{
 	}
 	
 	@Test
-//	@Ignore
-	public void testListById() { // #####################왜안되는데진짜#################
-		List<BoardVO> list = boardRepository.showListById(new Criteria(), "scott");
+	@Ignore
+	public void testListById() {
+		List<BoardVO> list = boardRepository.showListById(new Criteria(), "4작성자");
 		System.out.println(list);
 	}
 	

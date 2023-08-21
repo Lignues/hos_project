@@ -68,7 +68,7 @@ $(function(){
 		bnoValue = $(this).attr('href');
 		$('[name=bno]').remove();
 		pageForm.append($('<input>',{type:'hidden', name:'bno', value : bnoValue}))
-			.attr('action', `${ctxPath}/board/get`)
+			.attr('action', '${ctxPath}/board/get')
 			.submit();
 	});
 	
@@ -77,7 +77,7 @@ $(function(){
 		e.preventDefault();
 		let pageNum = $(this).attr('href');
 		pageForm.find('input[name="pageNum"]').val(pageNum);
-		pageForm.attr('action', `${ctxPath}/board/list`)
+		pageForm.attr('action', '${ctxPath}/mypage/recent')
 				.submit();
 	});
 	

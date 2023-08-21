@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
@@ -28,5 +29,5 @@ public interface BoardRepository {
 	
 	void updateLikeCnt(@Param("bno") Long bno, @Param("amount") int amount);
 	
-	List<BoardVO> showListById(Criteria criteria, String writer);
+	List<BoardVO> showListById(@Param("criteria") Criteria criteria, @Param("writer") String writer);
 }

@@ -44,8 +44,8 @@
   		(select /*+INDEX_DESC(hos_board pk_hosboard)*/ 
   	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent 
   	    		FROM hos_board where 
- 			rownum <= #{maxRow} and WRITER = #{writer}
- 		    ) where rn > #{minRow}
+ 			rownum <= #{criteria.maxRow} and WRITER = #{writer}
+ 		    ) where rn > #{criteria.minRow}
  		]]>
 	</select>
 
