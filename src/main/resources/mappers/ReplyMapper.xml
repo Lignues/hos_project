@@ -18,6 +18,20 @@
 		]]>
 	</select>
 	
+	<select id="replyListById" resultType="replyVO">
+		<![CDATA[
+		select * from 
+		(
+			select /*+index_DESC(hos_reply pk_hosreply) */
+				rownum rn, bno, rno, reply, replyer, replyRegDate, replyUpdateDate
+			from hos_reply
+			where replyer = #{replyer}
+			and rownum <= #{criteria.maxRow} 
+		) 
+		where rn > #{criteria.minRow}
+		]]>
+	</select>
+	
 	<insert id="replyWrite">
 		insert into hos_reply(rno, bno, reply, replyer) 
 		values(seq_hosreply.nextval, #{bno}, #{reply}, #{replyer})
@@ -25,6 +39,10 @@
 	
 	<select id="getReplyCount" resultType="int">
 		select count(rno) from hos_reply where bno=#{bno}
+	</select>
+	
+	<select id="getReplyCountById" resultType="int">
+		select count(rno) from hos_reply where replyer=#{replyer}
 	</select>
 	
 	<update id="replyUpdate">

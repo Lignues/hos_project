@@ -33,6 +33,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			response.sendRedirect(savedRequest.getRedirectUrl());
 			return;
 		}
+		
 		// 사용자가 로그인 페이지로 직접 이동하는 경우 
 		String prevPage = (String) request.getSession().getAttribute("prevPage");
 		if(prevPage!=null) {

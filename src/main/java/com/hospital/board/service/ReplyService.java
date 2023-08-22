@@ -10,6 +10,8 @@ public interface ReplyService {
 
 	public ReplyPageDTO replyList(Long bno, Criteria criteria);
 	
+	public ReplyPageDTO replyListById(String replyer, Criteria criteria);
+	
 	public int replyWrite(ReplyVO vo);
 	
 	public int replyUpdate(ReplyVO vo);

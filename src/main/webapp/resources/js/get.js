@@ -1,6 +1,5 @@
 $(function(){
 	let bno = $('[name="bno"]').val();
-	let hit = $()
 
 	// 수정으로 가기
 	$('.modifyBtn').click(function(){
@@ -40,12 +39,11 @@ $(function(){
 	// 추천하기
 	$('.likeBtn').click(function(e){
 		e.preventDefault();
-		let auth = $('.replyWriterName').text();
-		if(auth==''){
+		let memberId = $('.replyWriterName').val();
+		if(memberId==''){
 			alert('로그인이 필요합니다');
 			return;
 		}
-		let memberId = $('.replyWriterName').html();
 		$.ajax({
 			type : 'post',
 			url : `${ctxPath}/board/like`,

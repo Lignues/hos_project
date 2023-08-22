@@ -34,11 +34,13 @@
   			</div>
   		</sec:authorize>
 	</div>
-	<div class="text-center mt-3">
-		<h4>
-			<button class="likeBtn btn btn-outline-primary">👍 ${vo.likeHit}</button>
-		</h4>
-	</div>	
+	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+		<div class="text-center mt-3">
+			<h4>
+				<button class="likeBtn btn btn-outline-primary">👍 ${vo.likeHit}</button>
+			</h4>
+		</div>
+	</sec:authorize>
 	<c:if test="${vo.secretContent == 1 }">
 		<span class="float-left m-2">🔒 비밀글입니다</span>
 	</c:if>
@@ -46,7 +48,7 @@
 	  <sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')">
 		  <button type="button" class="modifyBtn btn btn-primary">수정</button>
 		  <button type="button" class="deleteBtn btn btn-primary">삭제</button>
-	  </sec:authorize>	
+	  </sec:authorize>
 	  <button type="button" class="listBtn btn btn-primary">목록으로</button>
 	</span>
 </div>
@@ -87,7 +89,8 @@
 		<div class="card mb-2">
 		  <div class="card-header">
 		  	<div class="d-flex justify-content-between">
-		  		<div class="replyWriterName">${authInfo.memberId}</div>
+		  		<div>${authInfo.memberId}</div>
+		  		<input type="hidden" class="replyWriterName" value="${authInfo.memberId}">
 		  		<div>
 		  			<sec:authorize access="isAuthenticated()">
 			  			<button class="replySubmit btn btn-primary">등록</button>
@@ -110,6 +113,7 @@
 	</div>
 </sec:authorize><!-- 비밀글 사라짐 종료 -->
 
+<input type="hidden" name="direction" value="get"> <!-- getList 호출 위치(get이냐 recent냐) -->
 
 <!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자가 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
 <%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"> --%>

@@ -18,15 +18,30 @@ var replyService = {
 	getList : function(param, callback, error){
 		let bno = param.bno;
 		let page = param.page || 1;
-		$.ajax({
-			type : 'get',
-			url : `${ctxPath}/replies/pages/${bno}/${page}`,
-			success : function(replyPageDTO){
-				if(callback) callback(replyPageDTO.replyCount, replyPageDTO.list);
-			},error : function(xhr,status,er){
-				if(error) error(er);
-			}
-		});
+		let direction = $('[name="direction"]').val();
+		
+		if(direction=='get'){ // 게시글에서 댓글
+			$.ajax({
+				type : 'get',
+				url : `${ctxPath}/replies/pages/get/${bno}/${page}`,
+				success : function(replyPageDTO){
+					if(callback) callback(replyPageDTO.replyCount, replyPageDTO.list);
+				},error : function(xhr,status,er){
+					if(error) error(er);
+				}
+			});
+		}else if(direction=='recent'){ // 최근작성댓글
+			let replyer = $('.replyWriterName').val();
+			$.ajax({
+				type : 'get',
+				url : `${ctxPath}/replies/pages/recent/${replyer}/${page}`,
+				success : function(replyPageDTO){
+					if(callback) callback(replyPageDTO.replyCount, replyPageDTO.list);
+				},error : function(xhr,status,er){
+					if(error) error(er);
+				}
+			});
+		}
 	},
 	
 	update : function (reply, callback, error){

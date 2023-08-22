@@ -1,5 +1,7 @@
 package com.hospital.member.repository;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.hospital.member.domain.MemberVO;
 
 public interface MemberRepository {
@@ -12,6 +14,5 @@ public interface MemberRepository {
 
 	MemberVO selectById(String memberId);
 	
-	String selectByEmail(String email);
-	
+	MemberVO selectByEmailAndName(@Param("email") String email, @Param("memberName") String memberName);
 }

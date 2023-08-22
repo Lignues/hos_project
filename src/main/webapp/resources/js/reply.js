@@ -3,13 +3,15 @@ $(function(){
 	let replyContainer = $('.reply');
 	let pageNum = 1;
 	let replyPagination = $('.replyPagination');
-	let replyerName = $('.replyWriterName').text();
+	let replyerName = $('.replyWriterName').val();
 	
 	// 댓글 페이징
 	let replyPage = function(replyCount){
+		let pagePow = 1;
+		if($('[name="direction"]').val()=='recent') pagePow=2; // 최근글보기에서 페이지 갯수 2배
 		let endNum = Math.ceil(pageNum/10.0)*10;
-		let startNum = endNum - 9;
-		let tempEndNum = Math.ceil(replyCount/10.0);
+		let startNum = endNum - 10 +1;
+		let tempEndNum = Math.ceil(replyCount/10.0*pagePow);
 		
 		let prev = startNum !=1; 
 		let next = endNum < tempEndNum;
@@ -38,6 +40,37 @@ $(function(){
 	let showReply = function(page){
 		let param = {bno : bnoVal, page : page||1};
 		replyService.getList(param, function(replyCount, list){
+			let replyList = '';
+			
+			if($('[name="direction"]').val()=='recent'){ // 최근작성글 글보기 양식
+				if(list==null||list.length==0){
+					replyContainer.html('등록된 댓글이 없습니다.');
+					return;
+				};
+				replyList = `<table class="table-sm table-hover">
+								<thead>
+							      <tr>
+							        <th>댓글내용</th>
+							        <th>작성일</th>
+							      </tr>
+							    </thead>`;
+				$.each(list, function(i, e){
+					replyList += `
+						  <tbody>
+  					        <tr>
+							  <div class="replyData mb-2" data-rno="${e.rno}" data-reply="${e.reply}" data-replyer="${e.replyer}">
+						        <td class="col-1"><a class="goBoard text-dark" href="${e.bno}">${e.reply}</a></td>
+						        <td class="col-1">${timeFormat(e.replyRegDate)}</td>
+							  </div>
+						    </tr>
+						  </tbody>
+				`});
+				replyList += `</table>`;
+				replyContainer.html(replyList);
+				replyPage(replyCount);
+				return;
+			}
+			
 			if(page == -1){
 				pageNum = Math.ceil(replyCount/10.0);
 				showReply(pageNum);
@@ -48,7 +81,6 @@ $(function(){
 				return;
 			};
 			
-			let replyList = '';
 			$.each(list, function(i, e){
 				replyList += `
 					<div class="replyData card mb-2" data-rno="${e.rno}" data-reply="${e.reply}" data-replyer="${e.replyer}">
@@ -86,7 +118,6 @@ $(function(){
 	
 	// 페이지 이동 이벤트
 	replyPagination.on('click','li a',function(e){ // 메서드 생성 후 a가 생성돼서 on메서드로 처리해야 함
-	//$('.page-link').click(function(e){
 		e.preventDefault(e);
 		let targetPageNum = $(this).attr('href');
 		pageNum = targetPageNum;
@@ -158,6 +189,17 @@ $(function(){
 		});
 	});
 	
+	// 최근작성댓글 클릭시 해당 글 이동
+	$('.reply').on('click', '.goBoard', function(e){
+		e.preventDefault();
+		$('[name=pageNum]').remove();
+		$('[name=amount]').remove();
+		let goBoardBno = $(this).attr('href');
+		$('.pageForm').append($('<input>',{type:'hidden', name:'bno', value : goBoardBno}))
+			.attr('action', `${ctxPath}/board/get`)
+			.submit();
+	});
+		
 	// 시간 포매팅
 	function timeFormat(date){
 		return date[0]+'-'+date[1]+'-'+date[2]+' '+date[3]+':'+date[4]+':'+date[5];

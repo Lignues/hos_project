@@ -47,7 +47,7 @@ public class BoardController {
 	@GetMapping("/get")
 	public String get(Long bno, Model model, Criteria criteria) {
 		BoardVO vo = boardService.get(bno);
-		model.addAttribute("vo", boardService.get(bno));
+		model.addAttribute("vo", vo);
 		return "board/get";
 	}
 	

@@ -11,11 +11,15 @@ public interface ReplyRepository {
 
 	public List<ReplyVO> replyList(@Param("bno") Long bno, @Param("criteria") Criteria criteria);
 	
+	public List<ReplyVO> replyListById(@Param("replyer") String replyer, @Param("criteria") Criteria criteria);
+	
 	public int replyWrite(ReplyVO replyVO);
 	
 	public int replyUpdate(ReplyVO replyVO);
 	
 	int getReplyCount(Long bno);
+	
+	int getReplyCountById(String replyer);
 	
 	ReplyVO getReply(Long rno);
 	

@@ -2,6 +2,7 @@ package com.hospital.board.service;
 
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Ignore;
@@ -33,9 +34,11 @@ public class ReplyServiceImplTest extends appTest{
 	@Ignore
 	public void testInsert() {
 		ReplyVO vo = ReplyVO.builder()
-				.bno(181L).reply("실험2").replyer("실험자2").build();
-		int replyWrite = replyService.replyWrite(vo);
-		System.out.println(replyWrite);
+				.bno(194L).reply("실험2").replyer("scott").build();
+		for (int i = 0; i < 102; i++) {
+			replyService.replyWrite(vo);
+		}
+		
 	}
 	
 	@Test

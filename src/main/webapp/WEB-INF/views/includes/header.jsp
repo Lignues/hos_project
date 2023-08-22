@@ -78,7 +78,6 @@
 			<div>
 				<div class="col-6">
 				</div>
-				
 				<nav class="navbar navbar-expand-sm justify-content-center">
 				  <!-- Links -->
 				  <ul class="navbar-nav mx-auto font-weight-bold">
@@ -102,13 +101,9 @@
 				    </li>
 				  </ul>
 				</nav>
-				
 			</div>
-			
 		</div>
-	
 	</div>
-
 </div>
 
 <input type="hidden" name="boardResult" value="${boardResult}">

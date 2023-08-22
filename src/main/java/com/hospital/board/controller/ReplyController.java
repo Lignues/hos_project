@@ -37,11 +37,18 @@ public class ReplyController {
 				new ResponseEntity<String>("댓글등록 실패", HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	// 댓글목록 가져오기
-	@GetMapping("/pages/{bno}/{page}")
-	public ResponseEntity<ReplyPageDTO> replyList(@PathVariable Long bno, @PathVariable int page){
+	// 댓글목록 가져오기(글에서)
+	@GetMapping({"/pages/get/{bno}/{page}"})
+	public ResponseEntity<ReplyPageDTO> replyList(@PathVariable("bno") Long bno, @PathVariable("page") int page){
 		Criteria criteria = new Criteria(page, 10);
 		return new ResponseEntity<>(replyService.replyList(bno, criteria), HttpStatus.OK);
+	}
+	
+	// 댓글목록 가져오기(최근작성) 
+	@GetMapping({"/pages/recent/{replyer}/{page}"})
+	public ResponseEntity<ReplyPageDTO> replyListById(@PathVariable("replyer") String replyer, @PathVariable("page") int page){
+		Criteria criteria = new Criteria(page, 5);
+		return new ResponseEntity<>(replyService.replyListById(replyer, criteria), HttpStatus.OK);
 	}
 	
 	// 댓글 수정

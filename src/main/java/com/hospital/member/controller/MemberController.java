@@ -51,7 +51,6 @@ public class MemberController {
 	private PasswordEncoder passwordEncoder;
 	
 	// 로그인
-	@PreAuthorize("isAnonymous()")
 	@RequestMapping("/login")
 	public String loginPage(HttpServletRequest request, Authentication authentication, RedirectAttributes rttr) {
 		String uri = request.getHeader("Referer"); // 로그인 전 사용자가 보던 페이지
@@ -98,6 +97,39 @@ public class MemberController {
 		return "redirect:/";
 	}// ----- 회원가입 관련 끝 -------
 	
+	// 아이디 비밀번호 찾기
+	// 아이디 찾기 페이지
+	@PreAuthorize("isAnonymous()")
+	@GetMapping("/findMemberInfo")
+	public String findMemberInfo() {
+		return "member/findMemberInfo";
+	}
+	
+	// 아이디 찾기 처리
+	@PreAuthorize("isAnonymous()")
+	@PostMapping("/findMemberId")
+	public String submitFindMemberInfo(MemberVO vo, RedirectAttributes rttr) {
+		String message = mailSendService.findId(vo.getEmail(), vo.getMemberName());
+		if(!message.contains("전송")) {
+			rttr.addFlashAttribute("boardResult", message);
+			return "redirect:/findMemberInfo";
+		}
+		rttr.addFlashAttribute("boardResult", message);
+		return "redirect:/login";
+	}
+	
+	// 비밀번호 재발급 처리
+	@PreAuthorize("isAnonymous()")
+	@PostMapping("/resetPassword")
+	public String passwordReset(MemberVO vo, RedirectAttributes rttr) {
+		String message = mailSendService.resetPassword(vo.getEmail(), vo.getMemberId());
+		if(!message.contains("전송")) {
+			rttr.addFlashAttribute("boardResult", message);
+			return "redirect:/findMemberInfo";
+		}
+		rttr.addFlashAttribute("boardResult", message);
+		return "redirect:/login";
+	} // 아이디 비밀번호 찾기 끝
 	
 	// 마이페이지
 	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")

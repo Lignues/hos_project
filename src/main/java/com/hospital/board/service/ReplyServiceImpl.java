@@ -24,6 +24,11 @@ public class ReplyServiceImpl implements ReplyService {
 	public ReplyPageDTO replyList(Long bno, Criteria criteria) {
 		return new ReplyPageDTO(replyRepository.getReplyCount(bno), replyRepository.replyList(bno, criteria));
 	}
+	
+	@Override
+	public ReplyPageDTO replyListById(String replyer, Criteria criteria) {
+		return new ReplyPageDTO(replyRepository.getReplyCountById(replyer), replyRepository.replyListById(replyer, criteria));
+	}
 
 	@Transactional
 	@Override
@@ -56,6 +61,4 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyRepository.deleteReplyByBno(bno);
 	}
 
-	
-	
 }

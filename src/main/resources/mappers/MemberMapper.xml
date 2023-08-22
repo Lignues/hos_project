@@ -44,9 +44,9 @@
 	where memberId = #{memberId}
   </update>
   
-  <select id="selectByEmail" resultType="string">
-	select memberId from hos_member 
-	where email=#{email}
+  <select id="selectByEmailAndName" resultType="memberVO">
+	select * from hos_member 
+	where email=#{email} and memberName=#{memberName}
   </select>
   
 </mapper>

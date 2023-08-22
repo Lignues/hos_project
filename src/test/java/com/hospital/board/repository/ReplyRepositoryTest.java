@@ -24,6 +24,13 @@ public class ReplyRepositoryTest extends appTest{
 		List<ReplyVO> replyList = replyRepository.replyList(2L, new Criteria());
 		System.out.println(replyList);
 	}
+	
+	@Test
+	@Ignore
+	public void testReplyListById() {
+		List<ReplyVO> replyList = replyRepository.replyListById("scott", new Criteria());
+		System.out.println(replyList);
+	}
 
 	@Test
 	@Ignore
