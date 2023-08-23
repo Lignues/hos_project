@@ -3,38 +3,46 @@
 <%@ include file="../includes/header.jsp" %>
 <div class="container my-5">
 	<div class="card">
-	  <div class="card-header">
-	  	<div class="d-flex justify-content-start">
-	  		${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title}
-	  	</div>
-	  </div>
-	  <div class="card-header">
-	  	<div class="d-flex justify-content-between">
-	  		<div class="${vo.writer=='admin' ? 'text-primary' : ''}">
-		  		${vo.writer}
-	  		</div>
-	  		<div>
-	  			<c:if test="${vo.regDate == vo.updateDate}">
-		  			<tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 작성됨
-		  		</c:if>
-  				<c:if test="${vo.regDate != vo.updateDate}">
-		  			<tf:formatDateTime value="${vo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 수정됨
-  				</c:if>
-	  		</div>
-	  	</div>
-	  </div>
-  		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
-		    <div class="card-body">
-	  			${vo.content}
-		    </div>
-  		</sec:authorize>
-  		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"><!-- 권한때문에 !가 안먹는다 -->
-		    <div class="card-header">
-	  			<br><br><br><br><p class="text-center"><b>🔒 비밀글입니다. 작성자와 관리자만 내용을 확인할 수 있습니다. 🔒</b></p><br><br><br><br>
-  			</div>
-  		</sec:authorize>
+		<div class="card-header">
+			<div class="d-flex justify-content-start">${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title}
+			</div>
+		</div>
+		<div class="card-header">
+			<div class="d-flex justify-content-between">
+				<div class="${vo.writer=='admin' ? 'text-primary' : ''}">
+					${vo.writer}
+				</div>
+				<div>
+					조회수 : ${vo.views}회&nbsp;
+					<c:if test="${vo.regDate == vo.updateDate}">
+						<tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 작성됨
+		  			</c:if>
+					<c:if test="${vo.regDate != vo.updateDate}">
+						<tf:formatDateTime value="${vo.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/> 수정됨
+  					</c:if>
+				</div>
+			</div>
+		</div>
+		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+			<div class="imageView">
+			</div>
+			<div class="card-body">
+				${vo.content}
+			</div>
+		</sec:authorize>
+		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"><!-- 권한때문에 !가 안먹는다 -->
+			<div class="card-header">
+				<br><br><br><br>
+				<p class="text-center">
+					<b>🔒 비밀글입니다. 작성자와 관리자만 내용을 확인할 수 있습니다. 🔒</b>
+				</p>
+				<br><br><br><br>
+			</div>
+		</sec:authorize>
 	</div>
 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+		<div class="attachDownloadList dropdown float-right">
+		</div>
 		<div class="text-center mt-3">
 			<h4>
 				<button class="likeBtn btn btn-outline-primary">👍 ${vo.likeHit}</button>
@@ -45,11 +53,11 @@
 		<span class="float-left m-2">🔒 비밀글입니다</span>
 	</c:if>
 	<span class="float-right m-2">
-	  <sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')">
-		  <button type="button" class="modifyBtn btn btn-primary">수정</button>
-		  <button type="button" class="deleteBtn btn btn-primary">삭제</button>
-	  </sec:authorize>
-	  <button type="button" class="listBtn btn btn-primary">목록으로</button>
+		<sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')">
+			<button type="button" class="modifyBtn btn btn-primary">수정</button>
+			<button type="button" class="deleteBtn btn btn-primary">삭제</button>
+		</sec:authorize>
+		<button type="button" class="listBtn btn btn-primary">목록으로</button>
 	</span>
 </div>
 
@@ -80,7 +88,6 @@
 		  	</div>
 		  </div>
 		  <div class="card-body">
-		  	리플
 		  </div>
 		</div>
 	</div>
@@ -100,10 +107,10 @@
 		  </div>
 		  <div class="form-group">
 		  	<sec:authorize access="isAuthenticated()">
-		  		<textarea class="form-control" name="content" rows="4" cols="200" placeholder="댓글을 작성하세요"></textarea>
+		  		<textarea class="form-control" name="content" rows="4" cols="200" placeholder="댓글을 작성하세요" style="resize: none;"></textarea>
 		  	</sec:authorize>	
 		  	<sec:authorize access="isAnonymous()">
-		  		<textarea class="form-control" name="goLogin" rows="4" cols="200" placeholder="댓글을 작성하시려면 로그인 해 주세요"></textarea>
+		  		<textarea class="form-control" name="goLogin" rows="4" cols="200" placeholder="댓글을 작성하시려면 로그인 해 주세요" style="resize: none;"></textarea>
 		  	</sec:authorize>	
 		  </div>
 		</div>

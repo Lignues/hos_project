@@ -1,10 +1,10 @@
+drop table hos_attach;
 drop table persistent_logins;
 drop table hos_reply;
 drop table article_like;
 drop table hos_board;
 drop table hos_member_auth;
 drop table hos_member;
-
 
 create table hos_board(
     bno number(10,0),
@@ -64,8 +64,8 @@ create table hos_member(
     memberId varchar2(100) primary key, 
     memberPwd varchar2(200) not null, 
     memberName varchar(100) not null, 
-    email varchar(200) not null, 
-    regDate date default sysdate, 
+    email varchar(200) not null,
+    regDate date default sysdate,
     updateDate date default sysdate, 
     enabled char(1) default '1'
 );
@@ -92,6 +92,8 @@ commit;
 
 -- 비밀글
 alter table hos_board add secretContent NUMBER(1) default 0;
+-- 조회수
+alter table hos_board add views NUMBER default 0;
 -- 추천
 alter table hos_board add likeHit number default 0; 
 -- 댓글수
@@ -108,9 +110,23 @@ create table article_like(
     FOREIGN KEY (BNO) REFERENCES hos_board(BNO) ON DELETE CASCADE 
 );
 
+-- 첨부파일
+create table hos_attach(
+    uuid varchar2(100) not null, 
+    uploadPath varchar2(200) not null, 
+    fileName varchar2(100) not null, 
+    fileType char(1) default 'I', 
+    bno number(10,0)
+);
+
+alter table hos_attach add constraint pk_attach primary key(uuid);
+alter table hos_attach add constraint fk_hos_attach 
+foreign key(bno) references hos_board(bno);
+
 delete from hos_member where memberid = '';
 delete from hos_member_auth where memberid = 'test';
 
+select * from hos_attach;
 select * from article_like;
 select * from hos_board;
 select * from hos_reply;

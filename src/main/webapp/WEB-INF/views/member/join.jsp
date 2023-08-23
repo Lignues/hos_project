@@ -66,13 +66,13 @@
 			
 				<label class="ml-2">
 					<input type="checkbox" id="agreeService"> 서비스 이용 약관(필수)
-					<button type="button" class="serviceModal btn btn-primary" data-toggle="modal" data-target="#serviceModal">보기</button>
+					<button type="button" class="modalBtn btn btn-primary" data-toggle="modal" data-target="#agreeModal" data-agree="service">보기</button>
 				</label>
 			</div>
 			<div class="form-group">
 				<label class="ml-2">
 					<input type="checkbox" id="agreeData"> 개인정보 수집 및 이용 동의(필수)
-					<button type="button" class="dataModal btn btn-primary" data-toggle="modal" data-target="#dataModal">보기</button>
+					<button type="button" class="modalBtn btn btn-primary" data-toggle="modal" data-target="#agreeModal" data-agree="data">보기</button>
 				</label>
 			</div>
 			<button type="button" class="join btn btn-outline-primary">회원가입</button>
@@ -83,7 +83,7 @@
 <%@ include file="../includes/footer.jsp" %>
 
 <!-- The Modal -->
-  <div class="modal" id="serviceModal">
+  <div class="modal" id="agreeModal">
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Modal Header -->
@@ -93,28 +93,7 @@
         </div>
         <!-- Modal body -->
         <div class="modal-body">
-          <b>서비스 이용 약관 내용</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </div>
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal" id="dataModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">개인정보 이용 동의</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <!-- Modal body -->
-        <div class="modal-body">
-          <b>개인정보 이용 동의 내용</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          약관 들어갈 자리
         </div>
         <!-- Modal footer -->
         <div class="modal-footer">
@@ -364,6 +343,23 @@ $(function(){
 		}
 		
 		$('#joinForm').submit();
+	});
+	
+	// 약관창 모달
+	$('.modalBtn').click(function(){
+		let agree = $(this).data('agree');
+		let modalTitle = $('.modal-title');
+		let modalBody = $('.modal-body');
+		let longSentence = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+		
+		if(agree=='service'){
+			modalTitle.html('서비스 이용 약관');
+			modalBody.html('서비스 이용 약관 내용'+longSentence);
+		}else if(agree=='data'){
+			modalTitle.html('개인정보 수집 안내');
+			modalBody.html('개인정보 수집 및 이용 동의 내용'+longSentence);
+		}
+		
 	});
 	
 });

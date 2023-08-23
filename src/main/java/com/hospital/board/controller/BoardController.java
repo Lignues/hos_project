@@ -1,7 +1,10 @@
 package com.hospital.board.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.hospital.board.domain.BoardAttachVO;
 import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.LikeDTO;
@@ -60,6 +64,7 @@ public class BoardController {
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/write")
 	public String write(BoardVO vo, RedirectAttributes rttr) {
+		System.out.println(vo.getAttachList());
 		boardService.write(vo);
 		rttr.addAttribute("bno", vo.getBno()); // useGeneratedKeys 사용으로 bno 가져옮
 		rttr.addFlashAttribute("boardResult", "글 작성이 완료되었습니다");
@@ -99,7 +104,7 @@ public class BoardController {
 			replyService.deleteReplyByBno(bno);
 		}
 		if(boardService.delete(bno)==1) {
-			rttr.addFlashAttribute("boardResult", bno+"번 글이 삭제 되었습니다.");
+			rttr.addFlashAttribute("boardResult", bno + "번 글이 삭제 되었습니다.");
 		}
 		return "redirect:/board/list";
 	}
@@ -123,5 +128,12 @@ public class BoardController {
 	@ResponseBody
 	public ResponseEntity<Integer> hitRenew(Long bno){
 		return ResponseEntity.ok(boardService.get(bno).getLikeHit());
+	}
+	
+	// 첨부파일 조회
+	@GetMapping("/getAttachList")
+	@ResponseBody
+	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
+		return new ResponseEntity<List<BoardAttachVO>>(boardService.getattachList(bno), HttpStatus.OK);
 	}
 }

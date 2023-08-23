@@ -30,4 +30,6 @@ public interface BoardRepository {
 	void updateLikeCnt(@Param("bno") Long bno, @Param("amount") int amount);
 	
 	List<BoardVO> showListById(@Param("criteria") Criteria criteria, @Param("writer") String writer);
+	
+	void increaseViews(Long bno);
 }

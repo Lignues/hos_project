@@ -28,7 +28,7 @@
 		<![CDATA[ 
  	   	select * from  
  		(select /*+INDEX_DESC(hos_board pk_hosboard)*/  
- 	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent
+ 	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent, views
  	    		FROM hos_board where 
  	    ]]> 
  	    <include refid="criteria"/> 
@@ -42,7 +42,7 @@
 		<![CDATA[
   	   	select * from
   		(select /*+INDEX_DESC(hos_board pk_hosboard)*/ 
-  	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent 
+  	    		ROWNUM as rn, BNO, TITLE, CONTENT, WRITER, replyCnt, regDate, updateDate, likeHit, secretContent, views
   	    		FROM hos_board where 
  			rownum <= #{criteria.maxRow} and WRITER = #{writer}
  		    ) where rn > #{criteria.minRow}
@@ -84,5 +84,11 @@
 	<update id="updateLikeCnt">
 		update hos_board set likeHit = likeHit + #{amount} where bno = #{bno}
 	</update>
+	
+	<update id="increaseViews">
+		update hos_board set views = views + 1 where bno = #{bno}
+	</update>
+	
+	
 	
 </mapper>
