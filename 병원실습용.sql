@@ -133,3 +133,39 @@ select * from hos_reply;
 select * from hos_member;
 select * from hos_member_auth;
 select * from persistent_logins;
+
+
+
+-- ########신규기능########
+
+-- 신고게시판
+drop table hos_board_report;
+
+create table hos_board_report(
+    rnum number(10,0) primary key,
+    bno number(10,0) not null, 
+    reportContent varchar2(50) not null,
+    reporter varchar2(12) not null,
+    
+    constraint fk_hosboard_reportBno foreign key(bno) references hos_board(bno) on delete cascade,
+    constraint fk_hosboard_reporter foreign key(reporter) references hos_member(memberId)
+);
+
+-- 중복신고 방지(같은 글 같은 제보자가 불가
+ALTER TABLE hos_board_report
+ADD CONSTRAINT uk_reporter_bno UNIQUE (bno, reporter);
+
+drop sequence seq_hosreport;
+create sequence seq_hosreport;
+
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'test');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', '4작성자');
+
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 2, '2신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 2, '2신고번이다', 'scott');
+
+commit;
+
+select * from hos_board_report;

@@ -36,6 +36,21 @@
 	$(document).ajaxSend(function(e, xhr, options){ // 모든 ajax요청에 토큰 전송
 		xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 	})
+	
+	function checkExtension(fileName, fileSize){
+		let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");	// 업로드 불가능한 파일 형식 지정
+		let maxSize = 1048576*50; // 50MB
+		if(fileSize > maxSize) {
+			alert('파일크기는 최대 50MB까지 업로드 가능합니다.');
+			return false; 
+		}
+		
+		if(regex.test(fileName)) {
+			alert('해당 종류의 파일은 업로드 할 수 없습니다.');
+			return false; 
+		}
+		return true;
+	}
 </script>
 </head>
 <body>

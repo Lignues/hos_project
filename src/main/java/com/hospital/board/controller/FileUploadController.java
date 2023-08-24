@@ -17,6 +17,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +38,7 @@ import net.coobird.thumbnailator.Thumbnailator;
 public class FileUploadController {
 
 	// 파일 업로드
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/upload")
 	public ResponseEntity<List<BoardAttachVO>> upload(@RequestParam("uploadFile") MultipartFile[] multipartFiles) {
 		List<BoardAttachVO> list = new ArrayList<BoardAttachVO>(); 
@@ -92,6 +94,7 @@ public class FileUploadController {
 	}
 
 	// 파일 삭제
+	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/deleteFile")
 	public ResponseEntity<String> deleteFile(BoardAttachVO vo){
 		File file = new File("C:/storage/" + vo.getUploadPath(), vo.getUuid() + "_" + vo.getFileName());

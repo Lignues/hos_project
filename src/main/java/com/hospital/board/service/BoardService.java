@@ -27,5 +27,7 @@ public interface BoardService {
 	
 	boolean hitLike(LikeDTO likeDTO);
 	
-	List<BoardAttachVO> getattachList(Long bno);
+	List<BoardAttachVO> getAttachList(Long bno);
+	
+	BoardAttachVO getAttach(String uuid);
 }

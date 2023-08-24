@@ -18,10 +18,16 @@ public class MemberRepositoryTest extends appTest{
 	private MemberRepository memberRepository;
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void test() {
 		MemberVO vo = MemberVO.builder().memberId("admin").memberPwd("1234").memberName("김관리").email("test@naver.com").build();
 		memberRepository.insert(vo);
 	}
 
+	@Test
+//	@Ignore
+	public void testRead() {
+		MemberVO vo = memberRepository.read("scott");
+		System.out.println(vo);
+	}
 }

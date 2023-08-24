@@ -42,6 +42,10 @@ $(function(){
 		let files = this.files; // files는 type이 file인 input의 속성임. 첨부된 파일들을 나타냄 
 		
 		for(let f of files){
+			if(!checkExtension(f.name, f.size)){
+				$(this).val('');
+				return;
+			}
 			formData.append('uploadFile', f);
 		}
 		
@@ -53,7 +57,6 @@ $(function(){
 			data : formData,
 			dataType : 'json',
 			success : function(attachList){
-				uploadResultList = attachList;
 				showUploadResult(attachList);
 			}
 		});
@@ -95,7 +98,7 @@ $(function(){
 	let showUploadResult = function(attachList){
 		let fileList = '';
 		$.each(attachList, function(i,e){
-			// uploadResultList.push(e); // ############### 넣어야하나 뺴야하나 확인 ###############
+			uploadResultList.push(e);
 			fileList += `
 			<li class="list-group-item" data-uuid="${e.uuid}">
 				<div class="float-left">`

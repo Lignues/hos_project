@@ -16,6 +16,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -27,6 +28,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @MapperScan(value = {"com.hospital.member.repository", "com.hospital.board.repository"})
 @PropertySource(value = {"classpath:/database/oracleDB.properties", "classpath:/database/emailDB.properties"}) // emailDB ignore해놨으니 파일 만들어서 사용
 @EnableTransactionManagement
+@EnableScheduling
 public class RootConfig {
 
 	@Value("${db.driver}")

@@ -26,7 +26,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.Pagination;
+import com.hospital.board.domain.ReportDTO;
 import com.hospital.board.service.BoardService;
+import com.hospital.board.service.ReportService;
 import com.hospital.common.exception.PasswordMismatchException;
 import com.hospital.member.domain.MemberVO;
 import com.hospital.member.service.MailSendService;
@@ -43,6 +45,9 @@ public class MemberController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ReportService reportService;
 	
 	@Autowired
 	private MailSendService mailSendService;
@@ -145,10 +150,13 @@ public class MemberController {
 			List<BoardVO> list = boardService.showListById(criteria, memberId); // 작성글
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
-		}else if (path.equals("temp")) {
-			System.out.println("아직오면안된다");
+		}else if (path.equals("report")) {
+			criteria.setAmount(5);
+			List<ReportDTO> list = reportService.showReportList();
+			model.addAttribute("list", list);
+			model.addAttribute("p", new Pagination(criteria, reportService.totalReportCount()));
 		}
-		return "member/"+path;
+		return "member/" + path;
 	}
 	
 	// 회원정보 변경

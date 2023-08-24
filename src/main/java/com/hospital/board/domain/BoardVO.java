@@ -37,6 +37,6 @@ public class BoardVO {
 	private int secretContent;
 	private int views;
 	
-	private List<BoardAttachVO> attachList; 
+	private List<BoardAttachVO> attachList;
 	
 }

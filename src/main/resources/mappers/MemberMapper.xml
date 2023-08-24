@@ -25,7 +25,7 @@
   	select h.memberId, memberPwd, memberName, email, enabled,
   		regDate, updateDate, a.auth 
   	from hos_member h left outer join hos_member_auth a
-	on h.memberId = a.memberId where h.memberId=#{memberId}
+	on h.memberId = a.memberId where h.memberId = #{memberId}
   </select>
     
   <insert id="insert">
@@ -35,7 +35,7 @@
   
   <select id="selectById" resultType="memberVO">
 	select memberId, memberPwd, memberName, email
-	from hos_member where memberId=#{memberId}
+	from hos_member where memberId = #{memberId}
 	</select>
 	
   <update id="update">
@@ -46,7 +46,7 @@
   
   <select id="selectByEmailAndName" resultType="memberVO">
 	select * from hos_member 
-	where email=#{email} and memberName=#{memberName}
+	where email = #{email} and memberName = #{memberName}
   </select>
   
 </mapper>

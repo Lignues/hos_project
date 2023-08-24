@@ -17,4 +17,15 @@
 		select * from hos_attach where bno = #{bno}
 	</select>
 	
+	<select id="selectByUuid" resultType="boardAttachVO">
+		select * from hos_attach where uuid = #{uuid}
+	</select>
+	
+	<delete id="deleteAll">
+		delete from hos_attach where bno = #{bno}
+	</delete>
+	
+	<select id="pastFiles" resultType="boardAttachVO">
+		select * from hos_attach where uploadPath = to_char(sysdate-1, 'yyyy/MM/dd')
+	</select>
 </mapper>

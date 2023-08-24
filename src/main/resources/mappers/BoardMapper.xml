@@ -50,7 +50,7 @@
 	</select>
 
 	<select id="get" resultType="boardVO">
-		select * from hos_board where bno=#{bno}
+		select * from hos_board where bno = #{bno}
 	</select>
 
 	<select id="getTotalCount" resultType="int">
@@ -70,7 +70,7 @@
 	</insert>
 	
 	<update id="modify">
-		update hos_board set title=#{title}, content=#{content}, updateDate=sysdate, secretContent=#{secretContent} where bno=#{bno}
+		update hos_board set title = #{title}, content = #{content}, updateDate = sysdate, secretContent = #{secretContent} where bno = #{bno}
 	</update>
 	
 	<delete id="delete">
@@ -79,6 +79,7 @@
 
 	<update id="updateReplyCnt">
 		update hos_board set replyCnt = replyCnt + #{amount} where bno = #{bno}
+<!-- 		update hos_board set replyCnt = (select count(rno) from hos_reply where bno = #{bno}) where bno = #{bno} --> <!-- 서버부하가 더 높아서 안쓰는게 나을거 같음 -->
 	</update>
 	
 	<update id="updateLikeCnt">
@@ -88,7 +89,5 @@
 	<update id="increaseViews">
 		update hos_board set views = views + 1 where bno = #{bno}
 	</update>
-	
-	
 	
 </mapper>

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.ReplyPageDTO;
 import com.hospital.board.domain.ReplyVO;
+import com.hospital.board.repository.BoardAttachRepository;
 import com.hospital.board.repository.BoardRepository;
 import com.hospital.board.repository.ReplyRepository;
 
@@ -19,6 +19,9 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Autowired
 	private BoardRepository boardRepository;
+	
+	@Autowired
+	private BoardAttachRepository boardAttachRepository;
 	
 	@Override
 	public ReplyPageDTO replyList(Long bno, Criteria criteria) {

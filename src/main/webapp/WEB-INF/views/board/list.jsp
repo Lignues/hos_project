@@ -31,7 +31,11 @@
 		    <tbody>
 		      <tr class="text-center">
 		        <td>${vo.bno}</td>
-		        <td class="text-left"><a class="go text-dark" href="${vo.bno}">${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title} ${vo.replyCnt==0 ? '' : [vo.replyCnt]}</a></td>
+		        <td class="text-left">
+		        	<a class="go text-dark" href="${vo.bno}">
+		        		${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title} ${vo.replyCnt==0 ? '' : [vo.replyCnt]}
+		        	</a>
+		        </td>
 		        <td>${vo.views}</td>
 		        <td>${vo.likeHit}</td>
 		        <td>${vo.writer}</td>

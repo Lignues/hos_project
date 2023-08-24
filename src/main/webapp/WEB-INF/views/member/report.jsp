@@ -6,18 +6,20 @@
 <div class="container-sm mt-3">
 	<div class="row">
 		<div class="col-3">
-			<h2 class="m-3">최근 작성글</h2>
+			<h2 class="m-3">신고내역##나중에 신고자용과 관리자용 분리할것##</h2>
 		</div>
 	</div>
 	<table class="table-sm table-bordered table-hover table-striped">
 		<thead>
 			<tr class="text-center">
+				<th>신고번호</th>
+				<th>신고자</th>
+				<th class="w-50">신고내역</th>
 				<th>글번호</th>
-				<th class="w-50">제목</th>
-				<th>조회수</th>
-				<th>추천수</th>
-				<th>글쓴이</th>
-				<th>작성일</th>
+				<th>작성자</th>
+				<th>글제목</th>
+				<th>글내용</th>
+				<th>처리상태</th>
 			</tr>
 		</thead>
 
@@ -25,16 +27,18 @@
 			<c:forEach items="${list}" var="vo">
 				<tbody>
 					<tr class="text-center">
+						<td>${vo.rnum}</td>
+						<td>${vo.reporter}</td>
+						<td>${vo.reportContent}</td>
 						<td>${vo.bno}</td>
 						<td class="text-left">
 							<a class="go text-dark" href="${vo.bno}">
-								${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title} ${vo.replyCnt==0 ? '' : [vo.replyCnt]}
+								${vo.title}
 							</a>
 						</td>
-						<td>${vo.views}</td>
-						<td>${vo.likeHit}</td>
-						<td>${vo.writer}</td>
-						<td><tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td>${vo.writer} 글내용과 글 제목은 클릭시 해당 글 아래 출력하도록 할것(댓글 수정창처럼)</td>
+						<td>${vo.content}</td>
+						<td>${vo.handle} 드롭다운으로 바꿔서 누르면 처리하도록 만들것</td><!-- ############# script부분 하나도 안고쳤다 다시해라 ################### -->
 					</tr>
 				</tbody>
 			</c:forEach>

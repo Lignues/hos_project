@@ -1,6 +1,8 @@
 package com.hospital.board.service;
 
+import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,9 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Autowired
 	private ArticleLikeRepository articleLikeRepository;
+	
+	@Autowired
+	private ReplyRepository replyRepository;
 	
 	@Override
 	public List<BoardVO> showList(Criteria criteria) {
@@ -57,13 +62,39 @@ public class BoardServiceImpl implements BoardService {
 		return result;
 	}
 
+	@Transactional
 	@Override
 	public int modify(BoardVO vo) {
+		List<BoardAttachVO> attachList = vo.getAttachList();
+		
+		if(attachList!=null) {
+			// 기존 파일 삭제
+			List<BoardAttachVO> delList = attachList.stream().filter(attach -> attach.getBno()!=null).collect(Collectors.toList());
+			boardAttachRepository.deleteFiles(delList); // 파일 삭제
+			delList.forEach(attach->{
+				boardAttachRepository.delete(attach.getUuid()); // 데이터베이스 기록 삭제 
+			});
+			
+			// 새로운 파일 추가 
+			attachList.stream().filter(attach -> attach.getBno()==null).forEach(board->{
+				board.setBno(vo.getBno());
+				boardAttachRepository.insert(board); // 데이터베이스 기록 
+			});
+		}
 		return boardRepository.modify(vo);
 	}
 
+	@Transactional
 	@Override
 	public int delete(Long bno) {
+		List<BoardAttachVO> attachList = getAttachList(bno);
+		if(replyRepository.replyList(bno, new Criteria())!=null) { // 댓글이 있으면 삭제
+			replyRepository.deleteReplyByBno(bno);
+		}
+		if(attachList!=null) { // 첨부파일이 있으면 삭제
+			boardAttachRepository.deleteFiles(attachList);
+			boardAttachRepository.deleteAll(bno);
+		}
 		return boardRepository.delete(bno);
 	}
 
@@ -93,8 +124,13 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardAttachVO> getattachList(Long bno) {
+	public List<BoardAttachVO> getAttachList(Long bno) {
 		return boardAttachRepository.selectByBno(bno);
 	}
 
+	@Override
+	public BoardAttachVO getAttach(String uuid) {
+		return boardAttachRepository.selectByUuid(uuid);
+	}
+	
 }

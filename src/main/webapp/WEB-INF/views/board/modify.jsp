@@ -33,18 +33,31 @@
 				<label class="custom-control-label" for="secretSwitch"> 🔒 비밀글로 등록하기</label>
 			</div>
 			<span class="float-right m-2">
-				<button type="button" class="modifyBtn btn btn-primary">수정</button>
-				<button type="button" class="listBtn btn btn-primary">목록으로</button>
+				
 			</span>
 			<input type="hidden" name="bno" value="${vo.bno }">
 		</form>
+		<div class="form-group container">
+			<div class="custom-file form-control mt-3">
+				<input type="file" class="custom-file-input" id="customFile" name="uploadFile" multiple="multiple">
+				<label class="custom-file-label" for="customFile">파일 선택</label>
+			</div>
+			<div class="uploadResultDiv form-group mt-2"><br>
+				<ul class="list-group">
+				</ul>
+			</div>
+			<span class="float-right mt-4">
+				<button type="button" class="modifyBtn btn btn-primary">수정</button>
+				<button type="button" class="listBtn btn btn-primary">목록으로</button>
+			</span>
+		</div>
 	</div>
 </div>
 
 <input type="hidden" name="secret" value="${vo.secretContent}">
-<input type="hidden" name="pageNum" value="${param.pageNum}">
-<input type="hidden" name="amount" value="${param.amount}">
-<input type="hidden" name="type" value="${param.type}">
-<input type="hidden" name="keyword" value="${param.keyword}"><!-- 이거 써지긴 하나? -->
+<input type="hidden" name="pageNum" value="${criteria.pageNum}">
+<input type="hidden" name="amount" value="${criteria.amount}">
+<input type="hidden" name="type" value="${criteria.type}">
+<input type="hidden" name="keyword" value="${criteria.keyword}"><!-- 이거 써지긴 하나? -->
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/modify.js"></script>

@@ -5,7 +5,7 @@
 		<div class="btn-group">
 		  <button type="button" id="modifyForm" class="btn btn-outline-primary">회원정보 변경</button>
 		  <button type="button" id="recentForm" class="btn btn-outline-primary">최근 작성글</button>
-		  <button type="button" id="tempForm" class="btn btn-outline-primary">공사중</button>
+		  <button type="button" id="reportForm" class="btn btn-outline-primary">게시글 신고</button>
 		</div>
 	</form>
 </div>
@@ -17,8 +17,8 @@ $(function(){
 	let path = $('[name="path"]').val();
 	if(path=='recent'){
 		$('#recentForm').attr('class', 'btn btn-outline-primary active');
-	}else if(path=='temp'){
-		$('#tempForm').attr('class', 'btn btn-outline-primary active');
+	}else if(path=='report'){
+		$('#reportForm').attr('class', 'btn btn-outline-primary active');
 	}else{
 		$('#modifyForm').attr('class', 'btn btn-outline-primary active');
 	}
@@ -31,8 +31,8 @@ $(function(){
 	$('#recentForm').click(function(){
 		myPageForm.attr('action', '${ctxPath}/mypage/recent').submit();
 	});
-	$('#tempForm').click(function(){
-		myPageForm.attr('action', '${ctxPath}/mypage/temp').submit();
+	$('#reportForm').click(function(){
+		myPageForm.attr('action', '${ctxPath}/mypage/report').submit();
 	});
 });
 </script>

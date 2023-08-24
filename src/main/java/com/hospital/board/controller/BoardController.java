@@ -2,6 +2,7 @@ package com.hospital.board.controller;
 
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,9 +36,6 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
-	@Autowired
-	private ReplyService replyService;
 	
 	// 글목록 조회
 	@GetMapping("/list")
@@ -87,7 +84,16 @@ public class BoardController {
 	// 글 수정 처리
 	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')")
 	@PostMapping("/modify")
-	public String modify(BoardVO vo, RedirectAttributes rttr) {
+	public String modify(BoardVO vo, RedirectAttributes rttr, Criteria criteria) {
+		List<BoardAttachVO> attachList = vo.getAttachList();
+		
+		List<BoardAttachVO> insertList = attachList.stream()
+			.filter(attach -> attach.getBno()==null).collect(Collectors.toList());
+		log.info("새로 추가 : " + insertList);
+		
+		List<BoardAttachVO> delList = attachList.stream()
+			.filter(attach -> attach.getBno()!=null).collect(Collectors.toList());
+		log.info("삭제 목록 : " + delList);
 		if(boardService.modify(vo)==1) {
 			rttr.addAttribute("bno", vo.getBno());
 			rttr.addFlashAttribute("boardResult", "수정되었습니다.");
@@ -96,13 +102,9 @@ public class BoardController {
 	}
 	
 	// 글 삭제
-	@Transactional
 	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_ADMIN')")
 	@PostMapping("/delete")
 	public String delete(Long bno, RedirectAttributes rttr, String writer) {
-		if (replyService.replyList(bno, new Criteria())!=null) { // 댓글이 있으면 해당 bno의 모든 댓글 삭제
-			replyService.deleteReplyByBno(bno);
-		}
 		if(boardService.delete(bno)==1) {
 			rttr.addFlashAttribute("boardResult", bno + "번 글이 삭제 되었습니다.");
 		}
@@ -134,6 +136,13 @@ public class BoardController {
 	@GetMapping("/getAttachList")
 	@ResponseBody
 	public ResponseEntity<List<BoardAttachVO>> getAttachList(Long bno){
-		return new ResponseEntity<List<BoardAttachVO>>(boardService.getattachList(bno), HttpStatus.OK);
+		return new ResponseEntity<List<BoardAttachVO>>(boardService.getAttachList(bno), HttpStatus.OK);
+	}
+	
+	// 첨부파일 세부정보
+	@GetMapping("/getAttachFileInfo")
+	@ResponseBody
+	public ResponseEntity<BoardAttachVO> getAttach(String uuid){
+		return new ResponseEntity<BoardAttachVO>(boardService.getAttach(uuid), HttpStatus.OK);
 	}
 }
