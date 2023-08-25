@@ -136,7 +136,7 @@ public class MemberController {
 		return "redirect:/login";
 	} // 아이디 비밀번호 찾기 끝
 	
-	// 마이페이지
+	// 마이페이지(정보변경, 최근작성글, 신고내역)
 	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
 	@GetMapping({"mypage" ,"/mypage/{path}"})
 	public String mypage(Model model, Principal principal, @PathVariable(required = false) String path, Criteria criteria) {
@@ -145,19 +145,41 @@ public class MemberController {
 			MemberVO vo = memberService.read(memberId);
 			model.addAttribute("vo", vo);
 			return "member/mypage";
-		}else if (path.equals("recent")) {
+		}else if (path.equals("recent")) { // ####################이것도 잘못됐다 20페이지씩 움직임################
 			criteria.setAmount(5);
 			List<BoardVO> list = boardService.showListById(criteria, memberId); // 작성글
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
 		}else if (path.equals("report")) {
 			criteria.setAmount(5);
-			List<ReportDTO> list = reportService.showReportList();
+			List<ReportDTO> list;
+			int totalCount = 0;
+			if(memberId.equals("admin")) { // 관리자-신고내역 다 보기
+				list = reportService.showReportList(criteria);
+				totalCount = reportService.totalReportCount();
+			}else { // 관리자가 아닌 사람-자기가 신고한 내역만 보기
+				list = reportService.showReportListByReporter(criteria, memberId);
+				totalCount = reportService.totalReportCountById(memberId);
+			}
 			model.addAttribute("list", list);
-			model.addAttribute("p", new Pagination(criteria, reportService.totalReportCount()));
+			model.addAttribute("p", new Pagination(criteria, totalCount));
 		}
 		return "member/" + path;
 	}
+	
+	// 신고 처리하기
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping(value = "/report/handle", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<String> reportHandling(Long bno, String handle){
+		if(handle.equals("신고 거부")) {
+			System.out.println("거부한거" +reportService.handleReport(bno, 1));
+		}else if(handle.equals("삭제 완료")) {
+			System.out.println("삭제한거"+reportService.handleReport(bno, 2));
+		}
+		return new ResponseEntity<String>("게시글 처리 완료", HttpStatus.OK);
+	}
+	
 	
 	// 회원정보 변경
 	@PreAuthorize("isAuthenticated()")

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hospital.board.domain.BoardAttachVO;
+import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.ReportDTO;
 import com.hospital.board.domain.ReportVO;
 import com.hospital.board.repository.BoardAttachRepository;
@@ -30,8 +31,8 @@ public class ReportServiceImpl implements ReportService {
 	private BoardAttachRepository boardAttachRepository;
 	
 	@Override
-	public List<ReportDTO> showReportList() {
-		return reportRepository.showReportList();
+	public List<ReportDTO> showReportList(Criteria criteria) {
+		return reportRepository.showReportList(criteria);
 	}
 
 	@Override
@@ -42,21 +43,33 @@ public class ReportServiceImpl implements ReportService {
 	@Transactional
 	@Override
 	public int handleReport(Long bno, int handle) { // handle값 0=미처리, 1=처리완료(삭제안함), 2=처리완료(삭제)
-		if (handle==2) {
+		if(handle==2) {
 			List<BoardAttachVO> attachList = boardAttachRepository.selectByBno(bno);
 			if(attachList!=null) {
 				boardAttachRepository.deleteFiles(attachList);
 				boardAttachRepository.deleteAll(bno);
 			}
-			replyRepository.deleteReplyByBno(bno);
+			if(replyRepository.getReplyCount(bno)!=0) {
+				replyRepository.deleteReplyByBno(bno);
+			}
+			boardRepository.delete(bno);
 		}
-		boardRepository.delete(bno);
 		return reportRepository.handleReport(bno, handle);
 	}
 
 	@Override
 	public int totalReportCount() {
 		return reportRepository.getTotalReportCount();
+	}
+
+	@Override
+	public List<ReportDTO> showReportListByReporter(Criteria criteria, String reporter) {
+		return reportRepository.showReportListByReporter(criteria, reporter);
+	}
+
+	@Override
+	public int totalReportCountById(String reporter) {
+		return reportRepository.getTotalReportCountById(reporter);
 	}
 
 }

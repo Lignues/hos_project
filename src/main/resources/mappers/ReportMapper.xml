@@ -4,19 +4,34 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hospital.board.repository.ReportRepository">
 
-	<!-- 나중에 다시 쓸거다 -->
-<!-- 	<select id="showReportList" resultType="reportVO"> --> 
-<!-- 		select /*+INDEX_DESC(hos_board_report pk_report)*/ * from hos_board_report -->
-<!-- 	</select> -->
 	<select id="showReportList" resultType="reportDTO">
-	  	select  r.rnum, r.bno, reportContent, reporter, handle,
-	  		b.title, content, writer
-	  	from hos_board_report r left outer join hos_board b
-		on r.bno = b.bno order by r.rnum desc
+		<![CDATA[
+		select * from (
+			select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno
+		    where r.rnum <= #{criteria.maxRow}
+		    order by r.rnum desc
+		) where rnum > #{criteria.minRow}
+		]]>
+	</select>
+    
+	<select id="showReportListByReporter" resultType="reportDTO">
+		<![CDATA[
+		select * from (
+			select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno
+		    where r.rnum <= #{criteria.maxRow} and reporter = #{reporter}
+		    order by r.rnum desc
+		) where rnum > #{criteria.minRow}
+		]]>
     </select>
 	
 	<select id="getTotalReportCount" resultType="int">
 		select count(rnum) from hos_board_report
+	</select>
+	
+	<select id="getTotalReportCountById" resultType="int">
+		select count(rnum) from hos_board_report where reporter = #{reporter}
 	</select>
 	
 	<insert id="report">

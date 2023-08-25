@@ -31,10 +31,10 @@ public class ReplyServiceImplTest extends appTest{
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testInsert() {
 		ReplyVO vo = ReplyVO.builder()
-				.bno(194L).reply("실험2").replyer("scott").build();
+				.bno(4L).reply("실험2").replyer("scott").build();
 		for (int i = 0; i < 102; i++) {
 			replyService.replyWrite(vo);
 		}

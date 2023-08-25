@@ -36,8 +36,7 @@ create table hos_reply(
     ReplyUpdateDate date default sysdate
 );
 
-alter table hos_board add constraint pk_hosboard
-primary key(bno); 
+alter table hos_board add constraint pk_hosboard primary key(bno); 
 alter table hos_reply add constraint pk_hosreply primary key(rno);
 alter table hos_reply add constraint fk_hosreply
 foreign key(bno) references hos_board(bno);
@@ -142,29 +141,33 @@ select * from persistent_logins;
 drop table hos_board_report;
 
 create table hos_board_report(
-    rnum number(10,0) primary key,
+    rnum number(10,0),
     bno number(10,0) not null, 
     reportContent varchar2(50) not null,
     reporter varchar2(12) not null,
+    handle number(1,0) default 0,
     
-    constraint fk_hosboard_reportBno foreign key(bno) references hos_board(bno) on delete cascade,
+    --constraint fk_hosboard_reportBno foreign key(bno) references hos_board(bno),
     constraint fk_hosboard_reporter foreign key(reporter) references hos_member(memberId)
 );
 
--- 중복신고 방지(같은 글 같은 제보자가 불가
+-- pk설정
+alter table hos_board_report add constraint pk_hosReport primary key(rnum);
+
+-- 중복신고 방지(같은 글 같은 제보자가 불가) 안하는게 맞는거같다
 ALTER TABLE hos_board_report
 ADD CONSTRAINT uk_reporter_bno UNIQUE (bno, reporter);
 
 drop sequence seq_hosreport;
 create sequence seq_hosreport;
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'scott');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'test');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 1, '1신고번이다', '4작성자');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'test');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', '4작성자');
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 2, '2신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 2, '2신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 12, '2신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 12, '2신고번이다', 'scott');
 
 commit;
 

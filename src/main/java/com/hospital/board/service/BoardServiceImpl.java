@@ -1,6 +1,5 @@
 package com.hospital.board.service;
 
-import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -88,7 +87,7 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public int delete(Long bno) {
 		List<BoardAttachVO> attachList = getAttachList(bno);
-		if(replyRepository.replyList(bno, new Criteria())!=null) { // 댓글이 있으면 삭제
+		if(replyRepository.getReplyCount(bno)!=0) { // 댓글이 있으면 삭제
 			replyRepository.deleteReplyByBno(bno);
 		}
 		if(attachList!=null) { // 첨부파일이 있으면 삭제

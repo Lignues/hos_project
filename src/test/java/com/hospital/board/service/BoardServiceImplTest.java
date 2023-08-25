@@ -20,9 +20,6 @@ public class BoardServiceImplTest extends appTest{
 	@Autowired
 	private BoardService boardService; 
 	
-	@Autowired
-	private ReplyService replyService;
-	
 	@Test
 	@Ignore
 	public void testList() {

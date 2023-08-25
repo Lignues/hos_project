@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hospital.board.appTest;
+import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.ReportDTO;
 import com.hospital.board.domain.ReportVO;
 
@@ -23,7 +24,14 @@ public class ReportRepositoryTest extends appTest{
 	@Test
 //	@Ignore
 	public void testShowReport() {
-		List<ReportDTO> list = reportRepository.showReportList();
+		List<ReportDTO> list = reportRepository.showReportList(new Criteria());
+		System.out.println(list);
+	}
+	
+	@Test
+	@Ignore
+	public void testShowReportByReporter() {
+		List<ReportDTO> list = reportRepository.showReportListByReporter(new Criteria() ,"admin");
 		System.out.println(list);
 	}
 
