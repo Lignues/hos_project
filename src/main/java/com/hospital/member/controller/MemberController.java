@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +28,7 @@ import com.hospital.board.domain.Pagination;
 import com.hospital.board.domain.ReportDTO;
 import com.hospital.board.service.BoardService;
 import com.hospital.board.service.ReportService;
-import com.hospital.common.exception.PasswordMismatchException;
+import com.hospital.member.domain.AuthVO;
 import com.hospital.member.domain.MemberVO;
 import com.hospital.member.service.MailSendService;
 import com.hospital.member.service.MemberService;
@@ -145,12 +144,12 @@ public class MemberController {
 			MemberVO vo = memberService.read(memberId);
 			model.addAttribute("vo", vo);
 			return "member/mypage";
-		}else if (path.equals("recent")) { // ####################이것도 잘못됐다 20페이지씩 움직임################
+		}else if (path.equals("recent")) { // 최근 작성글
 			criteria.setAmount(5);
 			List<BoardVO> list = boardService.showListById(criteria, memberId); // 작성글
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
-		}else if (path.equals("report")) {
+		}else if (path.equals("report")) { // 신고내역
 			criteria.setAmount(5);
 			List<ReportDTO> list;
 			int totalCount = 0;
@@ -163,6 +162,9 @@ public class MemberController {
 			}
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, totalCount));
+		}else if(path.equals("control")) { // 회원관리(관리자만)
+			List<MemberVO> list = memberService.memberList();
+			model.addAttribute("list", list);
 		}
 		return "member/" + path;
 	}
@@ -193,6 +195,13 @@ public class MemberController {
 			rttr.addFlashAttribute("boardResult", "회원정보가 변경되었습니다");
 		}
 		return "redirect:/mypage";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PostMapping("/member/auth")
+	@ResponseBody
+	public ResponseEntity<String> setAuth(AuthVO authVO){
+		return null; // 수정중
 	}
 	
 	

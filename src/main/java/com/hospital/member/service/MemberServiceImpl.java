@@ -1,5 +1,6 @@
 package com.hospital.member.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,16 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO read(String memberId) {
 		return memberRepository.selectById(memberId);
 	}
+
+	@Override
+	public List<MemberVO> memberList() {
+		return memberRepository.memberList();
+	}
+
+	@Override
+	public void setAuth(AuthVO authVO) {
+		authRepository.insert(authVO);
+	}
+
 
 }

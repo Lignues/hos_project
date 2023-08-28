@@ -39,15 +39,20 @@ public class BoardController {
 	
 	// 글목록 조회
 	@GetMapping("/list")
-	public void list(Model model, Criteria criteria){
+	public void list(Model model, Criteria criteria, Authentication auth){
+		String username = auth.getName();
+		if(username!=null) {
+			model.addAttribute("viewed", boardService.getViewedList(username));
+		}
 		model.addAttribute("list", boardService.showList(criteria));
 		model.addAttribute("p", new Pagination(criteria, boardService.totalCount(criteria)));
 	}
 	
 	// 글 조회
 	@GetMapping("/get")
-	public String get(Long bno, Model model, Criteria criteria) {
-		BoardVO vo = boardService.get(bno);
+	public String get(Long bno, Model model, Criteria criteria, Authentication auth) {
+		String username = auth.getName();
+		BoardVO vo = boardService.getViewed(bno, username);
 		model.addAttribute("vo", vo);
 		return "board/get";
 	}

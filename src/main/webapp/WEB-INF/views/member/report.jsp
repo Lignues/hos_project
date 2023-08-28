@@ -14,10 +14,10 @@
 			<tr class="text-center">
 				<th>신고번호</th>
 				<th>신고자</th>
-				<th class="w-50">신고내역</th>
+				<th style="width : 30%;">신고내역</th>
 				<th>글번호</th>
-				<th>글제목</th>
-				<th>작성자</th>
+				<th style="width : 150px;">글제목</th>
+				<th style="width : 80px;">작성자</th>
 				<th>미리보기</th>
 				<th>처리상태</th>
 			</tr>
@@ -32,15 +32,25 @@
 						<td class="text-left">${vo.reportContent}</td>
 						<td>${vo.bno}</td>
 						<td class="originTitle text-left">
-							<a class="go text-dark" href="${vo.bno}">
-								${vo.title}
-							</a>
-							<c:if test="${vo.handle==2}">삭제됨</c:if>
+							<div data-handle="${vo.bno}">
+								<a class="go text-dark" href="${vo.bno}">
+									${vo.title}
+								</a>
+							</div>
+							<c:if test="${vo.handle==2}"><span class="badge-pill badge-danger">삭제됨</span></c:if>
 						</td>
-						<td class="originContent">${vo.writer}<c:if test="${vo.handle==2}">삭제됨</c:if></td>
+						<td class="originContent"><div data-handle="${vo.bno}">${vo.writer}</div>
+							<c:if test="${vo.handle==2}">
+								<span class="badge-pill badge-danger">삭제됨</span>
+							</c:if>
+						</td>
 						<td class="spread">
-							<c:if test="${vo.handle==1 || vo.handle==0}"><a class="preview" href="${vo.bno}">펼치기</a></c:if>
-							<c:if test="${vo.handle==2}">삭제됨</c:if>
+							<c:if test="${vo.handle==1 || vo.handle==0}">
+								<div data-handle="${vo.bno}">
+									<a class="preview" href="${vo.bno}">펼치기</a>
+								</div>
+							</c:if>
+							<c:if test="${vo.handle==2}"><span class="badge-pill badge-danger">삭제됨</span></c:if>
 						</td>
 						<td class="handling">
 							<sec:authorize access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
@@ -49,17 +59,17 @@
 										대기중
 									</c:when>
 									<c:when test="${vo.handle=='1'}">
-										신고 거부
+										<span class="badge-pill badge-success">신고 거부</span>
 									</c:when>
 									<c:when test="${vo.handle=='2'}">
-										삭제 완료
+										<span class="badge-pill badge-danger">삭제 완료</span>
 									</c:when>
 								</c:choose>
 							</sec:authorize>
 							<sec:authorize access="hasRole('ROLE_ADMIN')">
 								<c:choose>
 									<c:when test="${vo.handle=='0'}">
-										<div class="dropdown">
+										<div class="dropdown" data-handle2="${vo.bno}">
 											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
 										    	대기중 
 											</button>
@@ -70,10 +80,10 @@
 										</div>
 									</c:when>
 									<c:when test="${vo.handle=='1'}">
-										신고 거부
+										<span class="badge-pill badge-success">신고 거부</span>
 									</c:when>
 									<c:when test="${vo.handle=='2'}">
-										삭제 완료
+										<span class="badge-pill badge-danger">삭제 완료</span>
 									</c:when>
 								</c:choose>
 							</sec:authorize>
@@ -108,28 +118,6 @@
 			<li><a class="page-link" href="${p.endPage+1}">다음</a></li>
 		</c:if>
 	</ul>
-	<div class="row">
-		<div class="col-4">
-			<h2 class="m-3">최근 작성댓글</h2>
-		</div>
-	</div>
-	<div class="reply container mt-2">
-		<div class="card">
-		  <div class="card-header">
-		  	<div class="d-flex justify-content-between">
-		  		<div>
-			  		등록된 댓글이 없습니다.
-		  		</div>
-		  	</div>
-		  </div>
-		  <div class="card-body">
-		  	리플
-		  </div>
-		</div>
-	</div>
-	<div class="container mt-3">
-		<div class="replyPagination"></div>
-	</div>
 </div>
 
 <form class="pageForm" action="${ctxPath}/board/list">
@@ -177,27 +165,28 @@ $(function(){
 		let bno = $(this).closest('tbody').find('.preview').attr('href');
 		let preview = $(this).closest('tbody').find('.spread');
 		if(handle=='신고 거부'){
-			$(this).closest('.dropdown').html('신고 거부'); // #############해당 bno 전부 기각표시 되도록 변경 삭제완료도 똑같이#############
-			
-			
+			if(!confirm('해당 글의 신고를 거부 처리 합니다. 진행 하시겠습니까?')){ // 거부 확인하기
+				return;
+			}
+			$('div[data-handle2="'+ bno +'"]').html('신고 거부').attr("class", "badge-pill badge-success");
 		}else if(handle=='삭제 완료'){
 			if(!confirm('해당 글과 관련된 내용들이 모두 삭제됩니다. 진행 하시겠습니까?')){ // 삭제 확인하기
 				return;
 			}
 			$(this).closest('tbody').find('.tr1').remove();
 			$(this).closest('tbody').find('.tr2').remove();
-			$(this).closest('.dropdown').html('삭제 완료');
-			preview.html('삭제됨');
+			$('div[data-handle="'+ bno +'"]').html('삭제됨').attr("class", "badge-pill badge-danger");
+			$('div[data-handle2="'+ bno +'"]').html('삭제 완료').attr("class", "badge-pill badge-danger");
 		}
-// 		$.ajax({  // ##################다만들고 주석 풀기 ###############
-// 			data : {bno : bno, handle : handle},
-// 			url : '${ctxPath}/report/handle',
-// 			type : 'post',
-// 			success : function(result){
-// 				console.log('success');
-// 				alert(result);
-// 			}
-// 		});
+		$.ajax({
+			data : {bno : bno, handle : handle},
+			url : '${ctxPath}/report/handle',
+			type : 'post',
+			success : function(result){
+				console.log('success');
+				alert(result);
+			}
+		});
 	});
 	
 	// 글 미리보기
@@ -213,9 +202,7 @@ $(function(){
 			$(this).closest('tbody').find('.tr1').attr('style', 'display:none');
 			$(this).closest('tbody').find('.tr2').attr('style', 'display:none');
 		}
-		
 	});
-	
 	
 });
 </script>

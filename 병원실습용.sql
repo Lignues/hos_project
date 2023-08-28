@@ -109,6 +109,13 @@ create table article_like(
     FOREIGN KEY (BNO) REFERENCES hos_board(BNO) ON DELETE CASCADE 
 );
 
+create table article_viewed(
+    bno number(10,0),
+    memberId  varchar2(100), 
+    FOREIGN KEY (memberId) REFERENCES hos_member(memberId) ON DELETE CASCADE,
+    FOREIGN KEY (BNO) REFERENCES hos_board(BNO) ON DELETE CASCADE 
+);
+
 -- 첨부파일
 create table hos_attach(
     uuid varchar2(100) not null, 
@@ -132,7 +139,7 @@ select * from hos_reply;
 select * from hos_member;
 select * from hos_member_auth;
 select * from persistent_logins;
-
+select * from article_viewed;
 
 
 -- ########신규기능########
@@ -161,14 +168,24 @@ ADD CONSTRAINT uk_reporter_bno UNIQUE (bno, reporter);
 drop sequence seq_hosreport;
 create sequence seq_hosreport;
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'scott');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'test');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 11, '1신고번이다', '4작성자');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'test');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', '4작성자');
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 12, '2신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 12, '2신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 21, '2신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 21, '2신고번이다', 'scott');
 
 commit;
 
 select * from hos_board_report;
+
+select * from(
+			select rownum as rn, a.* from
+			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= 40
+		) where rownum > 0;
+
+select rownum, a.* from
+(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= 30;

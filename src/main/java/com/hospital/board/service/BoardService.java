@@ -15,6 +15,10 @@ public interface BoardService {
 	
 	public BoardVO get(Long bno);
 	
+	public BoardVO getViewed(Long bno, String memberId);
+	
+	int[] getViewedList(String memberId);
+	
 	int totalCount(Criteria criteria);
 	
 	int totalCountById(String writer);

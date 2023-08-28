@@ -25,15 +25,15 @@ public class Criteria {
 	
 	public Criteria(int pageNum, int amount) {
 		this.pageNum = pageNum;
-		this.amount= amount;
+		this.amount = amount;
 	}
 	
 	public int getMaxRow() {
-		return pageNum*amount;
+		return pageNum * amount;
 	}
 	
 	public int getMinRow() {
-		return (pageNum-1)*amount;
+		return (pageNum - 1) * amount;
 	}
 	
 	public String[] getTypes() {

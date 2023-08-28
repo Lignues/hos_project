@@ -49,4 +49,13 @@
 	where email = #{email} and memberName = #{memberName}
   </select>
   
+  <select id="memberList" resultMap="memberMap">
+  	select h.memberId, memberPwd, memberName, email, enabled,
+  		regDate, updateDate, a.auth 
+  	from hos_member h left outer join hos_member_auth a
+	on h.memberId = a.memberId
+  </select>
+  
+  
+  
 </mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.member.repository.ViewedRepository">
+
+<insert id="viewed">
+	insert into article_viewed(bno, memberId) values(#{bno}, #{memberId})
+</insert>
+
+<select id="viewedList" resultType="int">
+	select bno from article_viewed where memberId = #{memberId}
+</select>
+
+<select id="getViewed" resultType="viewedDTO">
+	select bno from article_viewed where bno = #{bno} and memberId = #{memberId}
+</select>
+
+</mapper>

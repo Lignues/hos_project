@@ -28,18 +28,24 @@
     </thead>
     <c:if test="${not empty list}">
     	<c:forEach items="${list}" var="vo">
+   			<c:set var="isViewed" value="false"/>
+    		<c:forEach items="${viewed}" var="viewedBno">
+    			<c:if test="${viewedBno eq vo.bno }">
+    				<c:set var="isViewed" value="true"/>
+    			</c:if>
+    		</c:forEach>
 		    <tbody>
-		      <tr class="text-center">
-		        <td>${vo.bno}</td>
+		      <tr class="text-center ${isViewed ? 'bg-secondary' : ''}">
+		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.bno}</td>
 		        <td class="text-left">
-		        	<a class="go text-dark" href="${vo.bno}">
+		        	<a class="go ${isViewed ? 'text-light' : 'text-dark'}" href="${vo.bno}">
 		        		${vo.secretContent == 1 ? '🔒 ' : '' }${vo.title} ${vo.replyCnt==0 ? '' : [vo.replyCnt]}
 		        	</a>
 		        </td>
-		        <td>${vo.views}</td>
-		        <td>${vo.likeHit}</td>
-		        <td>${vo.writer}</td>
-		        <td>
+		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.views}</td>
+		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.likeHit}</td>
+		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.writer}</td>
+		        <td class="${isViewed ? 'text-light' : 'text-dark'}">
 			        <tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/>
 		        </td>
 		      </tr>

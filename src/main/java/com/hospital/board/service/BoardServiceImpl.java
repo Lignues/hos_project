@@ -15,6 +15,8 @@ import com.hospital.board.repository.ArticleLikeRepository;
 import com.hospital.board.repository.BoardAttachRepository;
 import com.hospital.board.repository.BoardRepository;
 import com.hospital.board.repository.ReplyRepository;
+import com.hospital.member.domain.ViewedDTO;
+import com.hospital.member.repository.ViewedRepository;
 
 @Service
 public class BoardServiceImpl implements BoardService {
@@ -31,6 +33,9 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private ReplyRepository replyRepository;
 	
+	@Autowired
+	private ViewedRepository viewedRepository;
+	
 	@Override
 	public List<BoardVO> showList(Criteria criteria) {
 		return boardRepository.showList(criteria);
@@ -42,7 +47,23 @@ public class BoardServiceImpl implements BoardService {
 		boardRepository.increaseViews(bno);
 		return boardRepository.get(bno);
 	}
+	
+	@Transactional
+	@Override
+	public BoardVO getViewed(Long bno, String memberId) {
+		ViewedDTO viewedDTO = new ViewedDTO(bno, memberId);
+		if(memberId!=null && viewedRepository.getViewed(viewedDTO)==null) {
+			viewedRepository.viewed(viewedDTO);
+		}
+		boardRepository.increaseViews(bno);
+		return boardRepository.get(bno);
+	}
 
+	@Override
+	public int[] getViewedList(String memberId) {
+		return viewedRepository.viewedList(memberId);
+	}
+	
 	@Override
 	public int totalCount(Criteria criteria) {
 		return boardRepository.getTotalCount(criteria);

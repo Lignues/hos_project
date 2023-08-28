@@ -6,23 +6,21 @@
 
 	<select id="showReportList" resultType="reportDTO">
 		<![CDATA[
-		select * from (
-			select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno
-		    where r.rnum <= #{criteria.maxRow}
-		    order by r.rnum desc
-		) where rnum > #{criteria.minRow}
+		select * from(
+			select rownum as rn, a.* from
+			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= #{criteria.maxRow}
+		) where rn > #{criteria.minRow}
 		]]>
 	</select>
-    
+	
 	<select id="showReportListByReporter" resultType="reportDTO">
 		<![CDATA[
-		select * from (
-			select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno
-		    where r.rnum <= #{criteria.maxRow} and reporter = #{reporter}
-		    order by r.rnum desc
-		) where rnum > #{criteria.minRow}
+		select * from(
+			select rownum as rn, a.* from
+			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno where reporter = #{reporter} order by r.rnum)a where rownum <= #{criteria.maxRow}
+		) where rn > #{criteria.minRow}
 		]]>
     </select>
 	
