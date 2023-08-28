@@ -30,9 +30,9 @@ public class MemberServiceImplTest extends appTest{
 	}
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testAuth() {
-		AuthVO vo = new AuthVO("admin", "ROLE_ADMIN");
+		AuthVO vo = new AuthVO("test", "ROLE_BOSS");
 		authRepository.insert(vo);
 	}
 	

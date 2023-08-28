@@ -52,7 +52,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 수정
-	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
+	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
 	@PutMapping(value = "/{rno}", produces = "text/plain; charset=utf-8")
 	public ResponseEntity<String> replyUpdate(@PathVariable Long rno, @RequestBody ReplyVO vo){
 		vo.setRno(rno);
@@ -63,7 +63,7 @@ public class ReplyController {
 	}
 	
 	// 댓글 삭제
-	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN')")
+	@PostAuthorize("isAuthenticated() or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
 	@DeleteMapping(value = "/{rno}", produces = "text/plain; charset=utf-8")
 	public ResponseEntity<String> replyDelete(@PathVariable Long rno){
 		int result = replyService.deleteReply(rno);

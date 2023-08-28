@@ -4,7 +4,8 @@ $(function(){
 	let pageNum = 1;
 	let replyPagination = $('.replyPagination');
 	let replyerName = $('.replyWriterName').val();
-	
+	let hi = $('input[name="auth"]').val();
+	console.log(hi);
 	// 댓글 페이징
 	let replyPage = function(replyCount){
 		let pagePow = 1;

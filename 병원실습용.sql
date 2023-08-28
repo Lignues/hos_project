@@ -79,6 +79,10 @@ create table hos_member_auth(
 insert into hos_member_auth values('admin','ROLE_ADMIN');
 insert into hos_member_auth values('admin','ROLE_MEMBER');
 
+-- 중복권한 방지
+ALTER TABLE hos_member_auth
+ADD CONSTRAINT uk_member_auth UNIQUE (memberId, auth);
+
 -- 자동로그인
 create table persistent_logins(
     username varchar2(100) not null, 
@@ -130,7 +134,7 @@ alter table hos_attach add constraint fk_hos_attach
 foreign key(bno) references hos_board(bno);
 
 delete from hos_member where memberid = '';
-delete from hos_member_auth where memberid = 'test';
+delete from hos_member_auth where memberid = 'admin';
 
 select * from hos_attach;
 select * from article_like;
@@ -179,13 +183,3 @@ insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hos
 commit;
 
 select * from hos_board_report;
-
-select * from(
-			select rownum as rn, a.* from
-			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= 40
-		) where rownum > 0;
-
-select rownum, a.* from
-(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= 30;

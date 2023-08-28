@@ -122,6 +122,19 @@
 
 <input type="hidden" name="direction" value="get"> <!-- getList 호출 위치(get이냐 recent냐) -->
 
+<c:if test="${not empty authList[0]}"> <!-- 권한 구하기 ############## 잘 되나 중간에 한번 더 확인할것################ -->
+	<c:set var="highestAuth" value="ROLE_MEMBER"/>
+	<c:if test="${not empty authList[1]}">
+		<c:set var="highestAuth" value="ROLE_MANAGER"/>
+		<c:if test="${not empty authList[2]}">
+			<c:set var="highestAuth" value="ROLE_BOSS"/>
+			<c:if test="${not empty authList[3]}">
+				<c:set var="highestAuth" value="ROLE_ADMIN"/>
+			</c:if>
+		</c:if>
+	</c:if>
+</c:if>
+<input type="hidden" name="auth" value="${highestAuth}">
 <!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자가 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
 <%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"> --%>
 <!-- 		권한있을때 보이는 컨텐츠 -->

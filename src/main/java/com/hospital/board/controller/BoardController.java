@@ -87,7 +87,7 @@ public class BoardController {
 	}
 	
 	// 글 수정 처리
-	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
 	@PostMapping("/modify")
 	public String modify(BoardVO vo, RedirectAttributes rttr, Criteria criteria) {
 		List<BoardAttachVO> attachList = vo.getAttachList();
@@ -107,7 +107,7 @@ public class BoardController {
 	}
 	
 	// 글 삭제
-	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_ADMIN')")
+	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
 	@PostMapping("/delete")
 	public String delete(Long bno, RedirectAttributes rttr, String writer) {
 		if(boardService.delete(bno)==1) {
