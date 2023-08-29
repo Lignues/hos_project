@@ -40,9 +40,8 @@ public class BoardController {
 	// 글목록 조회
 	@GetMapping("/list")
 	public void list(Model model, Criteria criteria, Authentication auth){
-		String username = auth.getName();
-		if(username!=null) {
-			model.addAttribute("viewed", boardService.getViewedList(username));
+		if(auth!=null) {
+			model.addAttribute("viewed", boardService.getViewedList(auth.getName()));
 		}
 		model.addAttribute("list", boardService.showList(criteria));
 		model.addAttribute("p", new Pagination(criteria, boardService.totalCount(criteria)));
@@ -51,8 +50,13 @@ public class BoardController {
 	// 글 조회
 	@GetMapping("/get")
 	public String get(Long bno, Model model, Criteria criteria, Authentication auth) {
-		String username = auth.getName();
-		BoardVO vo = boardService.getViewed(bno, username);
+		BoardVO vo;
+		if (auth!=null) {
+			vo = boardService.getViewed(bno, auth.getName());
+			model.addAttribute("vo", vo);
+		}else {
+			vo = boardService.get(bno);
+		}
 		model.addAttribute("vo", vo);
 		return "board/get";
 	}
@@ -80,25 +84,26 @@ public class BoardController {
 		BoardVO vo = boardService.get(bno);
 		String username = auth.getName(); // 인증된 사용자 계정
 		if(!vo.getWriter().equals(username) && // 글 작성자가 아닌 경우
-				!auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) { // 관리자가 아닌 경우
+				!auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_MANAGER"))) { // 관리자가 아닌 경우
 			throw new AccessDeniedException("Access denied");
 		}
 		model.addAttribute("vo", vo);
 	}
 	
 	// 글 수정 처리
-	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
+	@PreAuthorize("isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_MANAGER')")
 	@PostMapping("/modify")
 	public String modify(BoardVO vo, RedirectAttributes rttr, Criteria criteria) {
 		List<BoardAttachVO> attachList = vo.getAttachList();
-		
-		List<BoardAttachVO> insertList = attachList.stream()
-			.filter(attach -> attach.getBno()==null).collect(Collectors.toList());
-		log.info("새로 추가 : " + insertList);
-		
-		List<BoardAttachVO> delList = attachList.stream()
-			.filter(attach -> attach.getBno()!=null).collect(Collectors.toList());
-		log.info("삭제 목록 : " + delList);
+		if(attachList!=null) {
+			List<BoardAttachVO> insertList = attachList.stream()
+				.filter(attach -> attach.getBno()==null).collect(Collectors.toList());
+			log.info("새로 추가 : " + insertList);
+			
+			List<BoardAttachVO> delList = attachList.stream()
+				.filter(attach -> attach.getBno()!=null).collect(Collectors.toList());
+			log.info("삭제 목록 : " + delList);
+		}
 		if(boardService.modify(vo)==1) {
 			rttr.addAttribute("bno", vo.getBno());
 			rttr.addFlashAttribute("boardResult", "수정되었습니다.");
@@ -107,7 +112,7 @@ public class BoardController {
 	}
 	
 	// 글 삭제
-	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER') or hasRole('ROLE_BOSS')")
+	@PreAuthorize("isAuthenticated() and principal.username == #writer or hasRole('ROLE_MANAGER')")
 	@PostMapping("/delete")
 	public String delete(Long bno, RedirectAttributes rttr, String writer) {
 		if(boardService.delete(bno)==1) {

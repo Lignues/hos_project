@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hospital.board.domain.Criteria;
 import com.hospital.common.exception.PasswordMismatchException;
 import com.hospital.member.domain.AuthVO;
 import com.hospital.member.domain.MemberVO;
@@ -49,14 +50,43 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> memberList() {
-		return memberRepository.memberList();
+	public List<MemberVO> memberList(Criteria criteria) {
+		return memberRepository.memberList(criteria);
+	}
+
+	@Transactional
+	@Override
+	public void setAuth(AuthVO authVO) { // 권한부여
+		authRepository.deleteAuthById(authVO.getMemberId());
+		switch (authVO.getAuth()) {
+		case "ROLE_BOSS" :
+			authVO.setAuth("ROLE_BOSS");
+			authRepository.insert(authVO);
+		case "ROLE_MANAGER" : 
+			authVO.setAuth("ROLE_MANAGER");
+			authRepository.insert(authVO);
+		case "ROLE_MEMBER" :
+			authVO.setAuth("ROLE_MEMBER");
+			authRepository.insert(authVO);
+			break;
+		}
 	}
 
 	@Override
-	public void setAuth(AuthVO authVO) {
-		authRepository.insert(authVO);
+	public List<AuthVO> getAuthList(String memberId) {
+		return authRepository.getAuthList(memberId);
 	}
 
+	@Transactional
+	@Override
+	public void deleteById(String memberId) {
+		authRepository.deleteAuthById(memberId);
+		memberRepository.deleteById(memberId);
+	}
+
+	@Override
+	public int totalMemberCount() {
+		return memberRepository.totalMemberCount();
+	}
 
 }

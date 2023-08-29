@@ -23,14 +23,46 @@ public class MemberServiceImplTest extends appTest{
 	private AuthRepository authRepository;
 	
 	@Test
-	@Ignore
+//	@Ignore
 	public void testJoin() {
-		MemberVO vo = MemberVO.builder().memberId("4작성자").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		MemberVO vo = MemberVO.builder().memberId("aaaa").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("bbbb").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("cccc").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("dddd").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("eeee").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("ffff").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("gggg").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("hhhh").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("iiii").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("jjjj").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("kkkk").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("llll").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("mmmm").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("nnnn").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("oooo").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("pppp").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
+		memberService.join(vo);
+		vo = MemberVO.builder().memberId("qqqq").memberPwd("1234").memberName("작성자").email("writer@naver.com").build();
 		memberService.join(vo);
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testAuth() {
 		AuthVO vo = new AuthVO("test", "ROLE_BOSS");
 		authRepository.insert(vo);

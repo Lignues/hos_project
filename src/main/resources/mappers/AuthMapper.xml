@@ -8,4 +8,12 @@
 	insert into hos_member_auth(memberId, auth) values(#{memberId}, #{auth})
 </insert>
 
+<select id="getAuthList" resultType="authVO">
+	select * from hos_member_auth where memberId = #{memberId}
+</select>
+
+<delete id="deleteAuthById">
+	delete from hos_member_auth where memberId = #{memberId}
+</delete>
+
 </mapper>

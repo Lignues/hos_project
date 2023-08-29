@@ -46,6 +46,9 @@
 				<span class="passwordCheckMessage"></span>
 			</div>
 			<button type="button" class="modify btn btn-outline-primary">수정</button>
+			<sec:authorize access="!hasRole('ROLE_ADMIN')">
+				<button type="button" class="quit btn btn-outline-primary">회원 탈퇴</button>
+			</sec:authorize>
 		</form:form>
 	</div>	
 </div>
@@ -77,6 +80,17 @@ $(function(){
 	
 	// 회원정보 변경
 	$('.modify').click(function(){
+		$('#joinForm').attr('action', '${ctxPath}/member/modify');
+		$('#joinForm').submit();
+	});
+	
+	// 회원 탈퇴
+	$('.quit').click(function(){
+		if(prompt('회원 탈퇴시 모든 정보가 삭제됩니다. 진행하시려면 아래에 있는 문구를 적어 주세요 \n\n회원탈퇴','') != '회원탈퇴'){
+			alert('회원탈퇴 문구를 정확히 적어 주세요');
+			return;
+		}
+		$('#joinForm').attr('action', '${ctxPath}/member/quit');
 		$('#joinForm').submit();
 	});
 	

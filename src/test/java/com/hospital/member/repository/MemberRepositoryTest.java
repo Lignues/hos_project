@@ -2,11 +2,14 @@ package com.hospital.member.repository;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hospital.board.appTest;
+import com.hospital.member.domain.AuthVO;
 import com.hospital.member.domain.MemberVO;
 
 import lombok.extern.log4j.Log4j;
@@ -17,6 +20,9 @@ public class MemberRepositoryTest extends appTest{
 	@Autowired
 	private MemberRepository memberRepository;
 	
+	@Autowired
+	private AuthRepository authRepository;
+	
 	@Test
 	@Ignore
 	public void test() {
@@ -25,9 +31,16 @@ public class MemberRepositoryTest extends appTest{
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void testRead() {
 		MemberVO vo = memberRepository.read("scott");
 		System.out.println(vo);
+	}
+	
+	@Test
+//	@Ignore
+	public void testAuth() {
+		List<AuthVO> list = authRepository.getAuthList("scott");
+		System.out.println(list);
 	}
 }

@@ -53,7 +53,7 @@
 							<c:if test="${vo.handle==2}"><span class="badge-pill badge-danger">삭제됨</span></c:if>
 						</td>
 						<td class="handling">
-							<sec:authorize access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_ADMIN')">
+							<sec:authorize access="hasRole('ROLE_MEMBER') and !hasRole('ROLE_MANAGER')">
 								<c:choose>
 									<c:when test="${vo.handle=='0'}">
 										대기중
@@ -66,12 +66,12 @@
 									</c:when>
 								</c:choose>
 							</sec:authorize>
-							<sec:authorize access="hasRole('ROLE_ADMIN')">
+							<sec:authorize access="hasRole('ROLE_MANAGER')">
 								<c:choose>
 									<c:when test="${vo.handle=='0'}">
 										<div class="dropdown" data-handle2="${vo.bno}">
 											<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">
-										    	대기중 
+										    	대기중
 											</button>
 											<div class="reportHandler dropdown-menu">
 											  	<a class="cancelReport dropdown-item" href="신고 거부">신고 거부</a>
@@ -125,12 +125,10 @@
 	<input type="hidden" name="amount" value="${criteria.amount}">
 </form>
 
-<input type="hidden" name="direction" value="report"> <!-- getList 호출 위치(get이냐 recent냐) -->
+<input type="hidden" name="direction" value="report"> <!-- reply.js에서 페이징이나 리스트에 사용(get이냐 recent냐) -->
 <input type="hidden" class="replyWriterName" value="${authInfo.memberId}">
 
 <%@ include file="../includes/footer.jsp"%>
-<script src="${ctxPath}/resources/js/replyService.js"></script>
-<script src="${ctxPath}/resources/js/reply.js"></script>
 
 <script>
 $(function(){

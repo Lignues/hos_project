@@ -49,13 +49,29 @@
 	where email = #{email} and memberName = #{memberName}
   </select>
   
-  <select id="memberList" resultMap="memberMap">
-  	select h.memberId, memberPwd, memberName, email, enabled,
-  		regDate, updateDate, a.auth 
-  	from hos_member h left outer join hos_member_auth a
-	on h.memberId = a.memberId
+  <select id="totalMemberCount" resultType="int">
+	select count(memberId) from hos_member	
   </select>
   
+  <select id="memberList" resultMap="memberMap">
+  	<![CDATA[
+	  	select * from (select rownum as rn, h.memberId, memberPwd, memberName, email, enabled,
+	  		regDate, updateDate, a.auth 
+	  	from hos_member h left outer join hos_member_auth a
+		on h.memberId = a.memberId
+		where rownum <= #{maxRow} 
+		order by case a.auth
+		when 'ROLE_ADMIN' then 1
+		when 'ROLE_BOSS' then 2
+		when 'ROLE_MANAGER' then 3
+		when 'ROLE_MEMBER' then 4
+		else 5
+		end) where rn > #{minRow}
+  	]]>
+  </select>
   
+  <delete id="deleteById">
+  	delete from hos_member where memberId = #{memberId}
+  </delete>
   
 </mapper>

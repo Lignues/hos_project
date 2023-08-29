@@ -81,7 +81,7 @@
 	<input type="hidden" name="amount" value="${criteria.amount}">
 </form>
 
-<input type="hidden" name="direction" value="recent"> <!-- getList 호출 위치(get이냐 recent냐) -->
+<input type="hidden" name="direction" value="recent"> <!-- reply.js에서 페이징이나 리스트에 사용(get이냐 recent냐) -->
 <input type="hidden" class="replyWriterName" value="${authInfo.memberId}">
 
 <%@ include file="../includes/footer.jsp"%>

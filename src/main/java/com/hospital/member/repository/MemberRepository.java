@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.hospital.board.domain.Criteria;
 import com.hospital.member.domain.MemberVO;
 
 public interface MemberRepository {
@@ -18,6 +19,9 @@ public interface MemberRepository {
 	
 	MemberVO selectByEmailAndName(@Param("email") String email, @Param("memberName") String memberName);
 	
-	List<MemberVO> memberList();
+	List<MemberVO> memberList(Criteria criteria);
 	
+	void deleteById(String memberId);
+	
+	int totalMemberCount();
 }

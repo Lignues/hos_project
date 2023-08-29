@@ -23,14 +23,14 @@
 				</div>
 			</div>
 		</div>
-		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
 			<div class="imageView">
 			</div>
 			<div class="card-body">
 				${vo.content}
 			</div>
 		</sec:authorize>
-		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"><!-- 권한때문에 !가 안먹는다 -->
+		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"><!-- 권한때문에 !가 안먹는다 -->
 			<div class="card-header">
 				<br><br><br><br>
 				<p class="text-center">
@@ -40,7 +40,7 @@
 			</div>
 		</sec:authorize>
 	</div>
-	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
 		<div class="attachDownloadList dropdown float-right">
 		</div>
 		<div class="text-center mt-3">
@@ -53,7 +53,7 @@
 		<span class="float-left m-2">🔒 비밀글입니다</span>
 	</c:if>
 	<span class="float-right m-2">
-		<sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_ADMIN')">
+		<sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_MANAGER')">
 			<button type="button" class="modifyBtn btn btn-primary">수정</button>
 			<button type="button" class="deleteBtn btn btn-primary">삭제</button>
 		</sec:authorize>
@@ -71,7 +71,7 @@
 <br>
 
 <!-- 비밀글시 사라짐 -->
-<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))">
+<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
 	<div class="container mt-5">
 		<div class="card">
 			<div class="card-header">🗨 댓글</div>
@@ -135,10 +135,10 @@
 	</c:if>
 </c:if>
 <input type="hidden" name="auth" value="${highestAuth}">
-<!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자가 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
-<%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_ADMIN')))"> --%>
+<!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자등급 이상이 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
+<%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"> --%>
 <!-- 		권한있을때 보이는 컨텐츠 -->
-<%-- 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_ADMIN')) or (isAuthenticated() and principal.username == #vo.writer))"> --%>
+<%-- 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))"> --%>
 
 
 <%@ include file="../includes/footer.jsp" %>

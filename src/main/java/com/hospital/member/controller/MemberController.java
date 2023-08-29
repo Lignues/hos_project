@@ -4,13 +4,17 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -135,25 +139,29 @@ public class MemberController {
 		return "redirect:/login";
 	} // 아이디 비밀번호 찾기 끝
 	
-	// 마이페이지(정보변경, 최근작성글, 신고내역)
-	@PreAuthorize("isAuthenticated() and hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')")
+	// 마이페이지(정보변경, 최근작성글, 신고내역) 관리자는 회원관리 추가
+	@PreAuthorize("isAuthenticated() and hasRole('ROLE_MEMBER')")
 	@GetMapping({"mypage" ,"/mypage/{path}"})
 	public String mypage(Model model, Principal principal, @PathVariable(required = false) String path, Criteria criteria) {
 		String memberId = principal.getName();
-		if(path==null) {
+		int authSize = memberService.getAuthList(memberId).size();
+		
+		if(path==null) { // 회원정보 변경 탭
 			MemberVO vo = memberService.read(memberId);
 			model.addAttribute("vo", vo);
 			return "member/mypage";
+			
 		}else if (path.equals("recent")) { // 최근 작성글
 			criteria.setAmount(5);
 			List<BoardVO> list = boardService.showListById(criteria, memberId); // 작성글
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, boardService.totalCountById(memberId)));
+			
 		}else if (path.equals("report")) { // 신고내역
 			criteria.setAmount(5);
 			List<ReportDTO> list;
 			int totalCount = 0;
-			if(memberId.equals("admin")) { // 관리자-신고내역 다 보기
+			if(authSize>=2) { // 관리자-신고내역 다 보기
 				list = reportService.showReportList(criteria);
 				totalCount = reportService.totalReportCount();
 			}else { // 관리자가 아닌 사람-자기가 신고한 내역만 보기
@@ -162,22 +170,27 @@ public class MemberController {
 			}
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, totalCount));
-		}else if(path.equals("control")) { // 회원관리(관리자만)
-			List<MemberVO> list = memberService.memberList();
+			
+		}else if(path.equals("control")) { // 회원관리(회원접속금지)
+			if(authSize==1) {
+				throw new AccessDeniedException("권한이 없습니다.");
+			}
+			List<MemberVO> list = memberService.memberList(criteria);
 			model.addAttribute("list", list);
+			model.addAttribute("p", new Pagination(criteria, memberService.totalMemberCount())); // 멤버 토탈카운트 만들것
 		}
 		return "member/" + path;
 	}
 	
 	// 신고 처리하기
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
 	@PostMapping(value = "/report/handle", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public ResponseEntity<String> reportHandling(Long bno, String handle){
 		if(handle.equals("신고 거부")) {
 			System.out.println("거부한거" +reportService.handleReport(bno, 1));
 		}else if(handle.equals("삭제 완료")) {
-			System.out.println("삭제한거"+reportService.handleReport(bno, 2));
+			System.out.println("삭제한거" + reportService.handleReport(bno, 2));
 		}
 		return new ResponseEntity<String>("게시글 처리 완료", HttpStatus.OK);
 	}
@@ -188,7 +201,7 @@ public class MemberController {
 	@PostMapping("/member/modify")
 	public String modify(@ModelAttribute("vo") MemberVO vo, RedirectAttributes rttr, @RequestParam("currentPwd") String currentPwd) {
 		boolean checkCurrentPwd = passwordEncoder.matches(currentPwd, memberService.read(vo.getMemberId()).getMemberPwd());
-		if (!checkCurrentPwd) {
+		if (!checkCurrentPwd) { // 정보 변경 시도 중 비밀번호가 일치하지 않을 시
 			rttr.addFlashAttribute("boardResult", "현재 비밀번호가 일치하지 않습니다. 다시 확인해 주세요");
 		}else {
 			memberService.modify(vo);
@@ -197,11 +210,34 @@ public class MemberController {
 		return "redirect:/mypage";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@PostMapping("/member/auth")
+	// 회원 추방
+	@PreAuthorize("hasRole('ROLE_MANAGER')")
+	@PostMapping(value = "/member/kick", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<String> kickMember(String memberId){
+		memberService.deleteById(memberId);
+		return new ResponseEntity<String>("회원 추방 완료", HttpStatus.OK);
+	}
+	
+	// 회원 탈퇴
+	@PreAuthorize("isAuthenticated()")
+	@PostMapping("/member/quit")
+	public String quitMember(String memberId, RedirectAttributes rttr, HttpServletRequest request, HttpServletResponse response){
+		memberService.deleteById(memberId);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		new SecurityContextLogoutHandler().logout(request, response, auth); // 로그아웃
+		rttr.addFlashAttribute("boardResult", "탈퇴 완료");
+		return "redirect:/";
+	}
+	
+	
+	// 권한 변경
+	@PreAuthorize("hasRole('ROLE_BOSS')")
+	@PostMapping(value = "/member/auth", produces = "text/plain; charset=utf-8")
 	@ResponseBody
 	public ResponseEntity<String> setAuth(AuthVO authVO){
-		return null; // 수정중
+		memberService.setAuth(authVO);
+		return new ResponseEntity<String>("변경 완료", HttpStatus.OK);
 	}
 	
 	
