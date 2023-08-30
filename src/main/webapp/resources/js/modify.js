@@ -207,7 +207,7 @@ $(function(){
 			if(e.fileType){
 				fileList += `<a href="${e.uploadPath+"/"+e.uuid+"_"+e.fileName}" class="showIamge">원본보기</a>`
 			}else{
-				fileList += `<a href="${e.uploadPath+"/"+e.uuid+"_"+e.fileName}" class="download">다운로드</a>`
+				fileList += `<a href="${e.uploadPath+"/"+e.uuid+"_"+e.fileName}" class="download">💾 다운로드</a>`
 			} 
 			fileList += `
 					<div class="form-check-inline ml-2">

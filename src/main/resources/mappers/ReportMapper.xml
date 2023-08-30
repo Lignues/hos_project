@@ -9,7 +9,13 @@
 		select * from(
 			select rownum as rn, a.* from
 			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno order by r.rnum)a where rownum <= #{criteria.maxRow}
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno 
+		    ]]>
+		    <if test="criteria.searchHandled == 0">
+		    	where handle = 0
+		    </if>
+		    <![CDATA[
+		     order by r.rnum desc) a where rownum <= #{criteria.maxRow}
 		) where rn > #{criteria.minRow}
 		]]>
 	</select>
@@ -19,17 +25,31 @@
 		select * from(
 			select rownum as rn, a.* from
 			(select r.rnum, r.bno, reportContent, reporter, handle, b.title, content, writer
-		    from hos_board_report r left outer join hos_board b on r.bno = b.bno where reporter = #{reporter} order by r.rnum)a where rownum <= #{criteria.maxRow}
+		    from hos_board_report r left outer join hos_board b on r.bno = b.bno
+		     where
+		     ]]>
+		    <if test="criteria.searchHandled == 0">
+		    	handle = 0 and
+		    </if>
+		    <![CDATA[
+		      reporter = #{reporter} order by r.rnum desc)a where rownum <= #{criteria.maxRow}
 		) where rn > #{criteria.minRow}
 		]]>
     </select>
 	
 	<select id="getTotalReportCount" resultType="int">
 		select count(rnum) from hos_board_report
+		<if test="criteria.searchHandled == 0">
+		    where handle = 0
+		</if>
 	</select>
 	
 	<select id="getTotalReportCountById" resultType="int">
-		select count(rnum) from hos_board_report where reporter = #{reporter}
+		select count(rnum) from hos_board_report where 
+		<if test="criteria.searchHandled == 0">
+		    handle = 0 and
+		</if>
+		 reporter = #{reporter}
 	</select>
 	
 	<insert id="report">

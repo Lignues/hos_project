@@ -23,14 +23,16 @@
 				</div>
 			</div>
 		</div>
-		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
+		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) 
+		 or (isAuthenticated() and principal.username == #vo.writer))">
 			<div class="imageView">
 			</div>
 			<div class="card-body">
 				${vo.content}
 			</div>
 		</sec:authorize>
-		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"><!-- 권한때문에 !가 안먹는다 -->
+		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or 
+		(isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"><!-- 권한때문에 !가 안먹는다 -->
 			<div class="card-header">
 				<br><br><br><br>
 				<p class="text-center">
@@ -40,7 +42,8 @@
 			</div>
 		</sec:authorize>
 	</div>
-	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
+	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER'))
+	 or (isAuthenticated() and principal.username == #vo.writer))">
 		<div class="attachDownloadList dropdown float-right">
 		</div>
 		<div class="text-center mt-3">
@@ -53,14 +56,17 @@
 		<span class="float-left m-2">🔒 비밀글입니다</span>
 	</c:if>
 	<span class="float-right m-2">
+		<sec:authorize access="isAuthenticated()">
+			<button type="button" class="modalBtn btn btn-danger" data-toggle="modal" 
+			data-target="#reportModal" data-agree="report">💣 신고</button>
+		</sec:authorize>
 		<sec:authorize access="isAuthenticated() and principal.username == #vo.writer or hasRole('ROLE_MANAGER')">
-			<button type="button" class="modifyBtn btn btn-primary">수정</button>
-			<button type="button" class="deleteBtn btn btn-primary">삭제</button>
+			<button type="button" class="modifyBtn btn btn-primary">✂ 수정</button>
+			<button type="button" class="deleteBtn btn btn-primary">🗑 삭제</button>
 		</sec:authorize>
 		<button type="button" class="listBtn btn btn-primary">목록으로</button>
 	</span>
 </div>
-
 
 <form action="${ctxPath}/board/list">
 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
@@ -71,7 +77,8 @@
 <br>
 
 <!-- 비밀글시 사라짐 -->
-<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))">
+<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER'))
+						 or (isAuthenticated() and principal.username == #vo.writer))">
 	<div class="container mt-5">
 		<div class="card">
 			<div class="card-header">🗨 댓글</div>
@@ -107,10 +114,12 @@
 		  </div>
 		  <div class="form-group">
 		  	<sec:authorize access="isAuthenticated()">
-		  		<textarea class="form-control" name="content" rows="4" cols="200" placeholder="댓글을 작성하세요" style="resize: none;"></textarea>
+		  		<textarea class="form-control" name="content" rows="4" cols="200"
+		  		 placeholder="댓글을 작성하세요" style="resize: none;"></textarea>
 		  	</sec:authorize>	
 		  	<sec:authorize access="isAnonymous()">
-		  		<textarea class="form-control" name="goLogin" rows="4" cols="200" placeholder="댓글을 작성하시려면 로그인 해 주세요" style="resize: none;"></textarea>
+		  		<textarea class="form-control" name="goLogin" rows="4" cols="200" 
+		  		 placeholder="댓글을 작성하시려면 로그인 해 주세요" style="resize: none;"></textarea>
 		  	</sec:authorize>	
 		  </div>
 		</div>
@@ -122,7 +131,7 @@
 
 <input type="hidden" name="direction" value="get"> <!-- getList 호출 위치(get이냐 recent냐) -->
 
-<c:if test="${not empty authList[0]}"> <!-- 권한 구하기 ############## 잘 되나 중간에 한번 더 확인할것################ -->
+<c:if test="${not empty authList[0]}">
 	<c:set var="highestAuth" value="ROLE_MEMBER"/>
 	<c:if test="${not empty authList[1]}">
 		<c:set var="highestAuth" value="ROLE_MANAGER"/>
@@ -134,12 +143,32 @@
 		</c:if>
 	</c:if>
 </c:if>
-<input type="hidden" name="auth" value="${highestAuth}">
-<!-- 		비밀컨텐츠(비밀글+작성자가 아닌 사람이거나  관리자등급 이상이 아닌 경우) 비밀글+비회원, 비밀글+다른사람+관리자아님 일때만 보여야함 -->
-<%-- 	<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or (isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"> --%>
-<!-- 		권한있을때 보이는 컨텐츠 -->
-<%-- 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) or (isAuthenticated() and principal.username == #vo.writer))"> --%>
 
+<!-- The Modal -->
+<div class="modal" id="reportModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">게시글 신고</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body">
+        신고 사유<br><br>
+        <input type="text" class="form-control" name="reportReason">
+      </div>
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn reportModal btn-danger" data-dismiss="modal">신고하기</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<input type="hidden" name="auth" value="${highestAuth}">
 
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/replyService.js"></script>

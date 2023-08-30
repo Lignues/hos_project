@@ -99,7 +99,6 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
         </div>
-        
       </div>
     </div>
   </div>
@@ -190,7 +189,7 @@ $(function(){
 	function setTimer(){
 		let timer = $('.timer');
 		sec=60;
-		let interval =setInterval(function(){
+		let interval = setInterval(function(){
 			console.log(sec);
 			if(sec==10){
 				timer.attr('class', 'timer text-danger');
@@ -336,7 +335,7 @@ $(function(){
 			index++;
 		}
 		
-		if(errorMessage.length>0){
+		if(errorMessage.length>0){ // 에러 목록
 			errorMessage += '!! 위의 목록을 다시 작성해 주세요 !!';
 			alert(errorMessage);
 			return;

@@ -30,9 +30,11 @@ import com.hospital.board.domain.BoardVO;
 import com.hospital.board.domain.Criteria;
 import com.hospital.board.domain.Pagination;
 import com.hospital.board.domain.ReportDTO;
+import com.hospital.board.domain.ReportVO;
 import com.hospital.board.service.BoardService;
 import com.hospital.board.service.ReportService;
 import com.hospital.member.domain.AuthVO;
+import com.hospital.member.domain.MemberAuthDTO;
 import com.hospital.member.domain.MemberVO;
 import com.hospital.member.service.MailSendService;
 import com.hospital.member.service.MemberService;
@@ -162,24 +164,35 @@ public class MemberController {
 			List<ReportDTO> list;
 			int totalCount = 0;
 			if(authSize>=2) { // 관리자-신고내역 다 보기
+				criteria.setSearchHandled(criteria.getSearchHandled());
 				list = reportService.showReportList(criteria);
-				totalCount = reportService.totalReportCount();
+				totalCount = reportService.totalReportCount(criteria);
 			}else { // 관리자가 아닌 사람-자기가 신고한 내역만 보기
+				criteria.setSearchHandled(criteria.getSearchHandled());
 				list = reportService.showReportListByReporter(criteria, memberId);
-				totalCount = reportService.totalReportCountById(memberId);
+				totalCount = reportService.totalReportCountById(memberId, criteria);
 			}
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, totalCount));
 			
-		}else if(path.equals("control")) { // 회원관리(회원접속금지)
-			if(authSize==1) {
+		}else if(path.equals("control")) { // 회원관리
+			if(authSize==1) { // 일반회원 접속금지
 				throw new AccessDeniedException("권한이 없습니다.");
 			}
-			List<MemberVO> list = memberService.memberList(criteria);
+			List<MemberAuthDTO> list = memberService.memberList(criteria);
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, memberService.totalMemberCount())); // 멤버 토탈카운트 만들것
 		}
 		return "member/" + path;
+	}
+	
+	// 신고 하기
+	@PreAuthorize("hasRole('ROLE_MEMBER')")
+	@PostMapping(value = "/report/submit", produces = "text/plain; charset=utf-8")
+	@ResponseBody
+	public ResponseEntity<String> report(ReportVO vo){
+		reportService.report(vo);
+		return new ResponseEntity<String>("신고 완료", HttpStatus.OK);
 	}
 	
 	// 신고 처리하기
@@ -194,7 +207,6 @@ public class MemberController {
 		}
 		return new ResponseEntity<String>("게시글 처리 완료", HttpStatus.OK);
 	}
-	
 	
 	// 회원정보 변경
 	@PreAuthorize("isAuthenticated()")

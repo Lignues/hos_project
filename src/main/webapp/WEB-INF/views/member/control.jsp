@@ -41,29 +41,37 @@
 						<td>${vo.memberName}</td>
 						<td>${vo.email}</td>
 						<td><tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/></td>
-						<td><c:if test="${not empty vo.authList[0]}"> <!-- 권한 구하기 -->
+						<td>
+						<c:choose>
+							<c:when test="${vo.authCount==1}">
 								<c:set var="voHighestAuth" value="고객"/>
-								<c:if test="${not empty vo.authList[1]}">
-									<c:set var="voHighestAuth" value="직원"/>
-									<c:if test="${not empty vo.authList[2]}">
-										<c:set var="voHighestAuth" value="사장"/>
-										<c:if test="${not empty vo.authList[3]}">
-											<c:set var="voHighestAuth" value="관리자"/>
-										</c:if>
-									</c:if>
-								</c:if>
-							</c:if>
-							
+							</c:when>
+							<c:when test="${vo.authCount==2}">
+								<c:set var="voHighestAuth" value="직원"/>
+							</c:when>
+							<c:when test="${vo.authCount==3}">
+								<c:set var="voHighestAuth" value="사장"/>
+							</c:when>
+							<c:when test="${vo.authCount==4}">
+								<c:set var="voHighestAuth" value="관리자"/>
+							</c:when>
+						</c:choose>
 							<div class="dropdown">
 								<c:choose>
-									<c:when test="${(highestAuth eq 'ROLE_ADMIN' and voHighestAuth != '관리자') 
+									<c:when test="${(highestAuth eq 'ROLE_ADMIN' and (voHighestAuth eq '사장' or voHighestAuth eq '직원' or voHighestAuth eq '고객')) 
 										 or (highestAuth eq 'ROLE_BOSS' and (voHighestAuth eq '직원' or voHighestAuth eq '고객'))}">
-										<button type="button" class="changeAuthBtn btn ${voHighestAuth eq '사장' ? 'btn-primary' : ''} ${voHighestAuth eq '직원' ? 'btn-info' : ''} ${voHighestAuth eq '고객' ? 'btn-secondary' : ''} dropdown-toggle" data-toggle="dropdown">
+										<button type="button" class="changeAuthBtn btn ${voHighestAuth eq '사장' ? 'btn-primary' : ''}
+													 ${voHighestAuth eq '직원' ? 'btn-info' : ''} ${voHighestAuth eq '고객' ? 'btn-secondary' : ''} 
+													 dropdown-toggle" data-toggle="dropdown">
 									    	${voHighestAuth}
 										</button>
 									</c:when>
 									<c:otherwise>
-									    <span class="${voHighestAuth eq '관리자' ? 'badge-pill badge-warning' : ''}">${voHighestAuth}</span>
+									    <span class="btn ${voHighestAuth eq '관리자' ? 'btn btn-warning' : ''} 
+									    			${voHighestAuth eq '사장' ? 'btn-primary' : ''}
+									    			 ${voHighestAuth eq '직원' ? 'btn-info' : ''} ${voHighestAuth eq '고객' ? 'btn-secondary' : ''} ">
+									    	${voHighestAuth}
+									    </span>
 									</c:otherwise>
 								</c:choose>
 								<div class="changeAuth dropdown-menu" data-memberId="${vo.memberId}">

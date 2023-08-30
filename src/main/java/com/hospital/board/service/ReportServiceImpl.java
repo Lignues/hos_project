@@ -58,8 +58,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int totalReportCount() {
-		return reportRepository.getTotalReportCount();
+	public int totalReportCount(Criteria criteria) {
+		return reportRepository.getTotalReportCount(criteria);
 	}
 
 	@Override
@@ -68,8 +68,8 @@ public class ReportServiceImpl implements ReportService {
 	}
 
 	@Override
-	public int totalReportCountById(String reporter) {
-		return reportRepository.getTotalReportCountById(reporter);
+	public int totalReportCountById(String reporter, Criteria criteria) {
+		return reportRepository.getTotalReportCountById(reporter, criteria);
 	}
 
 }

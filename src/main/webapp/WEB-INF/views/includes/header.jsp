@@ -17,7 +17,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+
 <title>병원입니다</title>
+<%@ include file="apiKey.jsp" %> <!-- 네이버 지도 api -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -54,12 +56,12 @@
 </script>
 </head>
 <body>
-<div>
+<div class="bg-light">
 	<div class="row border">
-		<div class="col-3">
-			<a class="text-dark text-center font-bold display-4" href="${ctxPath}/">제목이다</a>
+		<div class="col-3 border">
+			<a class="text-dark font-bold display-4" href="${ctxPath}/">제목이다</a>
 		</div>
-		<div class="col-9">
+		<div class="col-9 p-0">
 			<div class="row" style="height:50px;">
 				<div class="col-5" style="height:50px;">
 				</div>
@@ -91,9 +93,7 @@
 				</div>
 			</div>
 			<div>
-				<div class="col-6">
-				</div>
-				<nav class="navbar navbar-expand-sm justify-content-center">
+				<nav class="navbar navbar-expand-sm border justify-content-center">
 				  <!-- Links -->
 				  <ul class="navbar-nav mx-auto font-weight-bold">
 				    <li class="nav-item px-4">
@@ -109,7 +109,7 @@
 				      <a class="nav-link text-dark" href="#">Link 4</a>
 				    </li>
 				    <li class="nav-item px-4">
-				      <a class="nav-link text-dark" href="#">Link 5</a>
+				      <a class="nav-link text-dark" href="${ctxPath}/introduce/howToCome">오시는 길</a>
 				    </li>
 				    <li class="nav-item px-4">
 				      <a class="nav-link text-dark" href="${ctxPath}/board/list">상담 게시판</a>

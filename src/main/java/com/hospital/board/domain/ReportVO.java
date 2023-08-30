@@ -1,7 +1,9 @@
 package com.hospital.board.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,6 +11,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class ReportVO {
 
 	private Long rnum;

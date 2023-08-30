@@ -6,7 +6,14 @@
 <div class="container-sm mt-3">
 	<div class="row">
 		<div class="col-3">
-			<h2 class="m-3">신고내역</h2>
+			<h2 class="m-3">신고 내역</h2>
+		</div>
+		<div class="col-6"></div>
+		<div class="col-2 mt-3 ml-3">
+			<select name="selectSearchHandled" class="form-control">
+				<option value="1" ${criteria.searchHandled eq '1' ? 'selected': ''}>모든 신고</option>
+				<option value="0" ${criteria.searchHandled eq '0' ? 'selected': ''}>미처리</option>
+			</select>
 		</div>
 	</div>
 	<table class="table-sm table-bordered table-hover table-striped">
@@ -92,7 +99,7 @@
 					<tr class="tr1 border-top-0" style="display:none">
 						<td class="text-center">제목</td>
 						<td colspan="7">
-							<div class="p-2">${vo.writer}</div>
+							<div class="p-2">${vo.title}</div>
 						</td>
 					</tr>
 					<tr></tr>
@@ -123,6 +130,7 @@
 <form class="pageForm" action="${ctxPath}/board/list">
 	<input type="hidden" name="pageNum" value="${criteria.pageNum}">
 	<input type="hidden" name="amount" value="${criteria.amount}">
+	<input type="hidden" name="searchHandled" value="${criteria.searchHandled != null ? criteria.searchHandled : 1}">
 </form>
 
 <input type="hidden" name="direction" value="report"> <!-- reply.js에서 페이징이나 리스트에 사용(get이냐 recent냐) -->
@@ -156,6 +164,17 @@ $(function(){
 				.submit();
 	});
 	
+	// 리스트 조건(미처리만 보기, 모두 보기) 변경
+	$('[name="selectSearchHandled"]').change(function(){
+		let changeSelect = $(this).val();
+		$('[name="searchHandled"]').val(changeSelect);
+		$('[name="pageNum"]').remove(); // 버그 방지
+		$('[name="amount"]').remove();
+		pageForm.attr('action', '${ctxPath}/mypage/report')
+				.removeAttr('target')
+				.submit();
+	});
+	
 	// 처리 드롭다운
 	$('.reportHandler').on('click', '.dropdown-item', function(e){
 		e.preventDefault();
@@ -171,8 +190,8 @@ $(function(){
 			if(!confirm('해당 글과 관련된 내용들이 모두 삭제됩니다. 진행 하시겠습니까?')){ // 삭제 확인하기
 				return;
 			}
-			$(this).closest('tbody').find('.tr1').remove();
-			$(this).closest('tbody').find('.tr2').remove();
+			$('div[data-handle="'+ bno +'"]').closest('tbody').find('.tr1').remove();
+			$('div[data-handle="'+ bno +'"]').closest('tbody').find('.tr2').remove();
 			$('div[data-handle="'+ bno +'"]').html('삭제됨').attr("class", "badge-pill badge-danger");
 			$('div[data-handle2="'+ bno +'"]').html('삭제 완료').attr("class", "badge-pill badge-danger");
 		}

@@ -18,7 +18,7 @@ public interface ReportRepository {
 	
 	int handleReport(@Param("bno") Long bno, @Param("handle") int handle);
 	
-	int getTotalReportCount();
+	int getTotalReportCount(@Param("criteria") Criteria criteria);
 	
-	int getTotalReportCountById(String reporter);
+	int getTotalReportCountById(@Param("reporter") String reporter, @Param("criteria") Criteria criteria);
 }

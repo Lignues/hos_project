@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.hospital.board.domain.Criteria;
 import com.hospital.common.exception.PasswordMismatchException;
 import com.hospital.member.domain.AuthVO;
+import com.hospital.member.domain.MemberAuthDTO;
 import com.hospital.member.domain.MemberVO;
 import com.hospital.member.repository.AuthRepository;
 import com.hospital.member.repository.MemberRepository;
@@ -50,7 +51,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> memberList(Criteria criteria) {
+	public List<MemberAuthDTO> memberList(Criteria criteria) {
 		return memberRepository.memberList(criteria);
 	}
 

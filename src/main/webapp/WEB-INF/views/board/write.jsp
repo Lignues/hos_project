@@ -37,7 +37,7 @@
 		<div class="form-group container">
 			<div class="custom-file form-control mt-3">
 				<input type="file" class="custom-file-input" id="customFile" name="uploadFile" multiple="multiple">
-				<label class="custom-file-label" for="customFile">파일 선택</label>
+				<label class="custom-file-label" for="customFile">🔗 파일 선택</label>
 			</div>
 			<div class="uploadResultDiv form-group mt-2"><br>
 				<ul class="list-group">

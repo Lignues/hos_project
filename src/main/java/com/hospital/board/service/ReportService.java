@@ -16,7 +16,7 @@ public interface ReportService {
 	
 	int handleReport(Long bno, int handle);
 	
-	int totalReportCount();
+	int totalReportCount(Criteria criteria);
 	
-	int totalReportCountById(String reporter);
+	int totalReportCountById(String reporter, Criteria criteria);
 }

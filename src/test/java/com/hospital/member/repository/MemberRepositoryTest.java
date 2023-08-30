@@ -31,14 +31,14 @@ public class MemberRepositoryTest extends appTest{
 	}
 
 	@Test
-	@Ignore
+//	@Ignore
 	public void testRead() {
 		MemberVO vo = memberRepository.read("scott");
 		System.out.println(vo);
 	}
 	
 	@Test
-//	@Ignore
+	@Ignore
 	public void testAuth() {
 		List<AuthVO> list = authRepository.getAuthList("scott");
 		System.out.println(list);

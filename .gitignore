@@ -102,3 +102,6 @@ local.properties
 
 # Email
 emailDB.properties
+
+# apiKey
+apiKey.jsp

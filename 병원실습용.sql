@@ -144,7 +144,7 @@ select * from hos_member;
 select * from hos_member_auth;
 select * from persistent_logins;
 select * from article_viewed;
-
+select * from hos_board_report;  
 
 -- ########신규기능########
 
@@ -182,4 +182,14 @@ insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hos
 
 commit;
 
-select * from hos_board_report;
+  
+  
+-- group by 활용으로 권한 통일
+select * from  
+    (select rownum as rn, c.* from      
+        (SELECT h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate, COUNT(a.memberId) AS authCount
+        FROM hos_member h
+        LEFT OUTER JOIN hos_member_auth a ON h.memberId = a.memberId
+        GROUP BY h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate
+        order by authCount desc) c where rownum <= 10
+        ) where rn > 0;

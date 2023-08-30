@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.hospital.board.domain.Criteria;
 import com.hospital.member.domain.AuthVO;
+import com.hospital.member.domain.MemberAuthDTO;
 import com.hospital.member.domain.MemberVO;
 
 public interface MemberService {
@@ -15,7 +16,7 @@ public interface MemberService {
 	
 	MemberVO read(String memberId);
 	
-	List<MemberVO> memberList(Criteria criteria);
+	List<MemberAuthDTO> memberList(Criteria criteria);
 	
 	void setAuth(AuthVO authVO);
 	

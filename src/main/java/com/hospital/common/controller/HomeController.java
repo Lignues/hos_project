@@ -14,6 +14,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@GetMapping("/introduce/howToCome")
+	public void howToGo() {}
+	
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		return "accessError";

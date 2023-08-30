@@ -53,20 +53,16 @@
 	select count(memberId) from hos_member	
   </select>
   
-  <select id="memberList" resultMap="memberMap">
+  <select id="memberList" resultType="memberAuthDTO">
   	<![CDATA[
-	  	select * from (select rownum as rn, h.memberId, memberPwd, memberName, email, enabled,
-	  		regDate, updateDate, a.auth 
-	  	from hos_member h left outer join hos_member_auth a
-		on h.memberId = a.memberId
-		where rownum <= #{maxRow} 
-		order by case a.auth
-		when 'ROLE_ADMIN' then 1
-		when 'ROLE_BOSS' then 2
-		when 'ROLE_MANAGER' then 3
-		when 'ROLE_MEMBER' then 4
-		else 5
-		end) where rn > #{minRow}
+  	select * from  
+    	(select rownum as rn, c.* from      
+	        (SELECT h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate, COUNT(a.memberId) AS authCount
+	        FROM hos_member h
+	        LEFT OUTER JOIN hos_member_auth a ON h.memberId = a.memberId
+	        GROUP BY h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate
+	        order by authCount desc) c where rownum <= #{maxRow}
+     ) where rn > #{minRow}
   	]]>
   </select>
   

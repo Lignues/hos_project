@@ -13,11 +13,10 @@ public class Criteria {
 
 	private int pageNum; // 현재 페이지
 	private int amount; // 페이지당 게시물 수
-	private int hi = 1;
-	private int hello = 10;
 	
 	private String type;
 	private String keyword;
+	private String searchHandled; // report에서 처리안된 내역만 검색하기 전용
 	
 	public Criteria() {
 		this(1, 10);

@@ -40,15 +40,15 @@
 		<div class="form-group container">
 			<div class="custom-file form-control mt-3">
 				<input type="file" class="custom-file-input" id="customFile" name="uploadFile" multiple="multiple">
-				<label class="custom-file-label" for="customFile">파일 선택</label>
+				<label class="custom-file-label" for="customFile">🔗 파일 선택</label>
 			</div>
 			<div class="uploadResultDiv form-group mt-2"><br>
 				<ul class="list-group">
 				</ul>
 			</div>
 			<span class="float-right mt-4">
-				<button type="button" class="modifyBtn btn btn-primary">수정</button>
-				<button type="button" class="listBtn btn btn-primary">목록으로</button>
+				<button type="button" class="modifyBtn btn btn-primary">✂ 수정</button>
+				<button type="button" class="listBtn btn btn-primary">🗑 목록으로</button>
 			</span>
 		</div>
 	</div>
