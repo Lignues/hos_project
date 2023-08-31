@@ -11,15 +11,23 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import com.hospital.common.exception.BannedUserException;
+
 import lombok.extern.log4j.Log4j;
 
 @Component
 @Log4j
-public class CustomAuthenticationFailuerHandler implements AuthenticationFailureHandler{
+public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler{
 	
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
+		if (exception.getMessage().equals("정지된 사용자입니다.")) { // 왜 여기 안지나가지
+			System.out.println("안녕하세요");
+			String memberId = request.getParameter("memberId");
+			request.setAttribute("memberId", memberId);
+			request.setAttribute("LoginFail", "사용이 정지된 사용자입니다.");
+		}
 		if (exception instanceof BadCredentialsException) {
 			String memberId = request.getParameter("memberId");
 			request.setAttribute("memberId", memberId);

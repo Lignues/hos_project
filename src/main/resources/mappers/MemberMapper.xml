@@ -70,4 +70,12 @@
   	delete from hos_member where memberId = #{memberId}
   </delete>
   
+  <select id="checkBannedDay" resultType="int">
+	select ban from hos_member where memberId = #{memberId}
+  </select>
+  
+  <update id="banById">
+  	update hos_member set ban = ban + #{banDay} where memberId = #{memberId}
+  </update>
+  
 </mapper>

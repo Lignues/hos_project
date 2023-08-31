@@ -31,7 +31,7 @@ public class MemberRepositoryTest extends appTest{
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void testRead() {
 		MemberVO vo = memberRepository.read("scott");
 		System.out.println(vo);
@@ -42,5 +42,12 @@ public class MemberRepositoryTest extends appTest{
 	public void testAuth() {
 		List<AuthVO> list = authRepository.getAuthList("scott");
 		System.out.println(list);
+	}
+	
+	@Test
+//	@Ignore
+	public void banTest() {
+		int bannedDay = memberRepository.checkBannedDay("4작성자");
+		System.out.println(bannedDay);
 	}
 }

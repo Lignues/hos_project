@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../includes/header.jsp" %>
+
 <div class="container my-5">
 	<div class="card">
 		<div class="card-header">
@@ -167,7 +168,7 @@
   </div>
 </div>
 
-
+<input type="hidden" name="highlight" value="list">
 <input type="hidden" name="auth" value="${highestAuth}">
 
 <%@ include file="../includes/footer.jsp" %>

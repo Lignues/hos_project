@@ -25,4 +25,8 @@ public interface MemberRepository {
 	void deleteById(String memberId);
 	
 	int totalMemberCount();
+	
+	int checkBannedDay(String memberId);
+	
+	void banById(String memberId, int banDay);
 }

@@ -58,6 +58,8 @@
 <input type="hidden" name="pageNum" value="${criteria.pageNum}">
 <input type="hidden" name="amount" value="${criteria.amount}">
 <input type="hidden" name="type" value="${criteria.type}">
-<input type="hidden" name="keyword" value="${criteria.keyword}"><!-- 이거 써지긴 하나? -->
+<input type="hidden" name="keyword" value="${criteria.keyword}">
+
+<input type="hidden" name="highlight" value="list">
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/modify.js"></script>

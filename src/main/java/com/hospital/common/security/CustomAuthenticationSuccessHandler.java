@@ -41,6 +41,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			response.sendRedirect(prevPage);
 			return;
 		}
+		
 		// (그 밖의 경우)주소창에서 로그인 페이지로 이동하는 경우 
 		response.sendRedirect(request.getContextPath());
 	}

@@ -59,5 +59,7 @@
 <input type="hidden" name="type" value="${param.type}">
 <input type="hidden" name="keyword" value="${param.keyword}">
 
+<input type="hidden" name="highlight" value="list">
+
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/write.js"></script>

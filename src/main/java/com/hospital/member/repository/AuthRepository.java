@@ -11,4 +11,6 @@ public interface AuthRepository {
 	List<AuthVO> getAuthList(String memberId);
 	
 	void deleteAuthById(String memberId);
+	
+	int checkBannedDay(String memberId);
 }

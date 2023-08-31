@@ -172,13 +172,13 @@ ADD CONSTRAINT uk_reporter_bno UNIQUE (bno, reporter);
 drop sequence seq_hosreport;
 create sequence seq_hosreport;
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'scott');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'test');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 20, '1신고번이다', '4작성자');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 26, '1신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 26, '1신고번이다', 'test');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 26, '1신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 26, '1신고번이다', '4작성자');
 
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 21, '2신고번이다', 'admin');
-insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 21, '2신고번이다', 'scott');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 27, '2신고번이다', 'admin');
+insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hosreport.nextval, 27, '2신고번이다', 'scott');
 
 commit;
 

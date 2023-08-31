@@ -22,5 +22,4 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler{
 		log.info("접근 거부됨");
 		response.sendRedirect(request.getContextPath()+"/accessDenied");
 	}
-
 }

@@ -71,7 +71,7 @@
     <input type="hidden" name="pageNum" value="${criteria.pageNum}">
 	<input type="hidden" name="amount" value="${criteria.amount}">
   </form>
-	  <ul class="pagination justify-content-center">
+	  <ul class="pagination justify-content-center mt-2">
 	  	<c:if test="${p.prev}">
 	   	 	<li><a class="page-link" href="${p.startPage-1}">이전</a></li>
 	  	</c:if>
@@ -89,6 +89,6 @@
 	<input type="hidden" name="type" value="${criteria.type}">
 	<input type="hidden" name="keyword" value="${criteria.keyword}">
 </form>
-
+<input type="hidden" name="highlight" value="list">
 <%@ include file="../includes/footer.jsp" %>
 <script src="${ctxPath}/resources/js/list.js"></script>

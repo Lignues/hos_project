@@ -17,6 +17,15 @@ public class HomeController {
 	@GetMapping("/introduce/howToCome")
 	public void howToGo() {}
 	
+	@GetMapping("/introduce/docIntroduce")
+	public void docIntroduce() {}
+	
+	@GetMapping("/introduce/hosIntroduce")
+	public void hosIntroduce() {}
+	
+	@GetMapping("/introduce/subjects")
+	public void hosSubjects() {}
+	
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		return "accessError";
