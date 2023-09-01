@@ -3,7 +3,7 @@
 <%@ include file="../includes/header.jsp"%>
 <%@ include file="../includes/pageHeader.jsp"%>
 
-<c:if test="${not empty authList[0]}"> <!-- 권한 구하기 -->
+<c:if test="${not empty authList[0]}"> <!-- 로그인한 사용자의 등급 -->
 	<c:set var="highestAuth" value="ROLE_MEMBER"/>
 	<c:if test="${not empty authList[1]}">
 		<c:set var="highestAuth" value="ROLE_MANAGER"/>
@@ -29,33 +29,62 @@
 				<th>이름</th>
 				<th class="w-25">이메일</th>
 				<th>가입일</th>
+				<th>이용정지 기간(일)</th>
+				<sec:authorize access="hasRole('ROLE_BOSS')">
+					<th>정지 추가</th>
+				</sec:authorize>
 				<th>등급</th>
 			</tr>
 		</thead>
 
 		<c:if test="${not empty list}">
 			<c:forEach items="${list}" var="vo">
+				<!-- 회원의 등급 -->
+				<c:choose>
+					<c:when test="${vo.authCount==1}">
+						<c:set var="voHighestAuth" value="고객"/>
+					</c:when>
+					<c:when test="${vo.authCount==2}">
+						<c:set var="voHighestAuth" value="직원"/>
+					</c:when>
+					<c:when test="${vo.authCount==3}">
+						<c:set var="voHighestAuth" value="사장"/>
+					</c:when>
+					<c:when test="${vo.authCount==4}">
+						<c:set var="voHighestAuth" value="관리자"/>
+					</c:when>
+				</c:choose>
+			
 				<tbody>
 					<tr class="text-center">
 						<td>${vo.memberId}</td>
 						<td>${vo.memberName}</td>
 						<td>${vo.email}</td>
 						<td><tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/></td>
+						<td class="${vo.ban == 0 ? 'text-dark' : 'text-danger'}">${vo.ban}</td>
+						<sec:authorize access="hasRole('ROLE_BOSS')">
+							<td>
+								<!-- 이용정지시키기 드롭다운 -->
+								<div class="dropdown">
+										<c:if test="${(highestAuth eq 'ROLE_ADMIN' and (voHighestAuth eq '사장' or voHighestAuth eq '직원' or voHighestAuth eq '고객')) 
+											 or (highestAuth eq 'ROLE_BOSS' and (voHighestAuth eq '직원' or voHighestAuth eq '고객'))}">
+											<button type="button" class="addBanBtn btn btn-danger dropdown-toggle" data-toggle="dropdown">
+										    	기간
+											</button>
+										</c:if>
+									<div class="addBan dropdown-menu" data-memberId="${vo.memberId}">
+										<c:if test="${highestAuth eq 'ROLE_BOSS' or highestAuth eq 'ROLE_ADMIN'}">
+											<a class="break dropdown-item" href="0">정지 풀기</a>
+											<a class="oneDay dropdown-item" href="1">1일</a>
+										  	<a class="oneWeed dropdown-item" href="7">7일</a>
+										  	<a class="oneMonth dropdown-item" href="30">30일</a>
+										</c:if>
+									</div>
+								</div>
+							</td>
+						</sec:authorize>
 						<td>
-						<c:choose>
-							<c:when test="${vo.authCount==1}">
-								<c:set var="voHighestAuth" value="고객"/>
-							</c:when>
-							<c:when test="${vo.authCount==2}">
-								<c:set var="voHighestAuth" value="직원"/>
-							</c:when>
-							<c:when test="${vo.authCount==3}">
-								<c:set var="voHighestAuth" value="사장"/>
-							</c:when>
-							<c:when test="${vo.authCount==4}">
-								<c:set var="voHighestAuth" value="관리자"/>
-							</c:when>
-						</c:choose>
+							<!-- 등급변경 드롭다운 -->
 							<div class="dropdown">
 								<c:choose>
 									<c:when test="${(highestAuth eq 'ROLE_ADMIN' and (voHighestAuth eq '사장' or voHighestAuth eq '직원' or voHighestAuth eq '고객')) 
@@ -180,5 +209,27 @@ $(function(){
 		});
 	});
 	
+	// 밴 기간 추가하기
+	$('.addBan').on('click', '.dropdown-item', function(e){
+		e.preventDefault();
+		let addBanDay = $(this).attr('href');
+		let clickedMemberId = $(this).closest('.addBan').attr('data-memberId');
+		let changeBanDay = $(this).closest('td').prev(); // 이용정지 표시부분
+		
+		$.ajax({
+			data : {banDay : addBanDay, memberId : clickedMemberId},
+			type : 'post',
+			url : '${ctxPath}/control/ban',
+			success : function(result){
+				alert(clickedMemberId+'의 정지 기간이 ' + result + '일로 수정됐습니다');
+				if(result>0){
+					changeBanDay.attr('class', 'text-danger').text(result);
+				}else{
+					changeBanDay.attr('class', 'text-dark').text(result);
+				}
+				
+			}
+		});
+	});
 });
 </script>

@@ -90,4 +90,15 @@ public class MemberServiceImpl implements MemberService {
 		return memberRepository.totalMemberCount();
 	}
 
+	@Transactional
+	@Override
+	public Integer changeBanDay(Integer banDay, String memberId) {
+		if (banDay==0) {
+			memberRepository.cancelBan(memberId);
+		}else {
+			memberRepository.banById(memberId, banDay);
+		}
+		return memberRepository.checkBannedDay(memberId);
+	}
+
 }

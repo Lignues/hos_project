@@ -32,7 +32,7 @@
 		alert(duplicateLogin);
 	}
 	
-	let csrfHeaderName = "${_csrf.headerName}"; 
+	let csrfHeaderName = "${_csrf.headerName}";
 	let csrfTokenValue = "${_csrf.token}";
 	
 	$(document).ajaxSend(function(e, xhr, options){ // 모든 ajax요청에 토큰 전송
@@ -60,7 +60,7 @@
 <div class="bg-light">
 	<div class="row border">
 		<div class="col-3 border" style="text-align: center;">
-			<a class="text-dark font-bold display-4 mx-auto" href="${ctxPath}" style="line-height: 100px; text-decoration: none;">OO병원</a>
+			<a class="text-dark font-bold display-4 mx-auto" href="${ctxPath}" style="line-height: 100px; text-decoration: none;"><b>OO병원</b></a>
 		</div>
 		<div class="col-9 p-0">
 			<div class="row" style="height:50px;">
@@ -68,8 +68,8 @@
 				</div>
 				<div class="col-7 h-20">
 					<nav class="navbar navbar-expand-sm justify-content-end">
-					  <ul class="navbar-nav mx-right font-weight-bold">
-					    <sec:authorize access="isAnonymous()">
+					  <ul class="logJoinBar navbar-nav mx-right font-weight-bold">
+					    <sec:authorize access="isAnonymous()"><!-- 로그인 실패시 같이 사라지는 버그가 있다 -->
 					    	<li class="nav-item">
 					     		<a class="nav-link text-primary" href="${ctxPath}/login">로그인</a>
 						    </li>
@@ -107,7 +107,7 @@
 				      <a class="nav-link text-dark" id="subjects" href="${ctxPath}/introduce/subjects">진료 과목</a>
 				    </li>
 				    <li class="nav-item px-4">
-				      <a class="nav-link text-dark" id="" href="#">예약 안내</a>
+				      <a class="nav-link text-dark" id="book" href="${ctxPath}/introduce/book">예약 안내</a>
 				    </li>
 				    <li class="nav-item px-4">
 				      <a class="nav-link text-dark" id="howToCome" href="${ctxPath}/introduce/howToCome">오시는 길</a>

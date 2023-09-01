@@ -57,10 +57,10 @@
   	<![CDATA[
   	select * from  
     	(select rownum as rn, c.* from      
-	        (SELECT h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate, COUNT(a.memberId) AS authCount
+	        (SELECT h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate, ban, COUNT(a.memberId) AS authCount
 	        FROM hos_member h
 	        LEFT OUTER JOIN hos_member_auth a ON h.memberId = a.memberId
-	        GROUP BY h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate
+	        GROUP BY h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate, ban
 	        order by authCount desc) c where rownum <= #{maxRow}
      ) where rn > #{minRow}
   	]]>
@@ -70,12 +70,22 @@
   	delete from hos_member where memberId = #{memberId}
   </delete>
   
-  <select id="checkBannedDay" resultType="int">
+  <select id="checkBannedDay" resultType="integer">
 	select ban from hos_member where memberId = #{memberId}
   </select>
   
   <update id="banById">
   	update hos_member set ban = ban + #{banDay} where memberId = #{memberId}
   </update>
+  
+  <update id="decreaseBanDay">
+  	update hos_member set ban = ban - 1 where ban > 0
+  </update>
+  
+  <update id="cancelBan">
+  	update hos_member set ban = 0 where memberId = #{memberId}
+  </update>
+  
+  
   
 </mapper>

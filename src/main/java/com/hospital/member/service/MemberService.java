@@ -25,4 +25,6 @@ public interface MemberService {
  	void deleteById(String memberId);
  	
  	int totalMemberCount();
+ 	
+ 	Integer changeBanDay(Integer banDay, String memberId);
 }

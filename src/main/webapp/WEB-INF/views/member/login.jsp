@@ -26,7 +26,7 @@
 			<a class="btn btn-outline-primary join" href="${ctxPath}/member/join">회원가입</a>
 			<a class="btn btn-outline-primary findMemberInfo" href="${ctxPath}/findMemberInfo">아이디 찾기/비밀번호 재발급</a>
 			<c:if test="${not empty LoginFail }">
-				<p style="color: red;">${LoginFail}</p>
+				<p class="logFail" style="color: red;">${LoginFail}</p>
 			</c:if>
 		</form>
 	</div>
@@ -46,5 +46,6 @@ $(function(){
 		}
 		$('form').submit();
 	});
+	
 });
 </script>

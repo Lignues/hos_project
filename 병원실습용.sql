@@ -66,7 +66,8 @@ create table hos_member(
     email varchar(200) not null,
     regDate date default sysdate,
     updateDate date default sysdate, 
-    enabled char(1) default '1'
+    enabled char(1) default '1',
+    ban number(2) default 0
 );
 
 -- 권한 
@@ -93,6 +94,8 @@ create table persistent_logins(
 
 commit;
 
+-- 이용정지
+alter table hos_member add ban number(2) default 0;
 -- 비밀글
 alter table hos_board add secretContent NUMBER(1) default 0;
 -- 조회수
@@ -193,3 +196,10 @@ select * from
         GROUP BY h.memberId, memberPwd, memberName, email, enabled, regDate, updateDate
         order by authCount desc) c where rownum <= 10
         ) where rn > 0;
+        
+        
+        
+update HOS_MEMBER
+set  ban = 1 where memberid = 'eeee';
+commit;
+

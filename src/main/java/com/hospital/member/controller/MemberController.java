@@ -208,6 +208,15 @@ public class MemberController {
 		return new ResponseEntity<String>("게시글 처리 완료", HttpStatus.OK);
 	}
 	
+	// 기간 정지 처리하기
+	@PreAuthorize("hasRole('ROLE_BOSS')")
+	@PostMapping("/control/ban")
+	@ResponseBody
+	public ResponseEntity<Integer> banHandling(Integer banDay, String memberId){
+		int currentBanDay = memberService.changeBanDay(banDay, memberId);
+		return new ResponseEntity<Integer>(currentBanDay, HttpStatus.OK);
+	}
+	
 	// 회원정보 변경
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/member/modify")

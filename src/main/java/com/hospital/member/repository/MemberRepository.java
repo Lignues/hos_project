@@ -28,5 +28,9 @@ public interface MemberRepository {
 	
 	int checkBannedDay(String memberId);
 	
-	void banById(String memberId, int banDay);
+	void banById(@Param("memberId") String memberId, @Param("banDay") Integer banDay);
+	
+	void decreaseBanDay();
+	
+	void cancelBan(String memberId);
 }

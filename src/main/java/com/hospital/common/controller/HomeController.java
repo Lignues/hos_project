@@ -3,11 +3,10 @@ package com.hospital.common.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.hospital.common.domain.BookCalendar;
+
 @Controller
 public class HomeController {
-	
-	public HomeController() {
-	}
 	
 	@GetMapping("/")
 	public String home() {
@@ -26,8 +25,14 @@ public class HomeController {
 	@GetMapping("/introduce/subjects")
 	public void hosSubjects() {}
 	
+	@GetMapping("/introduce/book")
+	public void book(BookCalendar bookCalendar) {
+	}
+	
 	@GetMapping("/accessDenied")
 	public String accessDenied() {
 		return "accessError";
 	}
+	
+	
 }

@@ -26,4 +26,5 @@ public class MemberAuthDTO {
 	private LocalDateTime updateDate;
 	
 	private int AuthCount;
+	private int ban;
 }
