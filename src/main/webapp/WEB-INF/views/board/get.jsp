@@ -162,7 +162,7 @@
       <!-- Modal footer -->
       <div class="modal-footer">
         <button type="button" class="btn reportModal btn-danger" data-dismiss="modal">신고하기</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

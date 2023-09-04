@@ -1,10 +1,12 @@
 package com.hospital.common.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,12 +17,12 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class BookVO {
 
 	private String memberId;
 	private String bookReason;
 	
-	@DateTimeFormat(pattern = "yyyy/MM/dd/HH")
-	private LocalDateTime bookTime;
-	
+	private String bookDate;
+	private Integer bookTime;
 }

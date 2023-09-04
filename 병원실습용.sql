@@ -186,7 +186,6 @@ insert into hos_board_report(rnum, bno, reportContent, reporter) values (seq_hos
 commit;
 
   
-  
 -- group by 활용으로 권한 통일
 select * from  
     (select rownum as rn, c.* from      
@@ -197,9 +196,21 @@ select * from
         order by authCount desc) c where rownum <= 10
         ) where rn > 0;
         
-        
-        
-update HOS_MEMBER
-set  ban = 1 where memberid = 'eeee';
-commit;
+-- 예약기능
 
+create table hos_book(
+    bookDate date not null,
+    bookTime number(2) not null,
+    memberId varchar2(12) not null,
+    bookReason varchar2(100) not null,
+    
+    --constraint fk_hosboard_reportBno foreign key(bno) references hos_board(bno),
+    constraint fk_hosbook_memberId foreign key(memberId) references hos_member(memberId)
+);
+
+-- 중복예약 방지
+ALTER TABLE hos_book
+ADD CONSTRAINT uk_hosBooking UNIQUE (bookDate, bookTime);
+drop table hos_book;
+
+select * from hos_book;

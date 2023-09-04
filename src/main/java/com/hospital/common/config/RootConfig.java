@@ -25,7 +25,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@MapperScan(value = {"com.hospital.member.repository", "com.hospital.board.repository"})
+@MapperScan(value = {"com.hospital.member.repository", "com.hospital.board.repository", "com.hospital.common.repository"})
 @PropertySource(value = {"classpath:/database/oracleDB.properties", "classpath:/database/emailDB.properties"}) // emailDB ignore해놨으니 파일 만들어서 사용
 @EnableTransactionManagement
 @EnableScheduling
@@ -65,7 +65,7 @@ public class RootConfig {
 		factory.setDataSource(dataSource());
 		factory.setMapperLocations(new PathMatchingResourcePatternResolver()
 				.getResources("classpath:mappers/**/*Mapper.xml"));
-		factory.setTypeAliasesPackage("com.hospital.member.domain, com.hospital.board.domain");
+		factory.setTypeAliasesPackage("com.hospital.member.domain, com.hospital.board.domain, com.hospital.common.domain");
 		return factory;
 	}
 	

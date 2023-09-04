@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hospital.common.repository.BookRepository">
+
+<select id="checkBookList" resultType="bookVO">
+	<![CDATA[
+	select * from
+		(select memberId, bookReason, to_char(bookDate) as bookDate, bookTime from hos_book where bookDate >= #{book.today})
+		 where bookDate <= #{book.bookableDateLocal} order by bookDate, bookTime
+	]]>
+</select>
+
+<insert id="booking">
+	insert into hos_book(memberId, bookReason, bookDate, bookTime) values(#{memberId}, #{bookReason}, #{bookDate}, #{bookTime})
+</insert>
+
+<delete id="cancelBooking">
+	delete from hos_book where memberId = #{memberId} and to_char(bookDate) = #{bookDate} and  bookTime = #{bookTime}
+</delete>
+
+<select id="countBookList" resultType="bookableDTO">
+	<![CDATA[
+	select * from
+		(select to_char(bookDate) as bookDate, count(bookTime) as bookCount from hos_book where bookDate >= #{book.today} group by bookDate)
+	where bookDate <= #{book.bookableDateLocal} order by bookDate
+	]]>
+</select>
+
+<select id="checkBookableTimes" resultType="Integer">
+	select bookTime from hos_book where bookDate = #{bookDate}
+</select>
+
+</mapper>
