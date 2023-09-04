@@ -39,13 +39,4 @@ public class Criteria {
 		return type == null ? new String[] {} : type.split("");
 	}
 	
-//	public String getListLink() { // 안쓰니까 지워도 될듯?
-//		UriComponentsBuilder builder = UriComponentsBuilder.fromPath("")
-//								.queryParam("pageNum", this.pageNum)
-//								.queryParam("amount", this.amount)
-//								.queryParam("type", this.type)
-//								.queryParam("keyword", this.keyword);
-//		return builder.toString();
-//								
-//	}
 }

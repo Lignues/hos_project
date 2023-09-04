@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -40,7 +41,8 @@ public class HomeController {
 	public void hosSubjects() {}
 	
 	@GetMapping("/introduce/book")
-	public void book(BookCalendar bookCalendar) {
+	public void book(BookCalendar bookCalendar, @RequestParam(value = "changeMonth", required = false) Integer changeMonth) {
+		
 	}
 	
 	@GetMapping("/accessDenied")
@@ -50,8 +52,9 @@ public class HomeController {
 	
 	@GetMapping("/introduce/bookableList")
 	@ResponseBody
-	public ResponseEntity<List<BookableDTO>> bookableList(){
-		return new ResponseEntity<List<BookableDTO>>(bookService.countBookList(new BookCalendar()), HttpStatus.OK);
+	public ResponseEntity<List<BookableDTO>> bookableList(Integer changeMonth){
+		BookCalendar bookCalendar = new BookCalendar(changeMonth);
+		return new ResponseEntity<List<BookableDTO>>(bookService.countBookList(bookCalendar), HttpStatus.OK);
 	}
 	
 	@GetMapping("/introduce/bookableTime")
@@ -63,7 +66,7 @@ public class HomeController {
 	@PostMapping("introduce/booking")
 	public String bookingFinish(BookVO vo, RedirectAttributes rttr) {
 		bookService.booking(vo);
-		rttr.addAttribute("boardResult", "예약이 완료되었습니다");
+		rttr.addFlashAttribute("boardResult", "예약이 완료되었습니다");
 		return "redirect:/introduce/book";
 	}
 }
