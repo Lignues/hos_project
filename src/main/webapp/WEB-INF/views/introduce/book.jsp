@@ -8,49 +8,53 @@
 	<h1 class="month text-center">${bookCalendar.thisYear}년 ${bookCalendar.thisMonth}월</h1>
 	<br>
 	<table class="thisTable table table-bordered text-center">
-		<tr>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th class="text-danger">토</th>
-			<th class="text-danger">일</th>
-		</tr>
-		<tr><!-- 첫주 -->
-			<c:forEach begin="1" end="${bookCalendar.firstDOW-1}" var="days"><!-- 월 첫날 시작 전(요일-1) -->
-				<td></td>
-			</c:forEach>
-			<c:forEach begin="1" end="${bookCalendar.firstDOW < 6 ? 8-2-bookCalendar.firstDOW : 0}" var="days"><!-- 첫주 평일 -->
-				<td data-days="${days}">${days}</td>
-			</c:forEach>
-			<c:forEach begin="${bookCalendar.firstDOW != 7 ? 8-1-bookCalendar.firstDOW : 1}" end="${8-bookCalendar.firstDOW}" var="days"><!-- 첫주의 주말 -->
-				<td class="text-danger">${days}</td>
-			</c:forEach>
-		</tr>
-		<c:forEach begin="1" end="${((bookCalendar.lastDay - bookCalendar.lastDOW + 1 - 1) - (8-bookCalendar.firstDOW))/7}" var="dou"><!-- 둘째주~마지막 전주 -->
+		<thead>
 			<tr>
-				<c:forEach begin="${dou*7+1+1-bookCalendar.firstDOW}" end="${dou*7+8-2-bookCalendar.firstDOW}" var="days"><!-- 주중 평일 -->
+				<th>월</th>
+				<th>화</th>
+				<th>수</th>
+				<th>목</th>
+				<th>금</th>
+				<th class="text-danger">토</th>
+				<th class="text-danger">일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><!-- 첫주 -->
+				<c:forEach begin="1" end="${bookCalendar.firstDOW-1}" var="days"><!-- 월 첫날 시작 전(요일-1) -->
+					<td></td>
+				</c:forEach>
+				<c:forEach begin="1" end="${bookCalendar.firstDOW < 6 ? 8-2-bookCalendar.firstDOW : 0}" var="days"><!-- 첫주 평일 -->
 					<td data-days="${days}">${days}</td>
 				</c:forEach>
-				<c:forEach begin="${dou*7+8-1-bookCalendar.firstDOW}" end="${dou*7+8-bookCalendar.firstDOW}" var="days"><!-- 주중 주말 -->
+				<c:forEach begin="${bookCalendar.firstDOW != 7 ? 8-1-bookCalendar.firstDOW : 1}" end="${8-bookCalendar.firstDOW}" var="days"><!-- 첫주의 주말 -->
 					<td class="text-danger">${days}</td>
 				</c:forEach>
 			</tr>
-		</c:forEach>
-		<tr><!-- 마지막주 -->
-			<c:forEach begin="${bookCalendar.lastDay - bookCalendar.lastDOW + 1}" 
-						end="${bookCalendar.lastDOW < 6 ? bookCalendar.lastDay : bookCalendar.lastDay - (bookCalendar.lastDOW - 5)}" var="days"><!-- 마지막주 평일 -->
-				<td data-days="${days}">${days}</td>
+			<c:forEach begin="1" end="${((bookCalendar.lastDay - bookCalendar.lastDOW + 1 - 1) - (8-bookCalendar.firstDOW))/7}" var="dou"><!-- 둘째주~마지막 전주 -->
+				<tr>
+					<c:forEach begin="${dou*7+1+1-bookCalendar.firstDOW}" end="${dou*7+8-2-bookCalendar.firstDOW}" var="days"><!-- 주중 평일 -->
+						<td data-days="${days}">${days}</td>
+					</c:forEach>
+					<c:forEach begin="${dou*7+8-1-bookCalendar.firstDOW}" end="${dou*7+8-bookCalendar.firstDOW}" var="days"><!-- 주중 주말 -->
+						<td class="text-danger">${days}</td>
+					</c:forEach>
+				</tr>
 			</c:forEach>
-			<c:forEach begin="${bookCalendar.lastDOW < 6 ? bookCalendar.lastDay : bookCalendar.lastDay - (bookCalendar.lastDOW - 6)}" 
-						end="${bookCalendar.lastDOW >= 6 ? bookCalendar.lastDay : 0}" var="days"><!-- 마지막주 주말 -->
-				<td class="text-danger">${days}</td>
-			</c:forEach>
-			<c:forEach begin="1" end="${7-bookCalendar.lastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
-				<td></td>
-			</c:forEach>
-		</tr>
+			<tr><!-- 마지막주 -->
+				<c:forEach begin="${bookCalendar.lastDay - bookCalendar.lastDOW + 1}" 
+							end="${bookCalendar.lastDOW < 6 ? bookCalendar.lastDay : bookCalendar.lastDay - (bookCalendar.lastDOW - 5)}" var="days"><!-- 마지막주 평일 -->
+					<td data-days="${days}">${days}</td>
+				</c:forEach>
+				<c:forEach begin="${bookCalendar.lastDOW < 6 ? bookCalendar.lastDay : bookCalendar.lastDay - (bookCalendar.lastDOW - 6)}" 
+							end="${bookCalendar.lastDOW >= 6 ? bookCalendar.lastDay : 0}" var="days"><!-- 마지막주 주말 -->
+					<td class="text-danger">${days}</td>
+				</c:forEach>
+				<c:forEach begin="1" end="${7-bookCalendar.lastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
+					<td></td>
+				</c:forEach>
+			</tr>
+		</tbody>
 	</table>
 	<br><br>
 </div>
@@ -62,49 +66,53 @@
 	<h1 class="nextMonthMonth text-center">${bookCalendar.nextMonthYear}년 ${bookCalendar.nextMonthMonth}월</h1>
 	<br>
 	<table class="nextMonthTable table table-bordered text-center">
-		<tr>
-			<th>월</th>
-			<th>화</th>
-			<th>수</th>
-			<th>목</th>
-			<th>금</th>
-			<th class="text-danger">토</th>
-			<th class="text-danger">일</th>
-		</tr>
-		<tr><!-- 첫주 -->
-			<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW-1}" var="days"><!-- 월 첫날 시작 전(요일-1) -->
-				<td></td>
-			</c:forEach>
-			<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW < 6 ? 8-2-bookCalendar.nextMonthfirstDOW : 0}" var="days"><!-- 첫주 평일 -->
-				<td data-nextMonthDays="${days}">${days}</td>
-			</c:forEach>
-			<c:forEach begin="${bookCalendar.nextMonthfirstDOW != 7 ? 8-1-bookCalendar.nextMonthfirstDOW : 1}" end="${8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 첫주의 주말 -->
-				<td class="text-danger">${days}</td>
-			</c:forEach>
-		</tr>
-		<c:forEach begin="1" end="${((bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1 - 1) - (8-bookCalendar.nextMonthfirstDOW))/7}" var="dou"><!-- 둘째주~마지막 전주 -->
+		<thead>
 			<tr>
-				<c:forEach begin="${dou*7+1+1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-2-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 평일 -->
+				<th>월</th>
+				<th>화</th>
+				<th>수</th>
+				<th>목</th>
+				<th>금</th>
+				<th class="text-danger">토</th>
+				<th class="text-danger">일</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><!-- 첫주 -->
+				<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW-1}" var="days"><!-- 월 첫날 시작 전(요일-1) -->
+					<td></td>
+				</c:forEach>
+				<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW < 6 ? 8-2-bookCalendar.nextMonthfirstDOW : 0}" var="days"><!-- 첫주 평일 -->
 					<td data-nextMonthDays="${days}">${days}</td>
 				</c:forEach>
-				<c:forEach begin="${dou*7+8-1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 주말 -->
+				<c:forEach begin="${bookCalendar.nextMonthfirstDOW != 7 ? 8-1-bookCalendar.nextMonthfirstDOW : 1}" end="${8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 첫주의 주말 -->
 					<td class="text-danger">${days}</td>
 				</c:forEach>
 			</tr>
-		</c:forEach>
-		<tr><!-- 마지막주 -->
-			<c:forEach begin="${bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1}" 
-						end="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 5)}" var="days"><!-- 마지막주 평일 -->
-				<td data-nextMonthDays="${days}">${days}</td>
+			<c:forEach begin="1" end="${((bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1 - 1) - (8-bookCalendar.nextMonthfirstDOW))/7}" var="dou"><!-- 둘째주~마지막 전주 -->
+				<tr>
+					<c:forEach begin="${dou*7+1+1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-2-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 평일 -->
+						<td data-nextMonthDays="${days}">${days}</td>
+					</c:forEach>
+					<c:forEach begin="${dou*7+8-1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 주말 -->
+						<td class="text-danger">${days}</td>
+					</c:forEach>
+				</tr>
 			</c:forEach>
-			<c:forEach begin="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 6)}" 
-						end="${bookCalendar.nextMonthLastDOW >= 6 ? bookCalendar.nextMonthLastDay : 0}" var="days"><!-- 마지막주 주말 -->
-				<td class="text-danger">${days}</td>
-			</c:forEach>
-			<c:forEach begin="1" end="${7-bookCalendar.nextMonthLastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
-				<td></td>
-			</c:forEach>
-		</tr>
+			<tr><!-- 마지막주 -->
+				<c:forEach begin="${bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1}" 
+							end="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 5)}" var="days"><!-- 마지막주 평일 -->
+					<td data-nextMonthDays="${days}">${days}</td>
+				</c:forEach>
+				<c:forEach begin="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 6)}" 
+							end="${bookCalendar.nextMonthLastDOW >= 6 ? bookCalendar.nextMonthLastDay : 0}" var="days"><!-- 마지막주 주말 -->
+					<td class="text-danger">${days}</td>
+				</c:forEach>
+				<c:forEach begin="1" end="${7-bookCalendar.nextMonthLastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
+					<td></td>
+				</c:forEach>
+			</tr>
+		</tbody>
 	</table>
 	<br><br>
 </div>
