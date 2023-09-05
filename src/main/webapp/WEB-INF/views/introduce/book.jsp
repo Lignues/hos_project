@@ -7,7 +7,7 @@
 	<input type="hidden" class="year" value="${bookCalendar.thisYear}">
 	<h1 class="month text-center">${bookCalendar.thisYear}년 ${bookCalendar.thisMonth}월</h1>
 	<br>
-	<table class="thisTable table text-center">
+	<table class="thisTable table table-bordered text-center">
 		<tr>
 			<th>월</th>
 			<th>화</th>
@@ -61,7 +61,7 @@
 	<input type="hidden" class="nextMonthYear" value="${bookCalendar.nextMonthYear}">
 	<h1 class="nextMonthMonth text-center">${bookCalendar.nextMonthYear}년 ${bookCalendar.nextMonthMonth}월</h1>
 	<br>
-	<table class="nextMonthTable table text-center">
+	<table class="nextMonthTable table table-bordered text-center">
 		<tr>
 			<th>월</th>
 			<th>화</th>

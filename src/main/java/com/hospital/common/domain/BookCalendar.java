@@ -13,14 +13,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BookCalendar { // 이렇게 만들어도 되나? 아니면 생성자에 때려박아야 하나? 생성자에 해야되는 거 같다 옮겨라... 
+public class BookCalendar {
 
-	// 테스팅용 날짜생성기
-	private LocalDateTime today = LocalDateTime.of(2023, 9, 28, 0, 0);
-//	private LocalDateTime today = LocalDateTime.now();
+//	private LocalDateTime today = LocalDateTime.of(2023, 9, 28, 0, 0); // 테스트용 날짜
+	private LocalDateTime today = LocalDateTime.now(); 				   // 오늘 날짜
+	private LocalDateTime nextDay = LocalDateTime.now().plusDays(1);
+	
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
 
-    private String thisDate = today.format(dateTimeFormatter); // 오늘날짜
+    private String thisDate = today.format(dateTimeFormatter); // 오늘날짜 String
+    private String nextDate = nextDay.format(dateTimeFormatter); // 오늘날짜 String
+    
 	
 	private int thisYear = today.getYear();
 	private int thisMonth = today.getMonthValue();

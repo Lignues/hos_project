@@ -32,4 +32,22 @@
 	select bookTime from hos_book where bookDate = #{bookDate}
 </select>
 
+<select id="bookingListByDate" resultType="bookVO">
+	select to_char(bookDate) as bookDate, b.memberId, bookReason, bookTime, m.memberName
+	from hos_book b inner join hos_member m on b.memberId = m.memberId
+	where bookDate = #{book.thisDate} order by bookTime
+</select>
+
+<select id="bookingNextListByDate" resultType="bookVO">
+	select to_char(bookDate) as bookDate, b.memberId, bookReason, bookTime, m.memberName
+	from hos_book b inner join hos_member m on b.memberId = m.memberId
+	where bookDate = #{book.nextDate} order by bookTime
+</select>
+
+<select id="bookListByMemberId" resultType="bookVO">
+	select to_char(bookDate) as bookDate, b.memberId, bookReason, bookTime, memberName
+	from hos_book b inner join hos_member m on b.memberId = m.memberId
+	where b.memberId = #{memberId} and bookDate >= #{book.thisDate} order by bookDate, bookTime
+</select>
+
 </mapper>

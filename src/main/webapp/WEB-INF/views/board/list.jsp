@@ -46,7 +46,7 @@
 		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.likeHit}</td>
 		        <td class="${isViewed ? 'text-light' : 'text-dark'}">${vo.writer}</td>
 		        <td class="${isViewed ? 'text-light' : 'text-dark'}">
-			        <tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/>
+			    <tf:formatDateTime value="${vo.regDate}" pattern="yyyy-MM-dd HH:mm"/>
 		        </td>
 		      </tr>
 		    </tbody>

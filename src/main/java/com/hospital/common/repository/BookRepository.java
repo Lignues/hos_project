@@ -19,4 +19,11 @@ public interface BookRepository {
 	List<BookableDTO> countBookList(@Param("book") BookCalendar bookCalendar);
 	
 	List<Integer> checkBookableTimes(String CheckDate);
+	
+	List<BookVO> bookingListByDate(@Param("book") BookCalendar bookCalendar);
+	
+	List<BookVO> bookingNextListByDate(@Param("book") BookCalendar bookCalendar);
+	
+	List<BookVO> bookListByMemberId(@Param("book") BookCalendar bookCalendar, @Param("memberId") String memberId);
+	
 }

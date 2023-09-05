@@ -25,4 +25,6 @@ public class BookVO {
 	
 	private String bookDate;
 	private Integer bookTime;
+	
+	private String memberName;
 }

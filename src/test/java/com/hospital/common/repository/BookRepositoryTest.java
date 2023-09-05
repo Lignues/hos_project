@@ -71,9 +71,23 @@ public class BookRepositoryTest extends appTest{
 	}
 
 	@Test
-//	@Ignore
+	@Ignore
 	public void checkBookTimeTest() {
 		List<Integer> list = bookRepository.checkBookableTimes("23/09/07");
+		System.out.println(list);
+	}
+	
+	@Test
+	@Ignore
+	public void checkTodayBooking() {
+		List<BookVO> list = bookRepository.bookingListByDate(new BookCalendar());
+		System.out.println(list);
+	}
+	
+	@Test
+//	@Ignore
+	public void bookListById() {
+		List<BookVO> list = bookRepository.bookListByMemberId(new BookCalendar(), "scott");
 		System.out.println(list);
 	}
 	

@@ -33,6 +33,9 @@ import com.hospital.board.domain.ReportDTO;
 import com.hospital.board.domain.ReportVO;
 import com.hospital.board.service.BoardService;
 import com.hospital.board.service.ReportService;
+import com.hospital.common.domain.BookCalendar;
+import com.hospital.common.domain.BookVO;
+import com.hospital.common.service.BookService;
 import com.hospital.member.domain.AuthVO;
 import com.hospital.member.domain.MemberAuthDTO;
 import com.hospital.member.domain.MemberVO;
@@ -59,6 +62,9 @@ public class MemberController {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private BookService bookService;
 	
 	// 로그인
 	@RequestMapping("/login")
@@ -182,6 +188,13 @@ public class MemberController {
 			List<MemberAuthDTO> list = memberService.memberList(criteria);
 			model.addAttribute("list", list);
 			model.addAttribute("p", new Pagination(criteria, memberService.totalMemberCount())); // 멤버 토탈카운트 만들것
+		}else if(path.equals("booking")) {
+			if(authSize>1) { // 매니저 이상일시 예약관리
+				model.addAttribute("thisList", bookService.bookingListByDate(new BookCalendar()));
+				model.addAttribute("nextList", bookService.bookingNextListByDate(new BookCalendar()));
+			}else { // 고객일시 본인예약 관리
+				model.addAttribute("list", bookService.bookListByMemberId(new BookCalendar(), memberId));
+			}
 		}
 		return "member/" + path;
 	}
@@ -251,7 +264,6 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-	
 	// 권한 변경
 	@PreAuthorize("hasRole('ROLE_BOSS')")
 	@PostMapping(value = "/member/auth", produces = "text/plain; charset=utf-8")
@@ -261,5 +273,11 @@ public class MemberController {
 		return new ResponseEntity<String>("변경 완료", HttpStatus.OK);
 	}
 	
-	
+	// 예약 취소
+	@PostMapping("/member/booking/cancel")
+	public String cancelBook(BookVO vo, RedirectAttributes rttr){
+		rttr.addFlashAttribute("boardResult", "예약이 취소되었습니다.");
+		bookService.cancelBooking(vo);
+		return "redirect:/mypage/booking";
+	}
 }

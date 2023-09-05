@@ -7,6 +7,7 @@
 		  <button type="button" id="modifyForm" class="btn btn-outline-primary">회원정보 변경</button>
 		  <button type="button" id="recentForm" class="btn btn-outline-primary">최근 작성글</button>
 		  <button type="button" id="reportForm" class="btn btn-outline-primary">신고 내역</button>
+		  <button type="button" id="bookingForm" class="btn btn-outline-primary">예약 관리</button>
 		  <sec:authorize access="hasRole('ROLE_MANAGER')">
 		  	<button type="button" id="controlForm" class="btn btn-outline-primary">회원 관리</button>
 		  </sec:authorize>
@@ -25,6 +26,8 @@ $(function(){
 		$('#reportForm').attr('class', 'btn btn-outline-primary active');
 	}else if(path=='control'){
 		$('#controlForm').attr('class', 'btn btn-outline-primary active');
+	}else if(path=='booking'){
+		$('#bookingForm').attr('class', 'btn btn-outline-primary active');
 	}else{
 		$('#modifyForm').attr('class', 'btn btn-outline-primary active');
 	}
@@ -39,6 +42,9 @@ $(function(){
 	});
 	$('#reportForm').click(function(){
 		myPageForm.attr('action', '${ctxPath}/mypage/report').submit();
+	});
+	$('#bookingForm').click(function(){
+		myPageForm.attr('action', '${ctxPath}/mypage/booking').submit();
 	});
 	$('#controlForm').click(function(){
 		myPageForm.attr('action', '${ctxPath}/mypage/control').submit();

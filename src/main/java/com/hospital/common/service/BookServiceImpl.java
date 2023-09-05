@@ -41,4 +41,19 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.checkBookableTimes(checkDate);
 	}
 
+	@Override
+	public List<BookVO> bookingListByDate(BookCalendar bookCalendar) {
+		return bookRepository.bookingListByDate(bookCalendar);
+	}
+
+	@Override
+	public List<BookVO> bookingNextListByDate(BookCalendar bookCalendar) {
+		return bookRepository.bookingNextListByDate(bookCalendar);
+	}
+
+	@Override
+	public List<BookVO> bookListByMemberId(BookCalendar bookCalendar, String memberid) {
+		return bookRepository.bookListByMemberId(bookCalendar, memberid);
+	}
+
 }

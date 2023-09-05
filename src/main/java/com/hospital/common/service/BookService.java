@@ -17,4 +17,10 @@ public interface BookService {
 	List<BookableDTO> countBookList(BookCalendar bookCalendar);
 	
 	List<Integer> checkBookableTimes(String checkDate);
+	
+	List<BookVO> bookingListByDate(BookCalendar bookCalendar);
+	
+	List<BookVO> bookingNextListByDate(BookCalendar bookCalendar);
+	
+	List<BookVO> bookListByMemberId(BookCalendar bookCalendar, String memberid);
 }
