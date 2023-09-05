@@ -5,13 +5,9 @@
 <br><br>
 <div class="container">
 	<input type="hidden" class="year" value="${bookCalendar.thisYear}">
-	<h1 class="month text-center">20${bookCalendar.thisYear}년 ${bookCalendar.thisMonth}월</h1>
+	<h1 class="month text-center">${bookCalendar.thisYear}년 ${bookCalendar.thisMonth}월</h1>
 	<br>
-	<div class="float-right mb-3">
-		<button type="button" class="beforeBtn btn btn-info">◀</button>
-		<button type="button" class="nextBtn btn btn-info">▶</button>
-	</div>
-	<table class="table text-center">
+	<table class="thisTable table text-center">
 		<tr>
 			<th>월</th>
 			<th>화</th>
@@ -52,6 +48,60 @@
 				<td class="text-danger">${days}</td>
 			</c:forEach>
 			<c:forEach begin="1" end="${7-bookCalendar.lastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
+				<td></td>
+			</c:forEach>
+		</tr>
+	</table>
+	<br><br>
+</div>
+
+
+<!-- 다음달 -->
+<div class="container">
+	<input type="hidden" class="nextMonthYear" value="${bookCalendar.nextMonthYear}">
+	<h1 class="nextMonthMonth text-center">${bookCalendar.nextMonthYear}년 ${bookCalendar.nextMonthMonth}월</h1>
+	<br>
+	<table class="nextMonthTable table text-center">
+		<tr>
+			<th>월</th>
+			<th>화</th>
+			<th>수</th>
+			<th>목</th>
+			<th>금</th>
+			<th class="text-danger">토</th>
+			<th class="text-danger">일</th>
+		</tr>
+		<tr><!-- 첫주 -->
+			<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW-1}" var="days"><!-- 월 첫날 시작 전(요일-1) -->
+				<td></td>
+			</c:forEach>
+			<c:forEach begin="1" end="${bookCalendar.nextMonthfirstDOW < 6 ? 8-2-bookCalendar.nextMonthfirstDOW : 0}" var="days"><!-- 첫주 평일 -->
+				<td data-nextMonthDays="${days}">${days}</td>
+			</c:forEach>
+			<c:forEach begin="${bookCalendar.nextMonthfirstDOW != 7 ? 8-1-bookCalendar.nextMonthfirstDOW : 1}" end="${8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 첫주의 주말 -->
+				<td class="text-danger">${days}</td>
+			</c:forEach>
+		</tr>
+		<c:forEach begin="1" end="${((bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1 - 1) - (8-bookCalendar.nextMonthfirstDOW))/7}" var="dou"><!-- 둘째주~마지막 전주 -->
+			<tr>
+				<c:forEach begin="${dou*7+1+1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-2-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 평일 -->
+					<td data-nextMonthDays="${days}">${days}</td>
+				</c:forEach>
+				<c:forEach begin="${dou*7+8-1-bookCalendar.nextMonthfirstDOW}" end="${dou*7+8-bookCalendar.nextMonthfirstDOW}" var="days"><!-- 주중 주말 -->
+					<td class="text-danger">${days}</td>
+				</c:forEach>
+			</tr>
+		</c:forEach>
+		<tr><!-- 마지막주 -->
+			<c:forEach begin="${bookCalendar.nextMonthLastDay - bookCalendar.nextMonthLastDOW + 1}" 
+						end="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 5)}" var="days"><!-- 마지막주 평일 -->
+				<td data-nextMonthDays="${days}">${days}</td>
+			</c:forEach>
+			<c:forEach begin="${bookCalendar.nextMonthLastDOW < 6 ? bookCalendar.nextMonthLastDay : bookCalendar.nextMonthLastDay - (bookCalendar.nextMonthLastDOW - 6)}" 
+						end="${bookCalendar.nextMonthLastDOW >= 6 ? bookCalendar.nextMonthLastDay : 0}" var="days"><!-- 마지막주 주말 -->
+				<td class="text-danger">${days}</td>
+			</c:forEach>
+			<c:forEach begin="1" end="${7-bookCalendar.nextMonthLastDOW}"><!-- 달의 마지막 일 후에 남은 일수 -->
 				<td></td>
 			</c:forEach>
 		</tr>
@@ -116,7 +166,7 @@
     </div>
   </div>
   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-  <input type="hidden" name="MemberId" value="${authInfo.memberId}">
+  <input type="hidden" name="memberId" value="${authInfo.memberId}">
   <input type="hidden" name="bookDate" value="">
 </form>
 
@@ -124,9 +174,9 @@
 <input type="hidden" name="thisDays" value="${bookCalendar.thisDays}">
 <input type="hidden" name="thisMonth" value="${bookCalendar.thisMonth}">
 <input type="hidden" name="bookableDate" value="${bookCalendar.bookableDate}">
-<form action="${ctxPath}/introduce/book" class="monthForm">
-	<input type="hidden" name="changeMonth" value="0">
-</form>
+
+<input type="hidden" name="nextMonthMonth" value="${bookCalendar.nextMonthMonth}">
+<input type="hidden" name="nextMonthBookableDate" value="${bookCalendar.nextMonthBookableDate}">
 
 <%@ include file="../includes/footer.jsp"%>
 <script>
@@ -136,19 +186,36 @@ $(function(){
 	if(month.length==1){
 		month = '0'+ month;
 	}
+	let nextMonthYear = $('.year').val().slice(2);
+	let nextMonthMonth = $('[name="nextMonthMonth"]').val();
+	if(nextMonthMonth.length==1){
+		nextMonthMonth = '0'+ nextMonthMonth;
+	}
 	let thisDays = $('[name="thisDays"]').val();
 	let bookableDate = $('[name="bookableDate"]').val();
-	let changeMonth = $('[name="changeMonth"]').val();
+	let nextMonthBookableDate = $('[name="nextMonthBookableDate"]').val();
 	let countList = [];
 	let bookableList = [];
 	
 	// 예약버튼 누르면 예약 가능 시간 출력
 	$('.table').on('click', '.modalBtn', function(){
-		let clickedDate = $(this).attr('name');
-		$('.modalDate').text(year + '년 ' + $('[name="thisMonth"]').val() + '월 ' + clickedDate + '일 예약가능 시간');
-		let checkDate = year + '/' + month + '/' + clickedDate;
+		if($('[name="memberId"]').val().length <= 0){ // 비로그인시 로그인창으로
+			alert('로그인이 필요합니다');
+			window.location.href = '${ctxPath}/login';
+		}
+		let monthCheck = $(this).data('month'); // 이번달인지 저번달인지 확인용
+		let clickedDate = $(this).attr('name'); // 클릭한 일
+		let checkDate; // 예약가능한지 확인할 날짜
+		
+		if(monthCheck=='this'){ // 이번달
+			$('.modalDate').text(year + '년 ' + $('[name="thisMonth"]').val() + '월 ' + clickedDate + '일 예약가능 시간');
+			checkDate = year + '/' + month + '/' + clickedDate;
+		} else { // 다음달
+			$('.modalDate').text(nextMonthYear + '년 ' + $('[name="nextMonthMonth"]').val() + '월 ' + clickedDate + '일 예약가능 시간');
+			checkDate = nextMonthYear + '/' + nextMonthMonth + '/' + clickedDate;
+		}
+		
 		$('[name="bookDate"]').val(checkDate);
-		console.log($(''[name="bookDate"]).val());
 		$.ajax({
 			data : {checkDate : checkDate},
 			url : '${ctxPath}/introduce/bookableTime',
@@ -168,23 +235,27 @@ $(function(){
 	// 예약하기 
 	$('.bookSubmit').click(function(e){
 		e.preventDefault();
+		if($('[name="bookReason"]').val().length<=0){
+			alert('예약 내역을 입력해 주세요');
+			return;
+		}
 		$('.thisForm').submit();
 	});
 	
 	// 오늘날짜에 색칠하기 메서드
 	function todayColor(){
-		$('[data-days="' + thisDays + '"]').attr('class', 'text-danger font-weight-bold');
+		$('[data-days="' + thisDays + '"]').attr('class', 'text-danger font-weight-bold bg-warning');
 	};
 	
 	// 예약가능시 버튼 추가
-	function bookableDays(changeMonth){
+	function bookableDays(){
 		$.ajax({
-			data : {changeMonth : changeMonth},
 			url: '${ctxPath}/introduce/bookableList',
 			type : 'get',
 			success : function(result){
 				countList = result;
 				let intThisDays = parseInt(thisDays);
+				// 이번달 예약가능일
 				for(var j = intThisDays; j <= bookableDate; j++){
 					let canBook = true; // 예약 가능할지 여부
 					$.each(countList, function(i,e){
@@ -208,19 +279,43 @@ $(function(){
 					        		.attr('class', 'modalBtn btn btn-primary btn-sm')
 					        		.attr('data-toggle', 'modal')
 					        		.attr('data-target', '#bookModal')
-					        		.attr('data-agree', 'data'));
+					        		.attr('data-agree', 'data')
+					        		.attr('data-month', 'this'));
 					}
 				}
+				// 다음달 예약가능일
+				for(var j = 1; j <= nextMonthBookableDate; j++){
+					let canBook = true; // 예약 가능할지 여부
+					$.each(countList, function(i,e){
+						let jNumber = j;
+						if(j < 10){ // 1자릿수일때 포멧 바꾸기
+							jNumber = '0' + j;
+						}
+						let checkDate = nextMonthYear + '/' + nextMonthMonth + '/' + jNumber;
+						if (e.bookDate == checkDate && e.bookCount > 5) { // 예약 5 이상일시 예약불가
+							canBook = false;
+						}
+					});
+					if (!canBook) {
+					    $('[data-nextMonthDays="' + j + '"]').attr('class', 'text-primary font-weight-bold')
+					        .append($('<br>'))
+					        .append($('<button>').text('예약불가').attr('class', 'btn btn-danger btn-sm'));
+					}else{
+					    $('[data-nextMonthDays="' + j + '"]').attr('class', 'text-primary font-weight-bold')
+					        .append($('<br>'))
+					        .append($('<button>', {type: 'button', name: j}).text('예약가능')
+					        		.attr('class', 'modalBtn btn btn-primary btn-sm')
+					        		.attr('data-toggle', 'modal')
+					        		.attr('data-target', '#bookModal')
+					        		.attr('data-agree', 'data')
+					        		.attr('data-month', 'next'));
+					}
+				}
+				todayColor();
 			}
 		});
 	};
 	
-	$('.nextBtn').click(function(){
-		$('input[name="changeMonth"]').val('1');
-		$('.monthForm').submit();
-	});
-	
-	bookableDays(changeMonth);
-	todayColor();
+	bookableDays();
 });
 </script>

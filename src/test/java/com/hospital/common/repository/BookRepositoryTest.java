@@ -26,14 +26,14 @@ public class BookRepositoryTest extends appTest{
 	@Test
 	@Ignore
 	public void testbookList() {
-		List<BookVO> list = bookRepository.checkBookList(new BookCalendar(0));
+		List<BookVO> list = bookRepository.checkBookList(new BookCalendar());
 		System.out.println(list);
 	}
 	
 	@Test
 	@Ignore
 	public void testBookCount() {
-		List<BookableDTO> list = bookRepository.countBookList(new BookCalendar(0));
+		List<BookableDTO> list = bookRepository.countBookList(new BookCalendar());
 		System.out.println(list);
 	}
 	

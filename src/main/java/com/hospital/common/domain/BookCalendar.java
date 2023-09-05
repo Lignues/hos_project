@@ -16,7 +16,7 @@ import lombok.ToString;
 public class BookCalendar { // 이렇게 만들어도 되나? 아니면 생성자에 때려박아야 하나? 생성자에 해야되는 거 같다 옮겨라... 
 
 	// 테스팅용 날짜생성기
-	private LocalDateTime today = LocalDateTime.of(23, 7, 15, 0, 0);
+	private LocalDateTime today = LocalDateTime.of(2023, 9, 28, 0, 0);
 //	private LocalDateTime today = LocalDateTime.now();
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");
 
@@ -34,36 +34,25 @@ public class BookCalendar { // 이렇게 만들어도 되나? 아니면 생성�
 	private int lastDay = LocalDateTime.of(thisYear, thisMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfMonth(); // 마지막 일
 	private int lastDOW = LocalDateTime.of(thisYear, thisMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfWeek().getValue(); // 마지막 요일
 
-	// 다음달 안써도 될듯
-//	LocalDateTime nextMonthDay = LocalDateTime.now().plusMonths(1);
-//	
-//	String nextMonthDate = nextMonthDay.format(dateTimeFormatter); // 다음달날짜
-//	
-//	private int nextMonthYear = today.getYear();
-//	private int nextMonthMonth = today.getMonthValue();
-//	private int nextMondthDays = today.getDayOfMonth();
+	// 다음달
+	LocalDateTime nextMonthDay = LocalDateTime.now().plusMonths(1);
+	
+	String nextMonthDate = nextMonthDay.format(dateTimeFormatter); // 다음달날짜
+	
+	private int nextMonthYear = nextMonthDay.getYear();
+	private int nextMonthMonth = nextMonthDay.getMonthValue();
+	private int nextMonthfirstDOW = LocalDateTime.of(nextMonthYear, nextMonthMonth, 1, 0, 0).getDayOfWeek().getValue(); // 1일의 요일. 1:월 7:일
 	private int nextMonthBookableDate;
-//	 
-//	private int nextMonthLastDay = LocalDateTime.of(nextMonthYear, nextMonthMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfMonth(); // 다음달 마지막 일
-//	private int nextMonthLastDOW = LocalDateTime.of(nextMonthYear, nextMonthMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfWeek().getValue(); // 다음달 마지막 요일
+	 
+	private int nextMonthLastDay = LocalDateTime.of(nextMonthYear, nextMonthMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfMonth(); // 다음달 마지막 일
+	private int nextMonthLastDOW = LocalDateTime.of(nextMonthYear, nextMonthMonth, 1, 0, 0).plusMonths(1).minusDays(1).getDayOfWeek().getValue(); // 다음달 마지막 요일
 
 	public BookCalendar() {
-		if(this.thisDays+14 > lastDay) {
+		if(this.thisDays + 13 > lastDay) {
 			int tempDate = bookableDate;
 			bookableDate = lastDay;
 			nextMonthBookableDate = tempDate - lastDay;
 		}
 	}
 	
-	public BookCalendar(Integer changeMonth) {
-		if (changeMonth==null) {
-			changeMonth = 0;
-		}
-		today.plusMonths(changeMonth);
-		if(this.thisDays+14 > lastDay) {
-			int tempDate = bookableDate;
-			bookableDate = lastDay;
-			nextMonthBookableDate = tempDate - lastDay;
-		}
-	}
 }

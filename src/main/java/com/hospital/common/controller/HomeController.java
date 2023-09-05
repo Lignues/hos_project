@@ -41,7 +41,7 @@ public class HomeController {
 	public void hosSubjects() {}
 	
 	@GetMapping("/introduce/book")
-	public void book(BookCalendar bookCalendar, @RequestParam(value = "changeMonth", required = false) Integer changeMonth) {
+	public void book(BookCalendar bookCalendar) {
 		
 	}
 	
@@ -52,8 +52,8 @@ public class HomeController {
 	
 	@GetMapping("/introduce/bookableList")
 	@ResponseBody
-	public ResponseEntity<List<BookableDTO>> bookableList(Integer changeMonth){
-		BookCalendar bookCalendar = new BookCalendar(changeMonth);
+	public ResponseEntity<List<BookableDTO>> bookableList(){
+		BookCalendar bookCalendar = new BookCalendar();
 		return new ResponseEntity<List<BookableDTO>>(bookService.countBookList(bookCalendar), HttpStatus.OK);
 	}
 	
