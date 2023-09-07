@@ -76,7 +76,9 @@
 	   	 	<li><a class="page-link" href="${p.startPage-1}">이전</a></li>
 	  	</c:if>
 	    <c:forEach begin="${p.startPage}" end="${p.endPage}" var="pageVal">
-		    <li class="page-item ${pageVal == criteria.pageNum ? 'active' : '' }"><a class="page-link" href="${pageVal}">${pageVal}</a></li>
+		    <li class="page-item ${pageVal == criteria.pageNum ? 'active' : '' }">
+		    	<a class="page-link" href="${pageVal}">${pageVal}</a>
+		    </li>
 	    </c:forEach>
 	  	<c:if test="${p.next }">
 	   	 	<li><a class="page-link" href="${p.endPage+1}">다음</a></li>

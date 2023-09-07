@@ -272,7 +272,7 @@ $(function(){
 							jNumber = '0' + j;
 						}
 						let checkDate = year + '/' + month + '/' + jNumber;
-						if (e.bookDate == checkDate && e.bookCount > 5) { // 예약 5 이상일시 예약불가
+						if (e.bookDate == checkDate && e.bookCount > 5) { // 예약 6 이상일시 예약불가
 							canBook = false;
 						}
 					});
@@ -300,7 +300,7 @@ $(function(){
 							jNumber = '0' + j;
 						}
 						let checkDate = nextMonthYear + '/' + nextMonthMonth + '/' + jNumber;
-						if (e.bookDate == checkDate && e.bookCount > 5) { // 예약 5 이상일시 예약불가
+						if (e.bookDate == checkDate && e.bookCount > 5) { // 예약 6 이상일시 예약불가
 							canBook = false;
 						}
 					});

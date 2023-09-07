@@ -1,0 +1,56 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="HOS_MEMBER_AUTH" directorySegmentName="seg_0" id="6FFBADDC-BD58-041D-905A-D4133AB98340">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>0BFFFD26-9DDE-D550-9315-EBE2F97196DE</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="AUTH" id="2A66F2A4-7EE6-BE7E-D9A9-FDBD692058D5">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MEMBERID" id="8A09CD6D-0C9D-1C3F-A02A-3C3B4C6ECDCC">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="UK_MEMBER_AUTH" id="BBF1991B-64E7-6B7A-0120-871E533CFC01">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+</IndexProxy>
+</indexProxies>
+<foreignKeys>
+<ForeignKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.FKProxyOraclev10g" name="FK_HOSMEMBER_AUTH" id="38FFFABA-0CC8-3470-3046-26AFC23B5254">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ForeignKey>
+</foreignKeys>
+<uniqueKeys>
+<UniqueKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.UniqueOraclev10g" name="UK_MEMBER_AUTH" id="D0C5D363-D273-924E-35A5-1267DACA70A5">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<existingIndex>BBF1991B-64E7-6B7A-0120-871E533CFC01</existingIndex>
+<indexSegment>7EFB539D-35B1-F423-19F5-768F5C65E672</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</UniqueKey>
+</uniqueKeys>
+</TableProxyOraclev11g>

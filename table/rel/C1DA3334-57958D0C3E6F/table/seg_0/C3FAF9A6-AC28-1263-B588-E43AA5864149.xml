@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="C3FAF9A6-AC28-1263-B588-E43AA5864149" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="HOS_BOARD_REPORT">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>HOS_BOARD_REPORT</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RNUM" id="22A3325C-4220-A8C9-6917-891047979DA7">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOARD_REPORT</sourceObjSchema>
+<sourceObjName>RNUM</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BNO" id="63C0CA59-8567-0EC4-09E1-D32909721C7A">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOARD_REPORT</sourceObjSchema>
+<sourceObjName>BNO</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPORTCONTENT" id="BE9C587E-74E4-232D-7A19-7CB190F593F7">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOARD_REPORT</sourceObjSchema>
+<sourceObjName>REPORTCONTENT</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<ownDataTypeParameters>50 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPORTER" id="B5EC8FE4-5610-B0B7-B365-DC5B3D18D280">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOARD_REPORT</sourceObjSchema>
+<sourceObjName>REPORTER</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 BYTE</dataTypeSize>
+<ownDataTypeParameters>12 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D9BF4294-879C-45C8-CD8C-C1A0AEE5B890" referredColumn="F435863C-6C3B-1A54-2CFD-A39C7509BBC3"/>
+</associations>
+</Column>
+<Column name="HANDLE" id="DE3E334F-3321-1187-405E-60F4BC9E0030">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOARD_REPORT</sourceObjSchema>
+<sourceObjName>HANDLE</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<defaultValue>0</defaultValue>
+<ownDataTypeParameters>,1,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0A6E81EB-960F-464D-97DA-0CD77BBC96F6" name="PK_HOSREPORT">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>PK_HOSREPORT</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="22A3325C-4220-A8C9-6917-891047979DA7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="FE749444-E3DF-9469-1102-66694A691DF5" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="PK_HOSREPORT">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>PK_HOSREPORT</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="22A3325C-4220-A8C9-6917-891047979DA7"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="52CECF76-50E3-CBCE-0FAC-E97CE13F7BA1" name="FK_HOSBOARD_REPORTER">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B5EC8FE4-5610-B0B7-B365-DC5B3D18D280"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

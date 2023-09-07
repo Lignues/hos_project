@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="HOS_MEMBER" directorySegmentName="seg_0" id="7A0BFC7C-C679-4F8A-3483-C54E9435F41C">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>0BFFFD26-9DDE-D550-9315-EBE2F97196DE</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="REGDATE" id="1EAEDB23-A6EC-C4A9-BD29-4FD4581B104F">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="ENABLED" id="38FEF35C-790C-A170-E94A-5C3CF178225B">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>&apos;1&apos;</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="MEMBERPWD" id="764F08B4-5DA7-B957-0832-02EC49A8141F">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UPDATEDATE" id="7889EEAE-F014-9B94-CEB2-AA090304214D">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="BAN" id="C1D4FDD4-BA0F-03DC-0624-F3F0D3F0BEFF">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="EMAIL" id="D4187958-1E44-E949-4E99-F400C793B358">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MEMBERNAME" id="E734C9ED-9E45-BB44-BD61-98059F5D6CE7">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="MEMBERID" id="F435863C-6C3B-1A54-2CFD-A39C7509BBC3">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="HOS_MEMBER_PK" id="9BDE03CF-6CEE-6EBA-6981-E9321C8B9DE0">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<indexSegment>7EFB539D-35B1-F423-19F5-768F5C65E672</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

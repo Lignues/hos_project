@@ -1,0 +1,147 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="365EBC92-D111-DAE7-D6B7-AAAC5CCC68A1" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="HOS_REPLY">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>HOS_REPLY</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="RNO" id="533A2BB7-C43F-A5C4-4C58-88C86125AEA9">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>RNO</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BNO" id="8E884369-39D3-7742-FE95-37C5CBCABC64">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>BNO</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="71216F10-3017-5551-30E5-2ABE12EDB3E7" referredColumn="14F9FAC4-24DC-5EC6-0429-59FD376F3413"/>
+</associations>
+</Column>
+<Column name="REPLY" id="E09733E3-8A0B-346E-9B04-2E6E359489A2">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>REPLY</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>200 BYTE</dataTypeSize>
+<ownDataTypeParameters>200 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPLYER" id="CE4136C7-B476-A8DA-7890-D8A8FF636841">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>REPLYER</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 BYTE</dataTypeSize>
+<ownDataTypeParameters>12 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPLYREGDATE" id="B6BE13D8-39C2-DF4F-718F-39FA27D7AD4E">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>REPLYREGDATE</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REPLYUPDATEDATE" id="0D01E613-F61E-174C-075F-63D062E131A0">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_REPLY</sourceObjSchema>
+<sourceObjName>REPLYUPDATEDATE</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<defaultValue>sysdate</defaultValue>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="971D4EA8-F903-9389-79E1-979B10E90361" name="PK_HOSREPLY">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>PK_HOSREPLY</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="533A2BB7-C43F-A5C4-4C58-88C86125AEA9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="5B415CEB-A52D-F03A-E06D-E9E3021BC692" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="PK_HOSREPLY">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>PK_HOSREPLY</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="533A2BB7-C43F-A5C4-4C58-88C86125AEA9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="10F1F6FD-0693-6758-616A-A31508CB8679" name="FK_HOSREPLY">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="8E884369-39D3-7742-FE95-37C5CBCABC64"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -66,7 +66,8 @@
 							<td>
 								<!-- 이용정지시키기 드롭다운 -->
 								<div class="dropdown">
-										<c:if test="${(highestAuth eq 'ROLE_ADMIN' and (voHighestAuth eq '사장' or voHighestAuth eq '직원' or voHighestAuth eq '고객')) 
+										<c:if test="${(highestAuth eq 'ROLE_ADMIN' and (voHighestAuth eq '사장'
+											 or voHighestAuth eq '직원' or voHighestAuth eq '고객')) 
 											 or (highestAuth eq 'ROLE_BOSS' and (voHighestAuth eq '직원' or voHighestAuth eq '고객'))}">
 											<button type="button" class="addBanBtn btn btn-danger dropdown-toggle" data-toggle="dropdown">
 										    	기간

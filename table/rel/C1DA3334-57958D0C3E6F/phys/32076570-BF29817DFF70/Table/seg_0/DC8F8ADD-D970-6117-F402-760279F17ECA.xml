@@ -1,0 +1,95 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="HOS_BOARD" directorySegmentName="seg_0" id="DC8F8ADD-D970-6117-F402-760279F17ECA">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>0BFFFD26-9DDE-D550-9315-EBE2F97196DE</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="CONTENT" id="0787B1D5-B299-CDF9-20FF-6513AAF6F6C5">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="BNO" id="14F9FAC4-24DC-5EC6-0429-59FD376F3413">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REPLYCNT" id="2026A937-5E0B-C592-A998-80CFD44892E2">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="LIKEHIT" id="46542B04-450F-CCBD-CCBE-6B71B9F49607">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="WRITER" id="4AB20A69-3DEA-36DA-126F-D654168CDCC7">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REGDATE" id="99CCB180-D907-73CA-97BC-420C533FD9AB">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="VIEWS" id="9CF529ED-834C-1C9F-E184-2C3AD6042EA6">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="SECRETCONTENT" id="A3F60E52-2B11-93FA-34D3-A73752DFBD1F">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>0</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="UPDATEDATE" id="B606303D-B576-A2B4-7D9E-3EEC7CD6DD32">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<defaultValue>sysdate</defaultValue>
+</ColumnProxy>
+<ColumnProxy name="TITLE" id="EF27556D-CE6F-7E5C-BBCC-8E914891F1D1">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<indexProxies>
+<IndexProxy class="oracle.dbtools.crest.model.design.storage.oracle.v10g.IndexProxyOraclev10g" name="PK_HOSBOARD" id="F6012D42-CE88-F9C7-B2FC-FA6A7887DE75">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+</IndexProxy>
+</indexProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PK_HOSBOARD" id="D74B8DD7-1773-5A75-8E0D-97EAFEA19B95">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<existingIndex>F6012D42-CE88-F9C7-B2FC-FA6A7887DE75</existingIndex>
+<indexSegment>7EFB539D-35B1-F423-19F5-768F5C65E672</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

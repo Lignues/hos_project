@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="3142C723-1D2E-3B2B-0017-ED67E84E5C38" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="ARTICLE_VIEWED">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>ARTICLE_VIEWED</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BNO" id="B455299F-D175-AD76-6064-85ECCEC23B0D">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>ARTICLE_VIEWED</sourceObjSchema>
+<sourceObjName>BNO</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,10,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="136EEAE1-EC02-BBEB-7F96-DBA6A0C6D160" referredColumn="14F9FAC4-24DC-5EC6-0429-59FD376F3413"/>
+</associations>
+</Column>
+<Column name="MEMBERID" id="4289A330-5DB7-EEC6-BB12-E900F859B27C">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>ARTICLE_VIEWED</sourceObjSchema>
+<sourceObjName>MEMBERID</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1D4343D7-3BFB-EB7A-2740-353C5A0228F7" referredColumn="F435863C-6C3B-1A54-2CFD-A39C7509BBC3"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DDE3E9FB-070E-7694-A015-71711C9AA546" name="SYS_C008236">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4289A330-5DB7-EEC6-BB12-E900F859B27C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4789E74C-1482-A434-EABB-30FB10A5D453" name="SYS_C008237">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B455299F-D175-AD76-6064-85ECCEC23B0D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

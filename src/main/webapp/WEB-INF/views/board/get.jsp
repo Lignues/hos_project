@@ -24,8 +24,9 @@
 				</div>
 			</div>
 		</div>
-		<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) 
-		 or (isAuthenticated() and principal.username == #vo.writer))">
+		<sec:authorize access="#vo.secretContent==0
+				or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER')) 
+		 		or (isAuthenticated() and principal.username == #vo.writer))">
 			<div class="imageView">
 			</div>
 			<div class="card-body">
@@ -33,7 +34,7 @@
 			</div>
 		</sec:authorize>
 		<sec:authorize access="#vo.secretContent==1 and (isAnonymous() or 
-		(isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"><!-- 권한때문에 !가 안먹는다 -->
+				(isAuthenticated() and principal.username != #vo.writer and !hasRole('ROLE_MANAGER')))"><!-- 권한때문에 !가 안먹는다 -->
 			<div class="card-header">
 				<br><br><br><br>
 				<p class="text-center">
@@ -44,7 +45,7 @@
 		</sec:authorize>
 	</div>
 	<sec:authorize access="#vo.secretContent==0 or ((#vo.secretContent==1 and hasRole('ROLE_MANAGER'))
-	 or (isAuthenticated() and principal.username == #vo.writer))">
+	 		or (isAuthenticated() and principal.username == #vo.writer))">
 		<div class="attachDownloadList dropdown float-right">
 		</div>
 		<div class="text-center mt-3">
@@ -161,7 +162,7 @@
       </div>
       <!-- Modal footer -->
       <div class="modal-footer">
-        <button type="button" class="btn reportModal btn-danger" data-dismiss="modal">신고하기</button>
+        <button type="button" class="btn reportModal btn-warning" data-dismiss="modal">신고하기</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
     </div>

@@ -23,6 +23,9 @@
 		</div>
 	</div>
 	<sec:authorize access="hasRole('ROLE_MANAGER')">
+		<c:if test="${thisList[0] == null && nextList[0] == null}">
+			<b>예약이 없습니다</b>
+		</c:if>
 		<c:if test="${not empty thisList}">
 			<h4>오늘 예약 ${thisList[0].bookDate}</h4>
 			<table class="table-sm table-hover table-striped table-bordered">
@@ -75,7 +78,10 @@
 		</c:if>
 	</sec:authorize>
 	<sec:authorize access="!hasRole('ROLE_MANAGER')">
-	<c:if test="${not empty list}">
+		<c:if test="${list[0] == null}">
+			<b>예약이 없습니다</b>
+		</c:if>
+		<c:if test="${not empty list}">
 			<table class="table-sm table-bordered table-hover table-striped">
 				<thead>
 					<tr class="text-center">

@@ -24,6 +24,7 @@ public class ReplyServiceImpl implements ReplyService {
 		return new ReplyPageDTO(replyRepository.getReplyCount(bno), replyRepository.replyList(bno, criteria));
 	}
 	
+	@Transactional
 	@Override
 	public ReplyPageDTO replyListById(String replyer, Criteria criteria) {
 		return new ReplyPageDTO(replyRepository.getReplyCountById(replyer), replyRepository.replyListById(replyer, criteria));
@@ -36,7 +37,6 @@ public class ReplyServiceImpl implements ReplyService {
 		return replyRepository.replyWrite(vo);
 	}
 
-	
 	@Override
 	public int replyUpdate(ReplyVO vo) {
 		return replyRepository.replyUpdate(vo);

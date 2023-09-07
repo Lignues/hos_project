@@ -1,0 +1,49 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="PERSISTENT_LOGINS" directorySegmentName="seg_0" id="9983AD09-2E52-13CD-52DC-F75C5198BF98">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<segment>0BFFFD26-9DDE-D550-9315-EBE2F97196DE</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="USERNAME" id="AD4C612D-74C8-DE51-BE35-83B5A91D76F7">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="LAST_USED" id="BF3C262F-0BE0-4351-74E9-A9421CAC5FDD">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="TOKEN" id="C0DA885A-7DF5-BC67-C072-38A01043754F">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SERIES" id="D8839F54-F55F-3D96-BC5C-46CD75C7CA26">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="PERSISTENT_LOGINS_PK" id="029E17B0-3568-116A-81D1-A2640811F483">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<schemaObject>9A2EB581-45B1-FC91-E9AB-589D27A4E2D4</schemaObject>
+<segment>7EFB539D-35B1-F423-19F5-768F5C65E672</segment>
+<tableSpace>30AFFFB6-9E43-01B3-69B9-1696E8A0F03B</tableSpace>
+<indexSegment>7EFB539D-35B1-F423-19F5-768F5C65E672</indexSegment>
+<indexSort>SORTED</indexSort>
+<usingIndex>BY INDEX NAME</usingIndex>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

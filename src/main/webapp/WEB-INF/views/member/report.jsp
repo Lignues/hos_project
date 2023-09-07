@@ -8,7 +8,7 @@
 		<div class="col-3">
 			<h2 class="m-3">신고 내역</h2>
 		</div>
-		<div class="col-6"></div>
+		<div class="col-4"></div>
 		<div class="col-2 mt-3 ml-3">
 			<select name="selectSearchHandled" class="form-control">
 				<option value="1" ${criteria.searchHandled eq '1' ? 'selected': ''}>모든 신고</option>

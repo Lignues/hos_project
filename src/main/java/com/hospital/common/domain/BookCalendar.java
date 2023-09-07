@@ -15,8 +15,8 @@ import lombok.ToString;
 @ToString
 public class BookCalendar {
 
-//	private LocalDateTime today = LocalDateTime.of(2023, 9, 28, 0, 0); // 테스트용 날짜
-	private LocalDateTime today = LocalDateTime.now(); 				   // 오늘 날짜
+	private LocalDateTime today = LocalDateTime.of(2023, 9, 26, 0, 0); // 테스트용 날짜
+//	private LocalDateTime today = LocalDateTime.now(); 				   // 오늘 날짜
 	private LocalDateTime nextDay = LocalDateTime.now().plusDays(1);
 	
 	private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yy/MM/dd");

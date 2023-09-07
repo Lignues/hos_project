@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="CA0CABD2-56E7-6587-9276-1E9BD77E28D4" containerWithKeyObject="113DDD0D-1494-D1DC-137C-615E841140AB" localFKIndex="A0218080-AFBD-2B47-BCF3-1F48183CEF37" name="SYS_C008161">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>SYS_C008161</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<referredTableLongName>BOOK_EX.HOS_BOARD</referredTableLongName>
+<deleteRule>CASCADE</deleteRule>
+<referredTableID>DC8F8ADD-D970-6117-F402-760279F17ECA</referredTableID>
+<keyObject>D74B8DD7-1773-5A75-8E0D-97EAFEA19B95</keyObject>
+<referredKeyID>D74B8DD7-1773-5A75-8E0D-97EAFEA19B95</referredKeyID>
+<mandatory>false</mandatory>
+<refColNames>BNO</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

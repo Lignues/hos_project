@@ -171,7 +171,7 @@ $(function(){
 		let replyUpdateFormLength = replyData.find('.replyUpdateForm').length; // 댓글수정폼 존재 여부
 		if(replyUpdateFormLength>0) { // 댓글수정폼이 추가되어있다면 
 			replyData.find('.replyUpdateForm').remove(); // 기존의 수정폼 삭제
-			$(this).html('수정'); // 취소 버튼을 수정버튼으로 
+			$(this).html('✏ 수정'); // 취소 버튼을 수정버튼으로 
 			$(this).closest('div').next().find('a').show(); // 삭제 버튼 다시 보이게 
 			return;
 		} 

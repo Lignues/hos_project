@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="D9BF4294-879C-45C8-CD8C-C1A0AEE5B890" containerWithKeyObject="C3FAF9A6-AC28-1263-B588-E43AA5864149" localFKIndex="52CECF76-50E3-CBCE-0FAC-E97CE13F7BA1" name="FK_HOSBOARD_REPORTER">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>FK_HOSBOARD_REPORTER</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<referredTableLongName>BOOK_EX.HOS_MEMBER</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>7A0BFC7C-C679-4F8A-3483-C54E9435F41C</referredTableID>
+<keyObject>9BDE03CF-6CEE-6EBA-6981-E9321C8B9DE0</keyObject>
+<referredKeyID>9BDE03CF-6CEE-6EBA-6981-E9321C8B9DE0</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>MEMBERID</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

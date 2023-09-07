@@ -50,6 +50,7 @@ public class HomeController {
 		return "accessError";
 	}
 	
+	// 예약가능일 체크
 	@GetMapping("/introduce/bookableList")
 	@ResponseBody
 	public ResponseEntity<List<BookableDTO>> bookableList(){
@@ -57,12 +58,14 @@ public class HomeController {
 		return new ResponseEntity<List<BookableDTO>>(bookService.countBookList(bookCalendar), HttpStatus.OK);
 	}
 	
+	// 예약가능시간 체크
 	@GetMapping("/introduce/bookableTime")
 	@ResponseBody
 	public ResponseEntity<List<Integer>> bookableTime(String checkDate){
 		return new ResponseEntity<List<Integer>>(bookService.checkBookableTimes(checkDate), HttpStatus.OK);
 	}
 	
+	// 예약하기
 	@PostMapping("introduce/booking")
 	public String bookingFinish(BookVO vo, RedirectAttributes rttr) {
 		bookService.booking(vo);

@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0AC1CC3E-4D29-40FC-FC96-E98C619C23D9" schemaObject="9A2EB581-45B1-FC91-E9AB-589D27A4E2D4" name="HOS_BOOK">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>BOOK_EX</sourceObjSchema>
+<sourceObjName>HOS_BOOK</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:22 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="BOOKDATE" id="3A980C3E-5A12-A07C-149E-3400E826F1C8">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOOK</sourceObjSchema>
+<sourceObjName>BOOKDATE</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<ownDataTypeParameters>7,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="BOOKTIME" id="58D5E0FB-56CA-919E-2FAE-2D0181F17DEA">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOOK</sourceObjSchema>
+<sourceObjName>BOOKTIME</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>2</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<ownDataTypeParameters>,2,0</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="MEMBERID" id="42BABF44-8ECD-B198-D2B9-722458984022">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOOK</sourceObjSchema>
+<sourceObjName>MEMBERID</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>12 BYTE</dataTypeSize>
+<ownDataTypeParameters>12 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="509241EC-517E-6D7B-9A4A-62F021A830D7" referredColumn="F435863C-6C3B-1A54-2CFD-A39C7509BBC3"/>
+</associations>
+</Column>
+<Column name="BOOKREASON" id="1049B0A0-96AC-4CEC-A605-35D0051FCBEE">
+<sourceConnName>Spring실습계정</sourceConnName>
+<sourceObjSchema>HOS_BOOK</sourceObjSchema>
+<sourceObjName>BOOKREASON</sourceObjName>
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<ownDataTypeParameters>100 BYTE,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6B34E7DB-D4BA-F3A6-98B0-8EC8792A3044" name="FK_HOSBOOK_MEMBERID">
+<createdBy>s</createdBy>
+<createdTime>2023-09-05 04:28:23 UTC</createdTime>
+<ownerDesignName>table</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="42BABF44-8ECD-B198-D2B9-722458984022"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -264,7 +264,7 @@ $(function(){
 	});
 	
 	// 정보동의 체크
-	function updateAgreement(){ // attr('checked', 'checked') 이렇게 쓰면 버그걸린다 prop('checked', true) 이걸로 써야함
+	function updateAgreement(){
 		let serviceCheck = $('#agreeService').is(':checked');
 		let dataCheck = $('#agreeData').is(':checked');
 		if(serviceCheck && dataCheck){

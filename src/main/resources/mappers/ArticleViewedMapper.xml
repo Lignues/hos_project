@@ -16,6 +16,4 @@
 	select bno from article_viewed where memberId = #{memberId}
 </select>
 
-
-
 </mapper>
